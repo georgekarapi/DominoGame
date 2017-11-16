@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Χρίστος
+ * @author Χ�?ίστος
  */
 public class InterfaceHungarian {
     game_hungarian game;
@@ -18,11 +18,11 @@ public class InterfaceHungarian {
     {game=new game_hungarian();}
     public void ShowGame()
     {
-        System.out.println("Καλως ήρθες στο ουγγρικό ντόμινο");
+        System.out.println("�?αλως ή�?θες στο ουγγ�?ικ�? ντ�?μινο");//
         while(game.finishGame())
         {
             game.Start();
-            System.out.println("Γύρος "+game.getRound().numRound()+"ος");
+            System.out.println("Γ�?�?ος "+game.getRound().numRound()+"ος");
             while(game.movesPlayers())
             {
                 if(game.getPlayer().get_number()==1)
@@ -33,7 +33,7 @@ public class InterfaceHungarian {
                     {
                         showTile(game.getPlayer().Tiles());
                         //εμφανίζει το ταμπλο
-                        //επιλέγει ποιό πλακίδιο θα μετακίνησει
+                        //επιλέγει ποι�? πλακίδιο θα μετακίνησει
                         //που θα το βαλει 
                         
                     }
@@ -41,9 +41,9 @@ public class InterfaceHungarian {
             }
         }
     }
-    public void showTile(ArrayList<Tile> tiles)//ΕΜΦΑΝΊΖΕΙ ΕΝΑ ΣΥΝΟΛΟ ΑΠΟ ΠΛΑΚΊΔΙΑ
+    public void showTile(ArrayList<Tile> tiles)//Ε�?ΦΑ�?�?ΖΕΙ Ε�?Α ΣΥ�?�?Λ�? ΑΠ�? ΠΛΑ�?�?ΔΙΑ
     {
-        System.out.println("Στα χέρια σου έχεις:");
+        System.out.println("Στα χέ�?ια σου έχεις:");
         for(Tile t: tiles)
         System.out.print("("+t.getLeft()+","+t.getRight()+")-");
     }
