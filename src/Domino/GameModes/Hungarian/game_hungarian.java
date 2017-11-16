@@ -6,6 +6,7 @@
 package hungarian;
 
 import java.util.Random;
+import Domino.Base.Dominoes;
 
 /**
  *
