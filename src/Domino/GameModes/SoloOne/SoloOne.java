@@ -1,8 +1,7 @@
 package Domino.GameModes.SoloOne;
 
-import Domino.Base.Dominoes;
-import Domino.Base.Tile;
-import Domino.UI.Terminal;
+import Domino.Base.*;
+import Domino.UI.*;
 
 import java.util.ArrayList;
 

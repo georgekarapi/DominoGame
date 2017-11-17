@@ -1,18 +1,17 @@
-package hungarian;
+package Domino.Base;
 
 import java.util.ArrayList;
 /**
  *
  * @author christos
  */
-public class domino_tablo {
+public class Table {
     private ArrayList<Tile> tablo;
-    public domino_tablo()
+    public Table()
     {
         tablo=new ArrayList<>();
     }
-    public ArrayList<Tile> tablo
-        (){return tablo;}
+    public ArrayList<Tile> tablo(){return tablo;}
     public boolean first_tile(Tile t)//αν μπορεί να μπει στο αρχικό 
     {
            if(tablo.get(0).getLeft()==t.getLeft()|| tablo.get(0).getLeft()==t.getRight())
