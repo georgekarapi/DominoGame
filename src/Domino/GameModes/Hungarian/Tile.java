@@ -6,42 +6,35 @@
 package hungarian;
 
 /**
+ *
  * @author Χρίστος
  */
 public class Tile {
 
     private int left;
     private int right;
-
-    public Tile() {
-        left = 0;
-        right = 0;
+    public Tile()
+    {
+        left=0;
+        right=0;
     }
-
-    public Tile(int l, int r) {
+    public Tile(int l,int r){
         left = l;
         right = r;
     }
-
-    public int getRight() {
+    public int getRight(){
         return right;
     }
-
-    public void setRight(int r) {
-        right = r;
-    }
-
-    public int getLeft() {
+    public int getLeft(){
         return left;
     }
-
-    public void setLeft(int l) {
-        left = l;
-    }
-
-    public int getTotal() {
+    public void setRight(int r){
+    right=r; }
+    public void setLeft(int l)
+    {left=l;}
+    public int getTotal(){
         return left + right;
     }//To change body of generated methods, choose Tools | Templates.
-
-
+    
+    
 }
