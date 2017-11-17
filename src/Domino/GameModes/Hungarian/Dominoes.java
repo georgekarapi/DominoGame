@@ -1,4 +1,4 @@
-package Domino.Base;
+ package hungarian;
 
 import java.util.ArrayList;
 import java.util.Random;
