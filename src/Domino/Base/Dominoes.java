@@ -15,9 +15,14 @@ public class Dominoes {
             }
         }
     }
+    public ArrayList<Tile> stack(){return tiles;}
     public Tile giveTile(){
         Random r = new Random();
-        int tile = r.nextInt(tiles.size());
+        int tile;
+        if(tiles.size()!=1)//αυτόν τον έλενχο τον κάνουμε γιατί πρέπει το tiles.size()-1>0 δεν μπορεί να είναι μηδεν  !!!!!!
+         tile = r.nextInt(tiles.size()-1);
+        else
+         tile=0;   
         Tile tCopy = new Tile(tiles.get(tile).getLeft(), tiles.get(tile).getRight());
         tiles.remove(tile);
         return tCopy;
