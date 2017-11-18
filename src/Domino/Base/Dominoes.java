@@ -3,7 +3,7 @@ package Domino.Base;
 import java.util.ArrayList;
 import java.util.Random;
 import Domino.UI.*;
-
+import java.lang.NullPointerException;
 public class Dominoes {
     private static final int TILES_LIMIT = 28;
     private ArrayList<Tile> tiles;
@@ -20,13 +20,13 @@ public class Dominoes {
     public Tile giveTile(){
         Random r = new Random();
         int tile;
-        if(tiles.size() > 0)//αυτόν τον έλενχο τον κάνουμε γιατί πρέπει το tiles.size()-1>0 δεν μπορεί να είναι μηδεν  !!!!!!
-         tile = r.nextInt(tiles.size());
+        if(tiles.size() > 1)//αυτόν τον έλενχο τον κάνουμε γιατί πρέπει το tiles.size()-1>0 δεν μπορεί να είναι μηδεν  !!!!!!
+         tile = r.nextInt(tiles.size()-1);
+        else if(tiles.size()==1)
+            tile=0;
         else
-         return null;
-        Tile tCopy = new Tile(tiles.get(tile).getLeft(), tiles.get(tile).getRight());
-        tiles.remove(tile);
-        return tCopy;
+            return null;
+        return tiles.remove(tile);
     }
     public ArrayList<ArrayList<Tile>> getTiles(int HEIGHT, int WIDTH){
         Tile tile;
@@ -46,7 +46,11 @@ public class Dominoes {
         Terminal ter=new Terminal();
         Tile x;
         for(int i=0;i<28;i++)
-        {x = dom.giveTile();ter.printTiles(dom.getTiles(4,7));}
-        x = dom.giveTile();
+        {  x = dom.giveTile() ;
+        if(x!=null)
+            System.out.println(ter.stringifyTile(x));}
+
+
     }
 }
+//ΕΧΕΙ ΕΛΕΓΧΘΕΙ

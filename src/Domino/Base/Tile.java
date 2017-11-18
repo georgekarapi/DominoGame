@@ -26,3 +26,4 @@ public class Tile {
     public void setLeft(int l)
     {left=l;}
 }
+//ΕΧΕΙ ΕΛΕΓΧΘΕΙ

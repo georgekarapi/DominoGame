@@ -18,7 +18,7 @@ public class InterfaceHungarian {
     {game=new game_hungarian();}
     public void ShowGame()
     {
-        System.out.println("??αλως ή??θες στο ουγγ??ικ?? ντ??μινο");//
+        System.out.println("Καλως ήρθες στο ουγγγρικο ντομινο");//
         while(game.finishGame())
         {
             game.Start();
