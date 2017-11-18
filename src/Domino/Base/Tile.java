@@ -3,6 +3,11 @@ package Domino.Base;
 public class Tile {
     private int left;
     private int right;
+    public Tile()
+    {
+        left=0;
+        right=0;
+    }
     public Tile(int l,int r){
         left = l;
         right = r;
@@ -16,4 +21,8 @@ public class Tile {
     public int getTotal(){
         return left + right;
     }
+    public void setRight(int r){
+        right=r; }
+    public void setLeft(int l)
+    {left=l;}
 }
