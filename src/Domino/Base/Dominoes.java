@@ -17,7 +17,7 @@ public class Dominoes {
         }
     }
     public ArrayList<Tile> stack(){return tiles;}
-    public Tile giveTile(){
+    public Tile giveTile(){//Αν επιστρέψει null τότε σημαίνει ότι δεν έχει άλλα πλακίδια
         Random r = new Random();
         int tile;
         if(tiles.size() > 1)//αυτόν τον έλενχο τον κάνουμε γιατί πρέπει το tiles.size()-1>0 δεν μπορεί να είναι μηδεν  !!!!!!
