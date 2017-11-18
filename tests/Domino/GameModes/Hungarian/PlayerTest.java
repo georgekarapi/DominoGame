@@ -52,5 +52,4 @@ public class PlayerTest {
         p1.add(new Tile(5,7));
         assertEquals(p1.sumTiles(),43);
     }
-
 }

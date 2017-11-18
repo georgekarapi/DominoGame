@@ -64,7 +64,8 @@ public class Player {
         return max;
     }
     public void removes(Tile t)
-    {tiles.remove(t);}
+    {if(tiles.contains(t))
+        tiles.remove(t);}
     public int sumTiles()
     {
         int sum=0;

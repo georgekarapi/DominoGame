@@ -35,8 +35,8 @@ public  Bot()
             else if(t.getRight()==r)
                 move.add(t);
         }
-         for(Tile t: move)
-        System.out.print("("+t.getLeft()+","+t.getRight()+")-");
+        // for(Tile t: move)
+        //System.out.print("("+t.getLeft()+","+t.getRight()+")-");
             int x;
             if(move.size()==1)
                 x=0;
@@ -45,12 +45,10 @@ public  Bot()
         Tiles().remove(move.get(x));
         return move.get(x);
     }
-    public boolean win()
-    {if(Tiles().isEmpty())return true ;
-    return false;
+
     }
    
-}
+
 /* έχει γίνει έλεγχος*/
 
 /**/
