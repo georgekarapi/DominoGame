@@ -29,12 +29,30 @@ public class domino_tabloTest {
     @Test
     public void first_change() throws Exception {
         domino_tablo dt=new domino_tablo();
-        dt.emptyTabloAddTile(new Tile(4, 5)),true);
-         dt.first_change()
+       assertEquals(dt.emptyTabloAddTile(new Tile(5, 2)),true);
+
+       assertEquals(dt.first_change(new Tile(5,3)),true);
+        assertEquals(dt.first_change(new Tile(2,3)),true);
+        assertEquals(dt.first_change(new Tile(2,1)),true);
+        assertEquals(dt.first_change(new Tile(10,1)),true);
+        assertEquals(dt.first_change(new Tile(9,1)),false);
+       // System.out.println("["+dt.getfirstTile().getLeft()+"|"+dt.getfirstTile().getRight()+"]");
+        for(Tile t:dt.tablo())
+            System.out.println("["+t.getLeft()+"|"+t.getRight()+"]");
     }
 
     @Test
     public void last_change() throws Exception {
+        domino_tablo dt=new domino_tablo();
+        assertEquals(dt.emptyTabloAddTile(new Tile(0, 6)),true);
+        assertEquals(dt.last_change(new Tile(0,2)),false);
+        assertEquals(dt.last_change(new Tile(6,9)),true);
+        assertEquals(dt.last_change(new Tile(2,2)),false);
+        assertEquals(dt.last_change(new Tile(9,3)),true);
+        assertEquals(dt.last_change(new Tile(9,1)),false);
+        assertEquals(dt.last_change(new Tile(2,3)),true);
+
+
     }
 
 

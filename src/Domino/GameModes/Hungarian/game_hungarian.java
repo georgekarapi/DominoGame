@@ -51,20 +51,24 @@ public class game_hungarian {
     public boolean movePlayerTurn(int x,String position)//αν ολοκληρώθηκε επιτυχώς η κίνηση ή όχι 
     {  
       Tile t=player1.move(x);
+      if(t==null)
+          return false
        if(position.compareTo("left")==0)
        {classic.first_change(t);return true;}
        else if(position.compareTo("right")==0)
        {classic.last_change(t);return true;}
+       else
+           System.out.println("ξαναγραψε σωστά την λέξη");
        return false;     
     }
     public boolean moveBotTurn()//αν έγινε η κίνηση ή δεν μπορεί να κάνει αλλη
     {
-        if(Robot.byTile(classic.firstTile().getLeft()))
-        { Tile t =Robot.movement_tile(classic.firstTile().getLeft());
+        if(Robot.byTile(classic.getfirstTile().getLeft()))
+        { Tile t =Robot.movement_tile(classic.getfirstTile().getLeft());
         return true;}
-        else if(Robot.byTile(classic.lastTile().getRight()))
+        else if(Robot.byTile(classic.getlastTile().getRight()))
         {
-            Tile t=Robot.movement_tile(classic.lastTile().getRight());
+            Tile t=Robot.movement_tile(classic.getlastTile().getRight());
             return true;
         }
         return false;
@@ -78,7 +82,7 @@ public class game_hungarian {
     }
     public boolean movesPlayers()//αν κα΄ποιος έχει να κανει κίνηση true ειδάλλως false
     {
-        if(player1.haveMove(classic.firstTile(),classic.lastTile()) || Robot.haveMove(classic.firstTile(),classic.lastTile()))
+        if(player1.haveMove(classic.getfirstTile(),classic.getlastTile()) || Robot.haveMove(classic.getfirstTile(),classic.getlastTile()))
         {return true;}
         return false;
     }     
@@ -92,13 +96,13 @@ public class game_hungarian {
     }
      public boolean playerTurn()//αν έχει κίνηση ο player1
      {
-         if(player1.haveMove(classic.firstTile(),classic.lastTile()))
+         if(player1.haveMove(classic.getfirstTile(),classic.getlastTile()))
              return true;
          return false;
      }
     public boolean botTurn()//αν έχει κίνηση Robot
     {
-        if(Robot.haveMove(classic.firstTile(),classic.lastTile()))
+        if(Robot.haveMove(classic.getfirstTile(),classic.getlastTile()))
             return true;
         return false;
     }
