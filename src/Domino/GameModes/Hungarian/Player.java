@@ -40,7 +40,7 @@ public class Player {
       
     public void print()
     {
-        System.out.println("Τα πλακίδια που έχει είναι");
+        System.out.println("TILES OF PLAYER");
         for(Tile t:tiles)
         System.out.println(tiles.indexOf(t)+".("+t.getLeft()+","+t.getRight()+")");
     }
