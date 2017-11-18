@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hungarian;
+package Domino.GameModes.Hungarian;
 //System.out.println("");
-
+import Domino.Base.*;
 import java.util.ArrayList;
 
 /**
  *
- * @author Ξ§Ο?Ξ―ΟƒΟ„ΞΏΟ‚
+ * @author Χ??ίστος
  */
 public class InterfaceHungarian {
     game_hungarian game;
@@ -18,11 +18,11 @@ public class InterfaceHungarian {
     {game=new game_hungarian();}
     public void ShowGame()
     {
-        System.out.println("Ξ?Ξ±Ξ»Ο‰Ο‚ Ξ®Ο?ΞΈΞµΟ‚ ΟƒΟ„ΞΏ ΞΏΟ…Ξ³Ξ³Ο?ΞΉΞΊΟ? Ξ½Ο„Ο?ΞΌΞΉΞ½ΞΏ");//
+        System.out.println("??αλως ή??θες στο ουγγ??ικ?? ντ??μινο");//
         while(game.finishGame())
         {
             game.Start();
-            System.out.println("Ξ“Ο?Ο?ΞΏΟ‚ "+game.getRound().numRound()+"ΞΏΟ‚");
+            System.out.println("Γ????ος "+game.getRound().numRound()+"ος");
             while(game.movesPlayers())
             {
                 if(game.getPlayer().get_number()==1)
@@ -32,18 +32,18 @@ public class InterfaceHungarian {
                     if(game.playerTurn())
                     {
                         showTile(game.getPlayer().Tiles());
-                        //ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΞΉ Ο„ΞΏ Ο„Ξ±ΞΌΟ€Ξ»ΞΏ
-                        //ΞµΟ€ΞΉΞ»Ξ­Ξ³ΞµΞΉ Ο€ΞΏΞΉΟ? Ο€Ξ»Ξ±ΞΊΞ―Ξ΄ΞΉΞΏ ΞΈΞ± ΞΌΞµΟ„Ξ±ΞΊΞ―Ξ½Ξ·ΟƒΞµΞΉ
-                        //Ο€ΞΏΟ… ΞΈΞ± Ο„ΞΏ Ξ²Ξ±Ξ»ΞµΞΉ 
+                        //εμφανίζει το ταμπλο
+                        //επιλέγει ποι?? πλακίδιο θα μετακίνησει
+                        //που θα το βαλει 
                         
                     }
                 }
             }
         }
     }
-    public void showTile(ArrayList<Tile> tiles)//Ξ•Ξ?Ξ¦Ξ‘Ξ?Ξ?Ξ–Ξ•Ξ™ Ξ•Ξ?Ξ‘ Ξ£Ξ¥Ξ?Ξ?Ξ›Ξ? Ξ‘Ξ Ξ? Ξ Ξ›Ξ‘Ξ?Ξ?Ξ”Ξ™Ξ‘
+    public void showTile(ArrayList<Tile> tiles)//Ε??ΦΑ????ΖΕΙ Ε??Α ΣΥ????Λ?? ΑΠ?? ΠΛΑ????ΔΙΑ
     {
-        System.out.println("Ξ£Ο„Ξ± Ο‡Ξ­Ο?ΞΉΞ± ΟƒΞΏΟ… Ξ­Ο‡ΞµΞΉΟ‚:");
+        System.out.println("Στα χέ??ια σου έχεις:");
         for(Tile t: tiles)
         System.out.print("("+t.getLeft()+","+t.getRight()+")-");
     }

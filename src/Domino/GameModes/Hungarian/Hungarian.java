@@ -3,8 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hungarian;
-
+package Domino.GameModes.Hungarian;
+import Domino.Base.*;
 import java.util.HashMap;
 
 /**

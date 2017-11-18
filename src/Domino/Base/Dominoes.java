@@ -2,6 +2,7 @@ package Domino.Base;
 
 import java.util.ArrayList;
 import java.util.Random;
+import Domino.UI.*;
 
 public class Dominoes {
     private static final int TILES_LIMIT = 28;
@@ -19,10 +20,10 @@ public class Dominoes {
     public Tile giveTile(){
         Random r = new Random();
         int tile;
-        if(tiles.size()!=1)//αυτόν τον έλενχο τον κάνουμε γιατί πρέπει το tiles.size()-1>0 δεν μπορεί να είναι μηδεν  !!!!!!
-         tile = r.nextInt(tiles.size()-1);
+        if(tiles.size() > 0)//αυτόν τον έλενχο τον κάνουμε γιατί πρέπει το tiles.size()-1>0 δεν μπορεί να είναι μηδεν  !!!!!!
+         tile = r.nextInt(tiles.size());
         else
-         tile=0;   
+         return null;
         Tile tCopy = new Tile(tiles.get(tile).getLeft(), tiles.get(tile).getRight());
         tiles.remove(tile);
         return tCopy;
@@ -42,12 +43,10 @@ public class Dominoes {
     }
     public static void main(String[] args) {
         Dominoes dom = new Dominoes();
+        Terminal ter=new Terminal();
         Tile x;
+        for(int i=0;i<28;i++)
+        {x = dom.giveTile();ter.printTiles(dom.getTiles(4,7));}
         x = dom.giveTile();
-        System.out.println(x.getLeft()+","+x.getRight()) ;
-        x = dom.giveTile();
-        System.out.println(x.getLeft()+","+x.getRight()) ;
-        x = dom.giveTile();
-        System.out.println(x.getLeft()+","+x.getRight()) ;
     }
 }
