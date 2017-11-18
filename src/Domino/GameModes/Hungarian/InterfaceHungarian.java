@@ -19,33 +19,47 @@ public class InterfaceHungarian {
     public void ShowGame()
     {
         System.out.println("Καλως ήρθες στο ουγγγρικο ντομινο");//
-        while(game.finishGame())
+        while(!game.finishGame())
         {
             game.Start();
-            System.out.println("Γ????ος "+game.getRound().numRound()+"ος");
+            System.out.println("Γύρος "+game.getRound().numRound()+"ος");
             while(game.movesPlayers())
             {
                 if(game.getPlayer().get_number()==1)
                 {
-                    if(game.botTurn())
-                    game.moveBotTurn();
-                    if(game.playerTurn())
-                    {
-                        showTile(game.getPlayer().Tiles());
-                        //εμφανίζει το ταμπλο
-                        //επιλέγει ποι?? πλακίδιο θα μετακίνησει
-                        //που θα το βαλει 
-                        
-                    }
+
+                    while(game.playerTurn())
+                    {inputPlayer();}
+                    while(game.botTurn())
+                    {game.moveBotTurn();}
                 }
             }
+            game.finishRound();
         }
     }
-    public void showTile(ArrayList<Tile> tiles)//Ε??ΦΑ????ΖΕΙ Ε??Α ΣΥ????Λ?? ΑΠ?? ΠΛΑ????ΔΙΑ
+
+    public void showTile(ArrayList<Tile> tiles,String s)//ΕΜΦΑΝΊΖΕΙ μια σειρά ΑΠΟ ΠΛΑΚΊΔΙΑ
     {
-        System.out.println("Στα χέ??ια σου έχεις:");
+        System.out.println(s);
         for(Tile t: tiles)
-        System.out.print("("+t.getLeft()+","+t.getRight()+")-");
+        {
+            if(t==tiles.get(tiles.size()-1))
+                System.out.print("("+t.getLeft()+","+t.getRight()+")");
+            System.out.print("("+t.getLeft()+","+t.getRight()+")-");
+        }
     }
-    
+    public void inputPlayer()
+    {
+        int number;
+        String s;
+        do{
+            showTile(game.getPlayer().Tiles(),"Στα χέρια σου έχεις:");
+            showTile(game.getClassic().tablo(),"Το ταμπλό του παιχνιδιού είναι:");//εμφανίζει το ταμπλο
+            System.out.println("Διάλεξε ένα απο τα πλακάκια σου");
+            number=input.nextInt();//επιλέγει ποιό πλακίδιο θα μετακίνησει
+            System.out.println("Στο τέρμα αριστερά ή στο τέρμα δεξιά(right or left)");
+            s=input.next();
+        }while(game.movePlayerTurn(number,s));
+
+    }
 }

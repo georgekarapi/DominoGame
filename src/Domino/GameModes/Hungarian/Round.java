@@ -33,8 +33,9 @@ public class Round {
     }
     public int pointPlayer(Player p)
     {
-        return r.get(p);
+        return r.get(p).intValue();
     }
     public int numRound()
     {return numberRound;}
    }
+//ΕΧΕΙ ΕΛΕΓΧΘΕΙ
