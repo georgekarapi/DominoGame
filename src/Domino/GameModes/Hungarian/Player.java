@@ -55,23 +55,46 @@ public class Player {
     }
     public Tile maxTile()
     {
-        Tile max=tiles.get(0);
+        Tile max=new Tile();
+        boolean b=false;
         for(Tile t:tiles)
         {
-            if(t.getTotal()>max.getTotal())
-                max=t;
+            if(t.getRight()==t.getLeft())
+            {  if(!b)
+                {
+                    b=true;
+                    max=t;
+                }
+               else if(t.getTotal()>max.getTotal())
+                   max=t;}
+        }
+        if(!b)
+        {
+            max=tiles.get(0);
+            for(Tile t:tiles)
+            {
+                if(t.getTotal()>max.getTotal())
+                    max=t;
+            }
         }
         return max;
     }
-    public void removes(Tile t)
-    {if(tiles.contains(t))
-        tiles.remove(t);}
+    public Tile removes(Tile t)
+    { Tile z=new Tile(t.getLeft(),t.getRight());
+        tiles.remove(t);
+    return z;}
     public int sumTiles()
     {
         int sum=0;
         for(Tile t:tiles)
             sum=sum+t.getTotal();
         return sum;
+    }
+    public boolean doubleTile(Tile t)
+    {
+        if(t.getLeft()==t.getRight())
+            return true;
+        return false;
     }
 }
 /*εχει ελεγχθεί*/

@@ -33,13 +33,13 @@ public class PlayerTest {
     @Test
     public void maxTile() throws Exception {
         Player p1=new Player();
-        p1.add(new Tile(3,4));
-        p1.add(new Tile(6,6));
+        p1.add(new Tile(1,4));
+        p1.add(new Tile(3,5));
         p1.add(new Tile(1,9));
-        p1.add(new Tile(0,2));
-        p1.add(new Tile(5,7));
-        assertEquals(p1.maxTile().getLeft(),6);
-        assertEquals(p1.maxTile().getRight(),6);
+        p1.add(new Tile(8,1));
+        p1.add(new Tile(0,0));
+        assertEquals(p1.maxTile().getLeft(),0);
+        assertEquals(p1.maxTile().getRight(),0);
     }
 
     @Test

@@ -32,27 +32,30 @@ public class game_hungarian {
     }
     public void Start()/* όποιος έχει το μεγαλύτερο πλακίδι  θα παίξει πρώτος και μοιράζει πλακίδια*/
     {
-        
-        if(player1.maxTile().getTotal()>Robot.maxTile().getTotal())
-        {player1.set_number(1);
-        Robot.set_number(2);
-        player1.removes(player1.maxTile());
-        }
-        else
-        {Robot.set_number(1);
-        Robot.removes(Robot.maxTile());
-        player1.set_number(2);}
-         
+
         for(int i=0;i<numberTile;i++){
             Robot.add(stack.giveTile());
             player1.add(stack.giveTile());
         }
+        if((player1.maxTile().getTotal()>Robot.maxTile().getTotal()&& player1.doubleTile(player1.maxTile())&&Robot.doubleTile(Robot.maxTile())) || (player1.doubleTile(player1.maxTile())&&!Robot.doubleTile(Robot.maxTile())) || (!player1.doubleTile(player1.maxTile())&&!Robot.doubleTile(Robot.maxTile())&&player1.maxTile().getTotal()>Robot.maxTile().getTotal()))
+        {player1.set_number(1);//
+        Robot.set_number(2);
+        Tile t=player1.removes(player1.maxTile());
+        classic.emptyTabloAddTile(t);
+        }
+        else
+        {Robot.set_number(1);
+        player1.set_number(2);
+       Tile t= Robot.removes(Robot.maxTile());
+       classic.emptyTabloAddTile(t);
+        }
+
     }
     public boolean movePlayerTurn(int x,String position)//αν ολοκληρώθηκε επιτυχώς η κίνηση ή όχι 
     {  
       Tile t=player1.move(x);
       if(t==null)
-          return false
+          return false;
        if(position.compareTo("left")==0)
        {classic.first_change(t);return true;}
        else if(position.compareTo("right")==0)
@@ -76,7 +79,7 @@ public class game_hungarian {
     }
     public boolean finishGame()//αλήθεια αν τελειωσε το παιχνίδι και ψευδής αν δεν τελείωσε το παιχνίδι
     {
-        if(rounds.pointPlayer(player1)==100 || rounds.pointPlayer(Robot)==100)
+        if(rounds.pointPlayer(player1)>=100 || rounds.pointPlayer(Robot)>=100)
             return true;
         return false;
     }
@@ -111,5 +114,6 @@ public class game_hungarian {
     public Player getPlayer()
     {return player1;}
     public Bot getRobot(){return Robot;}
+    public domino_tablo getClassic(){return classic;}
     
 }

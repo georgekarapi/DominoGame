@@ -69,6 +69,13 @@ public class Table {
       return true;
     }
        public Tile firstTile(){return tablo.get(0);}
-       public Tile lastTile(){return tablo.get(tablo.size()-1);}  
+       public Tile lastTile(){return tablo.get(tablo.size()-1);}
+    public boolean emptyTabloAddTile(Tile t)//μόνο για την πρώτη περίπτωση όταν είναι άδειο το ταμπλό μπαίνει το πρωtό πλακάκι
+    {
+        if(tablo.isEmpty())
+        {tablo.add(t);
+            return true;}
+        return false;
+    }
 }
 /*ΈΧΕΙ ΕΛΕΓΘΕΙ ΌΤΙ ΕΙΝΑΙ ΣΩΣΤΗ*/

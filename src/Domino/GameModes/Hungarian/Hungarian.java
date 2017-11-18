@@ -56,9 +56,10 @@ public class Hungarian {
     System.out.println(r);
   */
     
-     
-     
-     
+     InterfaceHungarian ih=new InterfaceHungarian();
+   ih.ShowGame();
+
+        //  όταν παίρνει κάποιο πλακάκι και δεν κανει κίνηση το δεν το επιστρέφει πίσω στα χέρια
      
      
     }
