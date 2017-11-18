@@ -38,45 +38,38 @@ public class Player {
          return null;     
     }
       
-    public void print()
-    {
-        System.out.println("TILES OF PLAYER");
-        for(Tile t:tiles)
-        System.out.println(tiles.indexOf(t)+".("+t.getLeft()+","+t.getRight()+")");
-    }
+
     public boolean haveMove(Tile lef,Tile rig)//αν εχει να κάνει κίνηση ή όχι 
     {
-        for(Tile t:tiles)
+        if(!tiles.isEmpty())
+        {for(Tile t:tiles)
         {
             if(t.getLeft()==lef.getLeft() ||t.getRight()==lef.getLeft()||t.getLeft()==rig.getRight()||t.getRight()==rig.getRight())
             return true;
-        }
+        }}
         return false;
     }
     public Tile maxTile()
     {
-        Tile max=new Tile();
+        Tile max=new Tile(-1,-2);
         boolean b=false;
-        for(Tile t:tiles)
-        {
-            if(t.getRight()==t.getLeft())
-            {  if(!b)
-                {
-                    b=true;
-                    max=t;
+            for (Tile t : tiles) {
+                if (t.getRight() == t.getLeft()) {
+                    if (!b) {
+                        b = true;
+                        max = t;
+                    } else if (t.getTotal() > max.getTotal())
+                        max = t;
                 }
-               else if(t.getTotal()>max.getTotal())
-                   max=t;}
-        }
-        if(!b)
-        {
-            max=tiles.get(0);
-            for(Tile t:tiles)
-            {
-                if(t.getTotal()>max.getTotal())
-                    max=t;
             }
-        }
+            if (!b) {
+                max = tiles.get(0);
+                for (Tile t : tiles) {
+                    if (t.getTotal() > max.getTotal())
+                        max = t;
+                }
+            }
+
         return max;
     }
     public Tile removes(Tile t)
@@ -86,8 +79,9 @@ public class Player {
     public int sumTiles()
     {
         int sum=0;
+        if(!tiles.isEmpty()){
         for(Tile t:tiles)
-            sum=sum+t.getTotal();
+            sum=sum+t.getTotal();}
         return sum;
     }
     public boolean doubleTile(Tile t)
@@ -96,5 +90,14 @@ public class Player {
             return true;
         return false;
     }
+    public void deletesTiles()
+    {
+        tiles.clear();
+    }
 }
-/*εχει ελεγχθεί*/
+/*εχει ελεγχθεί/* public void print()
+    {
+        System.out.println();
+        for(Tile t:tiles)
+        System.out.println(tiles.indexOf(t)+".["+t.getLeft()+"|"+t.getRight()+"]");
+    }*/
