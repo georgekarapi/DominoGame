@@ -4,6 +4,10 @@ import Domino.Base.Tile;
 
 import java.util.ArrayList;
 
+/**
+ * @author Giorgos
+ */
+
 public class Terminal {
     public String stringifyTile(Tile t){
         return "["+t.getLeft()+"|"+t.getRight()+"]";
@@ -16,5 +20,21 @@ public class Terminal {
             System.out.println();
         }
         System.out.println();
+    }
+    private static void clearConsole(){
+        final String os = System.getProperty("os.name");
+        try{
+            if(os.contains("Windows")){
+                Runtime.getRuntime().exec("cls");
+            }else{
+                Runtime.getRuntime().exec("clear");
+            }
+        }catch (Exception e){
+            System.err.print(e);
+        }
+    }
+    public static void gameOver(){
+        clearConsole();
+        System.out.print("GameOver!");
     }
 }
