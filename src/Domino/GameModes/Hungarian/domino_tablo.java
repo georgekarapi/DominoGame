@@ -19,7 +19,7 @@ public class domino_tablo {
     }
     public ArrayList<Tile> tablo
         (){return tablo;}
-    public boolean first_tile(Tile t)//αν μπορεί να μπει στο αρχικό 
+    public boolean first_tile(Tile t)//αν μπορεί να μπει στο αρχικό όχι σε άδειο ντόμινο
     {
            if(tablo.get(0).getLeft()==t.getLeft()|| tablo.get(0).getLeft()==t.getRight())
             return true;
@@ -75,7 +75,15 @@ public class domino_tablo {
       }
       return true;
     }
-       public Tile firstTile(){return tablo.get(0);}
-       public Tile lastTile(){return tablo.get(tablo.size()-1);}  
+       public Tile getfirstTile(){return tablo.get(0);}
+       public Tile getlastTile(){return tablo.get(tablo.size()-1);}
+       public boolean emptyTabloAddTile(Tile t)//μόνο για την πρώτη περίπτωση όταν είναι άδειο το ταμπλό μπαίνει το πρωtό πλακάκι
+       {
+           if(tablo.isEmpty())
+           {tablo.add(t);
+           return true;}
+           return false;
+       }
+
 }
 /*ΈΧΕΙ ΕΛΕΓΘΕΙ ΌΤΙ ΕΙΝΑΙ ΣΩΣΤΗ*/
