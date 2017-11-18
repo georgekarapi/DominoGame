@@ -3,79 +3,44 @@ package Domino.Base;
 import java.util.ArrayList;
 /**
  *
- * @author christos
+ * @author Giorgos
  */
 public class Table {
-    private ArrayList<Tile> tablo;
-    public Table()
-    {
-        tablo=new ArrayList<>();
+    private ArrayList<Tile> table;
+    public Table(){
+        table = new ArrayList<>();
     }
-    public ArrayList<Tile> tablo(){return tablo;}
-    public boolean first_tile(Tile t)//αν μπορεί να μπει στο αρχικό 
-    {
-           if(tablo.get(0).getLeft()==t.getLeft()|| tablo.get(0).getLeft()==t.getRight())
+    public boolean addTile(Tile t, boolean actionLess){
+        if(table.size() > 0) {
+            //Add First
+            if (t.getRight() == table.get(0).getLeft() || t.getLeft() == table.get(0).getLeft()) {
+                if(!actionLess) {
+                    if (t.getLeft() == table.get(0).getLeft()) {
+                        int temp = t.getLeft();
+                        t.setLeft(t.getRight());
+                        t.setRight(temp);
+                    }
+                    table.add(0, t);
+                }
+                return true;
+            }
+            //Add Last
+            else if(t.getLeft() == table.get(table.size()-1).getRight() || t.getRight() == table.get(table.size()-1).getRight()) {
+                if (!actionLess) {
+                    if (t.getRight() == table.get(table.size() - 1).getRight()) {
+                        int temp = t.getLeft();
+                        t.setLeft(t.getRight());
+                        t.setRight(temp);
+                    }
+                    table.add(t);
+                }
+                return true;
+            }
+        }else{
+            table.add(t);
             return true;
-           return false;
-    }
-    public boolean last_tile(Tile t)//αν μπορεί να μπει στο τελευταίο
-    {
-            if(tablo.get(tablo.size()-1).getRight()==t.getLeft()||tablo.get(tablo.size()-1).getRight()==t.getRight())
-               return true;
-           return false;    
-    }
-    private void move_all_tiles_right()
-    {
-        for(int i=tablo.size();i>1;i--)
-          {
-              Tile w=tablo.get(i-2);
-              tablo.get(i-1).setRight(w.getRight());
-              tablo.get(i-1).setLeft(w.getLeft());   
-          }
-    }
-    public boolean first_change(Tile t)//παιρνει το πλακάκι και το βάζει πρώτο αν γίνεται ...
-    {
-        if(!first_tile(t))
-            return false;
-        tablo.add(new Tile());
-        move_all_tiles_right();
-      if(tablo.get(1).getLeft()==t.getLeft())
-      {
-           tablo.get(0).setRight(t.getLeft());
-           tablo.get(0).setLeft(t.getRight());
-      }
-      else if(tablo.get(1).getLeft()==t.getRight())
-      {
-          tablo.get(0).setRight(t.getRight());
-           tablo.get(0).setLeft(t.getLeft());
-      }
-      return true;
-    }
-    public boolean last_change(Tile t)//παίρνει το πλακάκι και το βάζει στο  τελευταίο
-    {
-        if(!last_tile(t))
-        {return false;}
-        tablo.add(new Tile());
-      if(tablo.get(tablo.size()-2).getRight()==t.getLeft())
-      {
-           tablo.get(tablo.size()-1).setLeft(t.getLeft());
-           tablo.get(tablo.size()-1).setRight(t.getRight());
-      }
-      else if(tablo.get(tablo.size()-2).getRight()==t.getRight())
-      {
-          tablo.get(tablo.size()-1).setRight(t.getLeft());
-           tablo.get(tablo.size()-1).setLeft(t.getRight());
-      }
-      return true;
-    }
-       public Tile firstTile(){return tablo.get(0);}
-       public Tile lastTile(){return tablo.get(tablo.size()-1);}
-    public boolean emptyTabloAddTile(Tile t)//μόνο για την πρώτη περίπτωση όταν είναι άδειο το ταμπλό μπαίνει το πρωtό πλακάκι
-    {
-        if(tablo.isEmpty())
-        {tablo.add(t);
-            return true;}
+        }
         return false;
     }
+    public ArrayList<Tile> getTable(){return table;}
 }
-/*ΈΧΕΙ ΕΛΕΓΘΕΙ ΌΤΙ ΕΙΝΑΙ ΣΩΣΤΗ*/

@@ -3,16 +3,19 @@ package Domino.UI;
 import Domino.Base.Tile;
 
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import Domino.GameModes.SoloOne.SoloOne;
 
 /**
  * @author Giorgos
  */
 
 public class Terminal {
-    public String stringifyTile(Tile t){
+    public static String stringifyTile(Tile t){
         return "["+t.getLeft()+"|"+t.getRight()+"]";
     }
-    public void printTiles(ArrayList<ArrayList<Tile>> tiles){
+    public static void printTiles(ArrayList<ArrayList<Tile>> tiles){
         for(int i = 0; i < tiles.size(); i++){
             for(int j = 0; j < tiles.get(i).size(); j++){
                 System.out.print(stringifyTile(tiles.get(i).get(j)));
@@ -21,7 +24,13 @@ public class Terminal {
         }
         System.out.println();
     }
-    private static void clearConsole(){
+    public static void printTiles2(ArrayList<Tile> tiles){
+        for(int i = 0; i < tiles.size(); i++){
+            System.out.print(stringifyTile(tiles.get(i)));
+        }
+        System.out.println();
+    }
+    public static void clearConsole(){
         final String os = System.getProperty("os.name");
         try{
             if(os.contains("Windows")){
@@ -33,8 +42,53 @@ public class Terminal {
             System.err.print(e);
         }
     }
-    public static void gameOver(){
+    public static void gameOver(String reason){
         clearConsole();
-        System.out.print("GameOver!");
+        System.out.println(reason);
+        System.out.println("**********GameOver!**********");
+    }
+    public static void startSolo(){
+        SoloOne solo = new SoloOne();
+        while(!solo.gameOver){
+            clearConsole();
+            System.out.println("Tiles Left: ");
+            printTiles(solo.tilesLeft());
+            System.out.println("Tiles Played: ");
+            printTiles2(solo.getTable());
+            while (true) {
+                System.out.println("Choose next tile");
+                Scanner scan = new Scanner(System.in);
+                int row = scan.nextInt();
+                if(1 <= row && row <= 4) {
+                    solo.getTile(row-1);
+                    break;
+                }else{
+                    System.out.println("Choose between 1-4");
+                }
+            }
+        }
+    }
+    public static void main(String args[]){
+        int choice = 1;
+        while(choice > 0) {
+            System.out.println("Choose a GameMode/option: ");
+            System.out.println();
+            System.out.println("1.Solo 1");
+            System.out.println("2.Hungarian");
+            System.out.println("0. Exit");
+            Scanner scan = new Scanner(System.in);
+            choice = scan.nextInt();
+            switch (choice){
+                case 1:
+                    startSolo();
+                    break;
+                case 2:
+                    //Hungarian
+                case 0:
+                    System.exit(0);
+                default:
+                    break;
+            }
+        }
     }
 }
