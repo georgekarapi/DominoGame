@@ -84,6 +84,8 @@ public class domino_tablo {
            return true;}
            return false;
        }
+       public void deleteTiles()
+       {tablo.clear();}
 
 }
 /*ΈΧΕΙ ΕΛΕΓΘΕΙ ΌΤΙ ΕΙΝΑΙ ΣΩΣΤΗ*/

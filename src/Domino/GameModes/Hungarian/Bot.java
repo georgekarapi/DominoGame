@@ -16,11 +16,12 @@ public class Bot extends Player{
 public  Bot()
     {super();}
     public boolean byTile(int l)//ελένχει αν ένα πλακίδιο μπορεί να κολήσει μια μεριά(είτε στην αριστερή είτε στην δεξιά)
-    {for(Tile t:Tiles())
+    {if(!Tiles().isEmpty()){
+        for(Tile t:Tiles())
     {
        if(t.getLeft()==l||t.getRight()==l)
            return true;
-    }
+    }}
     return false;
     }
     

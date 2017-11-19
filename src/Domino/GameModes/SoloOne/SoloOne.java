@@ -27,7 +27,7 @@ public class SoloOne {
             tiles_size--;
             return tCopy.get(tCopy.size() - 1);
         }
-        if(tiles_size == 0){ Terminal.gameOver();}
+      //  if(tiles_size == 0){ Terminal.gameOver();}
         return null;
     }
     public static void main(String args[]) {

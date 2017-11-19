@@ -60,7 +60,7 @@ public class game_hungarian {
        else if(position.compareTo("right")==0 && classic.last_tile(t) )
        {classic.last_change(t);return true;}
        else
-       {System.out.println("ξαναγραψε σωστά την λέξη ή δεν έδ");
+       {System.out.println("Correctly rewritten the word OR can not insert the tile");
        player1.add(t);
        }
 
@@ -70,10 +70,12 @@ public class game_hungarian {
     {
         if(Robot.byTile(classic.getfirstTile().getLeft()))
         { Tile t =Robot.movement_tile(classic.getfirstTile().getLeft());
+        classic.first_change(t);
         return true;}
         else if(Robot.byTile(classic.getlastTile().getRight()))
         {
             Tile t=Robot.movement_tile(classic.getlastTile().getRight());
+            classic.last_change(t);
             return true;
         }
         return false;
@@ -81,7 +83,7 @@ public class game_hungarian {
     }
     public boolean finishGame()//αλήθεια αν τελειωσε το παιχνίδι και ψευδής αν δεν τελείωσε το παιχνίδι
     {
-        if(rounds.pointPlayer(player1)>=100 || rounds.pointPlayer(Robot)>=100)
+        if(rounds.pointPlayer(player1)>=20 || rounds.pointPlayer(Robot)>=20)
             return true;
         return false;
     }
@@ -117,5 +119,13 @@ public class game_hungarian {
     {return player1;}
     public Bot getRobot(){return Robot;}
     public domino_tablo getClassic(){return classic;}
-    
+    public void deleteHands(Player p)//σβήνει όλα τα πλακίδια που έχει ο συγκεκριμένος παίχτης
+    {
+        player1.deletesTiles();
+        Robot.deletesTiles();
+    }
+    public void newRound()//
+    {stack.deletesTiles();
+    stack=new Dominoes();
+    classic.deleteTiles();}
 }
