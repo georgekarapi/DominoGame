@@ -2,6 +2,7 @@ package Domino.GameModes.SoloOne;
 
 import Domino.Base.*;
 import Domino.UI.*;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class SoloOne extends Table{
         return tiles;
     }
     public void getTile(int row){
-        if(tiles.get(row).size() > 0) {
+        if(0 <= row && row <= 3 &&tiles.get(row).size() > 0) {
             if(addTile(tiles.get(row).get(tiles.get(row).size() - 1), false)){
                 tiles.get(row).remove(tiles.get(row).size() - 1);
                 tiles_size--;
@@ -34,6 +35,8 @@ public class SoloOne extends Table{
             }else{
                 System.out.println("Not matching existed Tiles");
             }
+        }else{
+            System.out.println("Row empty or doesn't exist!");
         }
     }
     public boolean anyMoves(){
