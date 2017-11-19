@@ -1,5 +1,6 @@
 package Domino.Base;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 import Domino.UI.*;
@@ -41,16 +42,12 @@ public class Dominoes {
         }
         return ctiles;
     }
+    public void deletesTiles(){tiles.clear();}
     public static void main(String[] args) {
-        Dominoes dom = new Dominoes();
-        Terminal ter=new Terminal();
-        Tile x;
-        for(int i=0;i<28;i++)
-        {  x = dom.giveTile() ;
-        if(x!=null)
-            System.out.println(ter.stringifyTile(x));}
-
-
+ArrayList<String> s=new ArrayList<>();
+s.clear();
+s.add("ddf");
+System.out.println(s.get(0));
     }
 }
 //ΕΧΕΙ ΕΛΕΓΧΘΕΙ
