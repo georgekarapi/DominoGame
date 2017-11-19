@@ -49,19 +49,21 @@ public class game_hungarian {
        Tile t= Robot.removes(Robot.maxTile());
        classic.emptyTabloAddTile(t);
         }
-
-    }
+    }//εχει ελεχθει
     public boolean movePlayerTurn(int x,String position)//αν ολοκληρώθηκε επιτυχώς η κίνηση ή όχι 
     {  
       Tile t=player1.move(x);
       if(t==null)
           return false;
-       if(position.compareTo("left")==0)
+       if(position.compareTo("left")==0 && classic.first_tile(t))
        {classic.first_change(t);return true;}
-       else if(position.compareTo("right")==0)
+       else if(position.compareTo("right")==0 && classic.last_tile(t) )
        {classic.last_change(t);return true;}
        else
-           System.out.println("ξαναγραψε σωστά την λέξη");
+       {System.out.println("ξαναγραψε σωστά την λέξη ή δεν έδ");
+       player1.add(t);
+       }
+
        return false;     
     }
     public boolean moveBotTurn()//αν έγινε η κίνηση ή δεν μπορεί να κάνει αλλη
