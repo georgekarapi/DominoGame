@@ -34,7 +34,7 @@ public class Player {
         if(x>=0 && x<tiles.size())
             return tiles.remove(x);
         else
-            System.out.println("Δεν υπάρχει τέτοιο πλακίδιο");
+            System.out.println("there is no such tile");
          return null;     
     }
       

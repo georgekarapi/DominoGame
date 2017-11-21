@@ -83,7 +83,7 @@ public class game_hungarian {
     }
     public boolean finishGame()//αλήθεια αν τελειωσε το παιχνίδι και ψευδής αν δεν τελείωσε το παιχνίδι
     {
-        if(rounds.pointPlayer(player1)>=20 || rounds.pointPlayer(Robot)>=20)
+        if (rounds.pointPlayer(player1) >= 100 || rounds.pointPlayer(Robot) >= 100)
             return true;
         return false;
     }
