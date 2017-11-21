@@ -43,14 +43,14 @@ public class Terminal {
         }
     }
     public static void gameOver(String reason){
-        clearConsole();
+        //clearConsole();
         System.out.println(reason);
         System.out.println("**********GameOver!**********");
     }
     public static void startSolo(){
         SoloOne solo = new SoloOne();
         while(!solo.gameOver){
-            clearConsole();
+            //clearConsole();
             System.out.println("Tiles Left: ");
             printTiles(solo.tilesLeft());
             System.out.println("Tiles Played: ");
@@ -60,7 +60,19 @@ public class Terminal {
                 Scanner scan = new Scanner(System.in);
                 int row = scan.nextInt();
                 if(1 <= row && row <= 4) {
-                    solo.getTile(row-1);
+                    while (true){
+                        scan.nextLine();
+                        System.out.println("Choose l(eft) or r(ight)");
+                        String pos = scan.nextLine();
+                        if(pos.equals("l")){
+                            solo.getTile(row - 1, true);
+                            break;
+                        }
+                        else if(pos.equals("r")){
+                            solo.getTile(row - 1, false);
+                            break;
+                        }
+                    }
                     break;
                 }else{
                     System.out.println("Choose between 1-4");

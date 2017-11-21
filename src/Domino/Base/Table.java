@@ -10,37 +10,60 @@ public class Table {
     public Table(){
         table = new ArrayList<>();
     }
-    public boolean addTile(Tile t, boolean actionLess){
-        if(table.size() > 0) {
-            //Add First
-            if (t.getRight() == table.get(0).getLeft() || t.getLeft() == table.get(0).getLeft()) {
-                if(!actionLess) {
+    public boolean addTile(Tile t, boolean left){
+        if(additionCheck(t)){
+            if(table.size() == 0){
+                table.add(t);
+                return true;
+            }
+            else {
+                if (isLeft(t) && left) {
                     if (t.getLeft() == table.get(0).getLeft()) {
-                        int temp = t.getLeft();
-                        t.setLeft(t.getRight());
-                        t.setRight(temp);
+                        t.swapTile();
                     }
                     table.add(0, t);
+                    return true;
                 }
-                return true;
-            }
-            //Add Last
-            else if(t.getLeft() == table.get(table.size()-1).getRight() || t.getRight() == table.get(table.size()-1).getRight()) {
-                if (!actionLess) {
+                else if (isRight(t) && !left) {
                     if (t.getRight() == table.get(table.size() - 1).getRight()) {
-                        int temp = t.getLeft();
-                        t.setLeft(t.getRight());
-                        t.setRight(temp);
+                        t.swapTile();
                     }
                     table.add(t);
+                    return true;
+                }else{
+                    System.out.println("Numbers don't match!");
+                    return false;
                 }
-                return true;
             }
         }else{
-            table.add(t);
+            System.out.println("Cannot add tile");
+            return false;
+        }
+    }
+    public ArrayList<Tile> getTable(){return new ArrayList<Tile>(table);}
+    public boolean isLeft(Tile t){
+        if (t.getRight() == table.get(0).getLeft() || t.getLeft() == table.get(0).getLeft()) {
             return true;
         }
         return false;
     }
-    public ArrayList<Tile> getTable(){return table;}
+    public boolean isRight(Tile t){
+        if (t.getLeft() == table.get(table.size()-1).getRight() || t.getRight() == table.get(table.size()-1).getRight()){
+            return true;
+        }
+        return false;
+    }
+    public boolean additionCheck(Tile t){
+        if(table.size() > 0){
+            if (t.getRight() == table.get(0).getLeft() || t.getLeft() == table.get(0).getLeft()) {
+                return true;
+            }
+            else if(t.getLeft() == table.get(table.size()-1).getRight() || t.getRight() == table.get(table.size()-1).getRight()) {
+                return true;
+            }
+        }else{
+            return true;
+        }
+        return false;
+    }
 }

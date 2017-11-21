@@ -25,5 +25,10 @@ public class Tile {
         right=r; }
     public void setLeft(int l)
     {left=l;}
+    public void swapTile(){
+        int temp = left;
+        setLeft(right);
+        setRight(temp);
+    }
 }
 //ΕΧΕΙ ΕΛΕΓΧΘΕΙ
