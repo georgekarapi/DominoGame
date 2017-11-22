@@ -37,7 +37,7 @@ public class Terminal {
         final String os = System.getProperty("os.name");
         try {
             if (os.contains("Windows")) {
-                Runtime.getRuntime().exec("cls");
+                Runtime.getRuntime().exec("cmd.exe /c cls");
             } else {
                 Runtime.getRuntime().exec("clear");
             }
@@ -49,7 +49,27 @@ public class Terminal {
     public static void gameOver(String reason) {
         clearConsole();
         System.out.println(reason);
+        try {
+            Thread.sleep(150);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
         System.out.println("**********GameOver!**********");
+    }
+
+    public int inputTile(int min, int max) {
+        Scanner scan = new Scanner(System.in);
+        int input;
+        do {
+            System.out.println("Choose a number between " + min + "-" + max);
+            while (!scan.hasNextInt()) {
+                System.out.println("That's not a number :( ");
+                System.out.println("Choose a number between " + min + "-" + max);
+                scan.next();
+            }
+            input = scan.nextInt();
+        } while (min <= input && input <= max);
+        return input;
     }
 
     public static void startSolo() {
