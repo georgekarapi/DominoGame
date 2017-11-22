@@ -18,14 +18,14 @@ public class Table {
             }
             else {
                 if (isLeft(t) && left) {
-                    if (t.getLeft() == table.get(0).getLeft()) {
+                    if (t.getRight() != table.get(0).getLeft()) {
                         t.swapTile();
                     }
                     table.add(0, t);
                     return true;
                 }
                 else if (isRight(t) && !left) {
-                    if (t.getRight() == table.get(table.size() - 1).getRight()) {
+                    if (t.getLeft() != table.get(table.size() - 1).getRight()) {
                         t.swapTile();
                     }
                     table.add(t);
@@ -41,13 +41,13 @@ public class Table {
         }
     }
     public ArrayList<Tile> getTable(){return new ArrayList<Tile>(table);}
-    public boolean isLeft(Tile t){
+    private boolean isLeft(Tile t){
         if (t.getRight() == table.get(0).getLeft() || t.getLeft() == table.get(0).getLeft()) {
             return true;
         }
         return false;
     }
-    public boolean isRight(Tile t){
+    private boolean isRight(Tile t){
         if (t.getLeft() == table.get(table.size()-1).getRight() || t.getRight() == table.get(table.size()-1).getRight()){
             return true;
         }
