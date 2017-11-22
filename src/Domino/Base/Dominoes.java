@@ -1,10 +1,8 @@
 package Domino.Base;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
-import Domino.UI.*;
-import java.lang.NullPointerException;
+
 public class Dominoes {
     private static final int TILES_LIMIT = 28;
     private ArrayList<Tile> tiles;
