@@ -20,10 +20,10 @@ public class Dominoes {
         return tiles;
     }
 
-    public Tile giveTile() {//Αν επιστρέψει null τότε σημαίνει ότι δεν έχει άλλα πλακίδια
+    public Tile giveTile() {
         Random r = new Random();
         int tile;
-        if (tiles.size() > 1)//αυτόν τον έλενχο τον κάνουμε γιατί πρέπει το tiles.size()-1>0 δεν μπορεί να είναι μηδεν  !!!!!!
+        if (tiles.size() > 1)
             tile = r.nextInt(tiles.size() - 1);
         else if (tiles.size() == 1)
             tile = 0;
@@ -50,4 +50,3 @@ public class Dominoes {
         tiles.clear();
     }
 }
-//ΕΧΕΙ ΕΛΕΓΧΘΕΙ

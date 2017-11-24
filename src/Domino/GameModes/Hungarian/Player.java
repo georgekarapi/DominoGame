@@ -10,11 +10,11 @@ import Domino.Base.Tile;
 import java.util.ArrayList;
 
 /**
- * @author Χρίστος
+ * @author Christos
  */
 public class Player {
     private ArrayList<Tile> tiles;
-    private int number;//σειρά του παίχτη αν είναι αυτός πχ που παίζει πρώτος δεύτερος κλp    
+    private int number;
 
     public Player() {
         tiles = new ArrayList<>();
@@ -37,7 +37,7 @@ public class Player {
         return tiles;
     }
 
-    public Tile move(int x)//επιστρεφει το χ πλακίδιο απο τα χεριά
+    public Tile move(int x)
     {
         if (x >= 0 && x < tiles.size())
             return tiles.remove(x);
@@ -47,7 +47,7 @@ public class Player {
     }
 
 
-    public boolean haveMove(Tile lef, Tile rig)//αν εχει να κάνει κίνηση ή όχι
+    public boolean haveMove(Tile lef, Tile rig)
     {
         if (!tiles.isEmpty()) {
             for (Tile t : tiles) {

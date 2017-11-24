@@ -31,7 +31,7 @@ public class Hungarian {
         rounds.add(Robot);
     }
 
-    public void Start()/* όποιος έχει το μεγαλύτερο πλακίδι  θα παίξει πρώτος και μοιράζει πλακίδια*/ {
+    public void Start() {
 
         for (int i = 0; i < numberTile; i++) {
             Robot.add(stack.giveTile());
@@ -50,7 +50,7 @@ public class Hungarian {
         }
     }//εχει ελεχθει
 
-    public boolean movePlayerTurn(int x, String position)//αν ολοκληρώθηκε επιτυχώς η κίνηση ή όχι
+    public boolean movePlayerTurn(int x, String position)
     {
         Tile t = player1.move(x);
         if (t == null)
@@ -66,7 +66,7 @@ public class Hungarian {
         return false;
     }
 
-    public boolean moveBotTurn()//αν έγινε η κίνηση ή δεν μπορεί να κάνει αλλη
+    public boolean moveBotTurn()
     {
         if (Robot.byTile(classic.getfirstTile().getLeft())) {
             Tile t = Robot.movement_tile(classic.getfirstTile().getLeft());
@@ -81,14 +81,14 @@ public class Hungarian {
 
     }
 
-    public boolean finishGame()//αλήθεια αν τελειωσε το παιχνίδι και ψευδής αν δεν τελείωσε το παιχνίδι
+    public boolean finishGame()
     {
         if (rounds.pointPlayer(player1) >= 100 || rounds.pointPlayer(Robot) >= 100)
             return true;
         return false;
     }
 
-    public boolean movesPlayers()//αν κα΄ποιος έχει να κανει κίνηση true ειδάλλως false
+    public boolean movesPlayers()
     {
         if (player1.haveMove(classic.getfirstTile(), classic.getlastTile()) || Robot.haveMove(classic.getfirstTile(), classic.getlastTile())) {
             return true;
@@ -104,7 +104,7 @@ public class Hungarian {
 
     }
 
-    public boolean playerTurn()//αν έχει κίνηση ο player1
+    public boolean playerTurn()
     {
         if (player1.haveMove(classic.getfirstTile(), classic.getlastTile()))
             return true;
@@ -134,7 +134,7 @@ public class Hungarian {
         return classic;
     }
 
-    public void deleteHands(Player p)//σβήνει όλα τα πλακίδια που έχει ο συγκεκριμένος παίχτης
+    public void deleteHands(Player p)
     {
         player1.deletesTiles();
         Robot.deletesTiles();

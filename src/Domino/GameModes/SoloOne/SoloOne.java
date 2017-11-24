@@ -29,10 +29,18 @@ public class SoloOne extends Table {
 //        tiles.add(t2);
     }
 
+
+    /**
+     * @return Remaining tiles.
+     */
     public ArrayList<ArrayList<Tile>> tilesLeft() {
         return tiles;
     }
 
+    /**
+     * @param row The row of the selected tile
+     * @param left Where does user want to put the tile (left true)
+     */
     public void getTile(int row, boolean left) {
         if (0 <= row && row <= 3 && tiles.get(row).size() > 0) {
             if (addTile(tiles.get(row).get(tiles.get(row).size() - 1), left)) {
@@ -52,6 +60,9 @@ public class SoloOne extends Table {
         }
     }
 
+    /**
+     * @return Are there any more moves
+     */
     public boolean anyMoves() {
         for (int i = 0; i < tiles.size(); i++) {
             if (tiles.get(i).size() > 0 && additionCheck(tiles.get(i).get(tiles.get(i).size() - 1))) {

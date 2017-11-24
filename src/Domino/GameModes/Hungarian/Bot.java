@@ -11,14 +11,14 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * @author Χρίστος
+ * @author Christos
  */
 public class Bot extends Player {
     public Bot() {
         super();
     }
 
-    public boolean byTile(int l)//ελένχει αν ένα πλακίδιο μπορεί να κολήσει μια μεριά(είτε στην αριστερή είτε στην δεξιά)
+    public boolean byTile(int l)
     {
         if (!Tiles().isEmpty()) {
             for (Tile t : Tiles()) {
@@ -29,7 +29,7 @@ public class Bot extends Player {
         return false;
     }
 
-    public Tile movement_tile(int r)//επιστρέφει το πλακίδιο που είναι να κολήσει στο ταμπλό του ντόμινο
+    public Tile movement_tile(int r)
     {
         ArrayList<Tile> move = new ArrayList<>();
         Random r1 = new Random();

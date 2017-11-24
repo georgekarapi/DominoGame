@@ -105,14 +105,14 @@ public class Terminal {
         }
     }
 
-    public static void ShowHands(ArrayList<Tile> tiles, String s)//εμφανίζει τα πλακίδια που έχει στα χέρια ο παίχτης
+    public static void ShowHands(ArrayList<Tile> tiles, String s)
     {
         System.out.println(s);
         for (Tile t : tiles)
             System.out.println(tiles.indexOf(t) + ".[" + t.getLeft() + "|" + t.getRight() + "]");
     }
 
-    public static void showTabloDomino(ArrayList<Tile> tiles, String s)//εμφανίζει το ντόμινο ταμπλό
+    public static void showTabloDomino(ArrayList<Tile> tiles, String s)
     {
         System.out.println(s);
         if (!tiles.isEmpty()) {
@@ -138,7 +138,7 @@ public class Terminal {
             ShowHands(game.getPlayer().Tiles(), "Your turn,your tiles are: ");
             showTabloDomino(game.getClassic().getTable(), "Dominoes are: ");
             System.out.println("Choose one of your tiles (number)");
-            number = input.nextInt();//επιλέγει ποιό πλακίδιο θα μετακίνησει
+            number = input.nextInt();
             System.out.println("Choose l(eft) or r(ight)");
             s = input.next();
         } while (!game.movePlayerTurn(number, s));

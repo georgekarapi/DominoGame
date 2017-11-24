@@ -80,7 +80,7 @@ public class Table {
         return table.get(table.size() - 1);
     }
 
-    public boolean emptyTabloAddTile(Tile t)//μόνο για την πρώτη περίπτωση όταν είναι άδειο το ταμπλό μπαίνει το πρωtό πλακάκι
+    public boolean emptyTabloAddTile(Tile t)
     {
         if (table.isEmpty()) {
             table.add(t);

@@ -40,4 +40,3 @@ public class Tile {
         setRight(temp);
     }
 }
-//ΕΧΕΙ ΕΛΕΓΧΘΕΙ
