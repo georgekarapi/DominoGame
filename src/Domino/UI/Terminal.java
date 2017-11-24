@@ -59,14 +59,18 @@ public class Terminal {
         System.out.println("**********GameOver!**********");
     }
 
-    public static boolean position(){
+    public static boolean positionLeft(){
         Scanner scan = new Scanner(System.in);
         String input = new String();
         do{
             System.out.println("Choose l(eft) or r(ight)");
             input = scan.nextLine();
         }while(!((input.contains("l") || input.contains("L")) ^ ((input.contains("r") || input.contains("R")))));
-        return true;
+        if((input.contains("l") || input.contains("L"))){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public static int inputTile(int min, int max) {
@@ -93,7 +97,7 @@ public class Terminal {
             System.out.println("Tiles Played: ");
             printTiles2(solo.getTable());
             int row = inputTile(1,4);
-            solo.getTile(row - 1, position());
+            solo.getTile(row - 1, positionLeft());
         }
     }
 
