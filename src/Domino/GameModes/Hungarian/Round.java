@@ -8,7 +8,7 @@ package Domino.GameModes.Hungarian;
 import java.util.HashMap;
 
 /**
- * @author christos
+ * @author Christos
  */
 public class Round {
     private HashMap<Player, Integer> r;

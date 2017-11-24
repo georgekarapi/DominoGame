@@ -3,6 +3,7 @@ package Domino.UI;
 import Domino.Base.Tile;
 import Domino.GameModes.Hungarian.Hungarian;
 import Domino.GameModes.SoloOne.SoloOne;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -58,7 +59,17 @@ public class Terminal {
         System.out.println("**********GameOver!**********");
     }
 
-    public int inputTile(int min, int max) {
+    public static boolean position(){
+        Scanner scan = new Scanner(System.in);
+        String input = new String();
+        do{
+            System.out.println("Choose l(eft) or r(ight)");
+            input = scan.nextLine();
+        }while(!((input.contains("l") || input.contains("L")) ^ ((input.contains("r") || input.contains("R")))));
+        return true;
+    }
+
+    public static int inputTile(int min, int max) {
         Scanner scan = new Scanner(System.in);
         int input;
         do {
@@ -69,7 +80,7 @@ public class Terminal {
                 scan.next();
             }
             input = scan.nextInt();
-        } while (min <= input && input <= max);
+        } while (min > input && input < max);
         return input;
     }
 
@@ -81,28 +92,8 @@ public class Terminal {
             printTiles(solo.tilesLeft());
             System.out.println("Tiles Played: ");
             printTiles2(solo.getTable());
-            while (true) {
-                System.out.println("Choose next tile (row 1 - 4)");
-                Scanner scan = new Scanner(System.in);
-                int row = scan.nextInt();
-                if (1 <= row && row <= 4) {
-                    while (true) {
-                        scan.nextLine();
-                        System.out.println("Choose l(eft) or r(ight)");
-                        String pos = scan.nextLine();
-                        if (pos.equals("l")) {
-                            solo.getTile(row - 1, true);
-                            break;
-                        } else if (pos.equals("r")) {
-                            solo.getTile(row - 1, false);
-                            break;
-                        }
-                    }
-                    break;
-                } else {
-                    System.out.println("Choose between 1-4");
-                }
-            }
+            int row = inputTile(1,4);
+            solo.getTile(row - 1, position());
         }
     }
 
