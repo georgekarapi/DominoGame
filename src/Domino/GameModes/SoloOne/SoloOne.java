@@ -19,14 +19,6 @@ public class SoloOne extends Table {
         Dominoes dom;
         dom = new Dominoes();
         tiles = dom.getTiles(4, 7);
-//        tiles = new ArrayList<>();
-//        ArrayList<Tile> t1,t2;
-//        t1 = new ArrayList<>();
-//        t1.add(new Tile(1,1));
-//        t2 = new ArrayList<>();
-//        t2.add(new Tile(1,4));
-//        tiles.add(t1);
-//        tiles.add(t2);
     }
 
 

@@ -18,6 +18,7 @@ public class Terminal {
 
     public static void printTiles(ArrayList<ArrayList<Tile>> tiles) {
         for (int i = 0; i < tiles.size(); i++) {
+            System.out.print(i+1+".");
             for (int j = 0; j < tiles.get(i).size(); j++) {
                 System.out.print(stringifyTile(tiles.get(i).get(j)));
             }
@@ -81,7 +82,7 @@ public class Terminal {
             System.out.println("Tiles Played: ");
             printTiles2(solo.getTable());
             while (true) {
-                System.out.println("Choose next tile");
+                System.out.println("Choose next tile (row 1 - 4)");
                 Scanner scan = new Scanner(System.in);
                 int row = scan.nextInt();
                 if (1 <= row && row <= 4) {

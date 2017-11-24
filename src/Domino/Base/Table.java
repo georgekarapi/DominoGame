@@ -12,6 +12,11 @@ public class Table {
         table = new ArrayList<>();
     }
 
+    /**
+     * @param t Add Tile to the Table
+     * @param left Add first (true) or last (false) in the list
+     * @return
+     */
     public boolean addTile(Tile t, boolean left) {
         if (additionCheck(t)) {
             if (table.size() == 0) {
@@ -41,10 +46,17 @@ public class Table {
         }
     }
 
+    /**
+     * @return Current Table ArrayList
+     */
     public ArrayList<Tile> getTable() {
         return new ArrayList<Tile>(table);
     }
 
+    /**
+     * @param t Tile
+     * @return Find position (first or last)
+     */
     private boolean isLeft(Tile t) {
         if (t.getRight() == table.get(0).getLeft() || t.getLeft() == table.get(0).getLeft()) {
             return true;
@@ -52,6 +64,10 @@ public class Table {
         return false;
     }
 
+    /**
+     * @param t Tile
+     * @return Find position (first or last)
+     */
     private boolean isRight(Tile t) {
         if (t.getLeft() == table.get(table.size() - 1).getRight() || t.getRight() == table.get(table.size() - 1).getRight()) {
             return true;
@@ -59,6 +75,10 @@ public class Table {
         return false;
     }
 
+    /**
+     * @param t Tile
+     * @return Can be added in Table ArrayList?
+     */
     public boolean additionCheck(Tile t) {
         if (table.size() > 0) {
             if (t.getRight() == table.get(0).getLeft() || t.getLeft() == table.get(0).getLeft()) {
@@ -72,23 +92,23 @@ public class Table {
         return false;
     }
 
-    public Tile getfirstTile() {
+    /**
+     * @return First element Table
+     */
+    public Tile getFirstTile() {
         return table.get(0);
     }
 
-    public Tile getlastTile() {
+    /**
+     * @return Last element of Table
+     */
+    public Tile getLastTile() {
         return table.get(table.size() - 1);
     }
 
-    public boolean emptyTabloAddTile(Tile t)
-    {
-        if (table.isEmpty()) {
-            table.add(t);
-            return true;
-        }
-        return false;
-    }
-
+    /**
+     * Remove all Table elements
+     */
     public void deleteTiles() {
         table.clear();
     }

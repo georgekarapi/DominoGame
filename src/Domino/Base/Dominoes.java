@@ -16,10 +16,9 @@ public class Dominoes {
         }
     }
 
-    public ArrayList<Tile> stack() {
-        return tiles;
-    }
-
+    /**
+     * @return A Tile from the ArrayList
+     */
     public Tile giveTile() {
         Random r = new Random();
         int tile;
@@ -32,6 +31,11 @@ public class Dominoes {
         return tiles.remove(tile);
     }
 
+    /**
+     * @param HEIGHT Height of the ArrayList (up to 4)
+     * @param WIDTH Width of the ArrayList (up to 7)
+     * @return ArrayList<ArrayList<Tile>>
+     */
     public ArrayList<ArrayList<Tile>> getTiles(int HEIGHT, int WIDTH) {
         Tile tile;
         ArrayList<ArrayList<Tile>> ctiles = new ArrayList<>();
@@ -46,6 +50,9 @@ public class Dominoes {
         return ctiles;
     }
 
+    /**
+     * Clear Tiles from the List
+     */
     public void deletesTiles() {
         tiles.clear();
     }

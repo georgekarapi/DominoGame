@@ -9,6 +9,10 @@ public class Tile {
         right = 0;
     }
 
+    /**
+     * @param l Left Tile number
+     * @param r Right Tile number
+     */
     public Tile(int l, int r) {
         left = l;
         right = r;
@@ -21,7 +25,7 @@ public class Tile {
         return right;
     }
 
-    /**
+    /**ArrayList<ArrayList<Tile>>
      * @param r Set right int
      */
     public void setRight(int r) {
@@ -49,6 +53,9 @@ public class Tile {
         return left + right;
     }
 
+    /**
+     * Swap Left Right Tiles numbers
+     */
     public void swapTile() {
         int temp = left;
         setLeft(right);

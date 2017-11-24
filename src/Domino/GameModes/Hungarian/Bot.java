@@ -51,8 +51,3 @@ public class Bot extends Player {
     }
 
 }
-   
-
-/* έχει γίνει έλεγχος*/
-
-/**/
