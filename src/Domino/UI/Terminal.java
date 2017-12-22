@@ -183,6 +183,7 @@ public class Terminal {
     }
 
     public static void main(String args[]) {
+        //Add input method
         int choice = 1;
         while (choice > 0) {
             System.out.println("Choose a GameMode/option: ");
