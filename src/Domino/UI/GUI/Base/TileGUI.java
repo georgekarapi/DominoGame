@@ -28,7 +28,7 @@ public class TileGUI extends JPanel{
         int tnum = num;
         if(num > 3){
             rows = 2;
-            y /= 2;
+            y -= 10;
             tnum -= 2;
             if(num == 6){ tnum--;}
         }
@@ -46,7 +46,7 @@ public class TileGUI extends JPanel{
                 }
                 tnum--;
             }
-            y += h2;
+            y += 20;
             if(num > 3){
                 tnum += 2;
                 if(num == 6){ tnum++;}
