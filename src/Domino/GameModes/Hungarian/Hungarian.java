@@ -8,6 +8,8 @@ package Domino.GameModes.Hungarian;
 import Domino.Base.Dominoes;
 import Domino.Base.Table;
 import Domino.Base.Tile;
+
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -62,6 +64,7 @@ public class Hungarian {
 
      }
     }
+   public Collection<Player> getplayers(){return players.values();}
      public boolean movePlayerTurn(int x, String position)
      {
          Player p1=my_player();
@@ -91,6 +94,7 @@ public class Hungarian {
              classic.addTile(t, false);
              return true;
          }
+
          return false;
 
      }
