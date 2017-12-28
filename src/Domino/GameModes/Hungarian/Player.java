@@ -14,25 +14,15 @@ import java.util.ArrayList;
  */
 public class Player {
     private ArrayList<Tile> tiles;
-    private int number;
-
-    public Player() {
+    private String name;
+    public Player(String name) {
         tiles = new ArrayList<>();
-        number = 0;
-    }
-
-    public int get_number() {
-        return number;
-    }
-
-    public void set_number(int n) {
-        number = n;
+        this.name=name;
     }
 
     public void add(Tile t) {
         tiles.add(t);
     }
-
     public ArrayList<Tile> Tiles() {
         return tiles;
     }
@@ -105,10 +95,13 @@ public class Player {
     public void deletesTiles() {
         tiles.clear();
     }
-}
-/*εχει ελεγχθεί/* public void print()
+    public String get_name(){return  "My name is "+name; }
+    public void show()
     {
-        System.out.println();
+        System.out.println("My name is "+name);
         for(Tile t:tiles)
-        System.out.println(tiles.indexOf(t)+".["+t.getLeft()+"|"+t.getRight()+"]");
-    }*/
+        {
+            System.out.print(tiles.indexOf(t) + ".[" + t.getLeft() + "|" + t.getRight() + "]");
+        }
+    }
+}

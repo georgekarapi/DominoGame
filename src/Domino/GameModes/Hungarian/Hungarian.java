@@ -8,142 +8,185 @@ package Domino.GameModes.Hungarian;
 import Domino.Base.Dominoes;
 import Domino.Base.Table;
 import Domino.Base.Tile;
+import java.util.HashMap;
 
 /**
  * @author christos
  */
 public class Hungarian {
-    private final int numberTile = 12;
+    private  int numberTile ;
     private Dominoes stack;
     private Table classic;
-    private Player player1;
-    private Bot Robot;
     private Round rounds;
-
-    public Hungarian() {
-
+    private HashMap<Integer,Player> players;
+    public Hungarian(int numPlayer,String name) {
+        numberTile=24/numPlayer;
+        players=new HashMap<>();
         stack = new Dominoes();
         classic = new Table();
-        player1 = new Player();
-        Robot = new Bot();
+        players.put(new Integer(0),new Player(name));
+        for(int i=1;i<numPlayer;i++)
+            players.put(new Integer(i),new Bot("bot"+i));
         rounds = new Round();
-        rounds.add(player1);
-        rounds.add(Robot);
+        for(Player p:players.values())
+            rounds.add(p);
     }
-
     public void Start() {
 
         for (int i = 0; i < numberTile; i++) {
-            Robot.add(stack.giveTile());
-            player1.add(stack.giveTile());
+            for( Player p:players.values())
+            p.add(stack.giveTile());
         }
-        if ((player1.maxTile().getTotal() > Robot.maxTile().getTotal() && player1.doubleTile(player1.maxTile()) && Robot.doubleTile(Robot.maxTile())) || (player1.doubleTile(player1.maxTile()) && !Robot.doubleTile(Robot.maxTile())) || (!player1.doubleTile(player1.maxTile()) && !Robot.doubleTile(Robot.maxTile()) && player1.maxTile().getTotal() > Robot.maxTile().getTotal())) {
-            player1.set_number(1);//
-            Robot.set_number(2);
-            Tile t = player1.removes(player1.maxTile());
-            classic.addTile(t, true);
-        } else {
-            Robot.set_number(1);
-            player1.set_number(2);
-            Tile t = Robot.removes(Robot.maxTile());
-            classic.addTile(t, true);
+
+      for(int i=0;i<players.size()-1;i++) {
+            for(int j=i;j<players.size();j++) {
+                if ((players.get(new Integer(j)).maxTile().getTotal() > players.get(i).maxTile().getTotal() && players.get(j).doubleTile(players.get(j).maxTile()) && players.get(i).doubleTile(players.get(i).maxTile())) || (players.get(j).doubleTile(players.get(j).maxTile()) && !players.get(i).doubleTile(players.get(i).maxTile())) || (!players.get(j).doubleTile(players.get(j).maxTile()) && !players.get(i).doubleTile(players.get(i).maxTile()) && players.get(j).maxTile().getTotal() > players.get(i).maxTile().getTotal()))
+                {
+                    Player pl=players.get(i);
+                    players.put(new Integer(i),players.get(j));
+                    players.put(new Integer(j),pl);
+
+                }
+            }
+      }
+              Tile t = players.get(0).removes(players.get(0).maxTile());
+     //   System.out.println("max="+t.getLeft()+","+t.getRight());
+              classic.addTile(t, true);
+    }
+    public void showEver()
+    {
+     for(Player p:players.values())
+     {
+         p.show();
+         System.out.println();
+
+     }
+    }
+     public boolean movePlayerTurn(int x, String position)
+     {
+         Player p1=my_player();
+         Tile t = p1.move(x);
+         if (t == null)
+             return false;
+         if (position.compareTo("l") == 0 && classic.isLeft(t)) {
+             classic.addTile(t, true);
+             return true;
+         } else if (position.compareTo("r") == 0 && classic.isRight(t)) {
+             classic.addTile(t, false);
+             return true;
+         }
+         p1.add(t);
+         return false;
+     }
+
+     public boolean moveBotTurn(int turn)
+     {
+         Bot Robot= (Bot) players.get(turn);
+         if (Robot.byTile(classic.getFirstTile().getLeft())) {
+             Tile t = Robot.movement_tile(classic.getFirstTile().getLeft());
+             classic.addTile(t, true);
+             return true;
+         } else if (Robot.byTile(classic.getLastTile().getRight())) {
+             Tile t = Robot.movement_tile(classic.getLastTile().getRight());
+             classic.addTile(t, false);
+             return true;
+         }
+         return false;
+
+     }
+
+     public boolean finishGame()
+     {
+         for(Player p:players.values())
+         {
+             if (rounds.pointPlayer(p) >= 100 )
+                 return true;
+         }
+         return false;
+     }
+
+     public boolean movesPlayers()
+     {
+         for(Player p:players.values())
+         {
+             if (p.haveMove(classic.getFirstTile(), classic.getLastTile()) )
+                 return true;
+         }
+         return false;
+     }
+
+     public void finishRound(){
+        int sum=0;
+        Player min=players.get(0);
+        for(Player p:players.values())
+        {
+             if(p.sumTiles()<min.sumTiles())
+             {
+                 min=p;
+             }
+             sum=sum+p.sumTiles();
         }
-    }//εχει ελεχθει
+        rounds.final_round(min,sum);
+     }
+     public boolean playerTurn()
+     {
+         if (my_player().haveMove(classic.getFirstTile(), classic.getLastTile()))
+             return true;
+         return false;
+     }
 
-    public boolean movePlayerTurn(int x, String position)
-    {
-        Tile t = player1.move(x);
-        if (t == null)
-            return false;
-        if (position.compareTo("l") == 0) {
-            classic.addTile(t, true);
-            return true;
-        } else if (position.compareTo("r") == 0) {
-            classic.addTile(t, false);
-            return true;
-        }
-        player1.add(t);
-        return false;
+     public boolean botTurn(int i)
+     {
+         Bot Robot=(Bot) players.get(i);
+         Robot.show();
+         System.out.println("");
+         if (Robot.haveMove(classic.getFirstTile(), classic.getLastTile()))
+             return true;
+         return false;
+     }
+
+     public Round getRound() {
+         return rounds;
+     }
+     public Table getClassic() {
+         return classic;
+     }
+
+     public void deleteHands()
+     {
+         for(Player p:players.values())
+             p.deletesTiles();
+     }
+
+     public void newRound()
+     {
+         stack.deletesTiles();
+         stack = new Dominoes();
+         classic.deleteTiles();
+     }
+     public Player my_player()
+     {
+         for(Player p:players.values())
+         {
+             if(p instanceof Bot){}
+             else
+                 return p;
+         }
+          return null;
+     }
+     public boolean turn_notBot(int i)
+     {
+         if(players.get(i) instanceof Bot)
+         return true;
+         else
+           return false;
+     }
+     public Bot get_Bot(int i)
+     {
+         return (Bot) players.get(i);
+     }
+    public static void main(String args[]) {
+
     }
 
-    public boolean moveBotTurn()
-    {
-        if (Robot.byTile(classic.getFirstTile().getLeft())) {
-            Tile t = Robot.movement_tile(classic.getFirstTile().getLeft());
-            classic.addTile(t, true);
-            return true;
-        } else if (Robot.byTile(classic.getLastTile().getRight())) {
-            Tile t = Robot.movement_tile(classic.getLastTile().getRight());
-            classic.addTile(t, false);
-            return true;
-        }
-        return false;
-
-    }
-
-    public boolean finishGame()
-    {
-        if (rounds.pointPlayer(player1) >= 100 || rounds.pointPlayer(Robot) >= 100)
-            return true;
-        return false;
-    }
-
-    public boolean movesPlayers()
-    {
-        if (player1.haveMove(classic.getFirstTile(), classic.getLastTile()) || Robot.haveMove(classic.getFirstTile(), classic.getLastTile())) {
-            return true;
-        }
-        return false;
-    }
-
-    public void finishRound() {
-        if (player1.sumTiles() < Robot.sumTiles())
-            rounds.final_round(player1, player1.sumTiles() + Robot.sumTiles());
-        else
-            rounds.final_round(Robot, player1.sumTiles() + Robot.sumTiles());
-
-    }
-
-    public boolean playerTurn()
-    {
-        if (player1.haveMove(classic.getFirstTile(), classic.getLastTile()))
-            return true;
-        return false;
-    }
-
-    public boolean botTurn()
-    {
-        if (Robot.haveMove(classic.getFirstTile(), classic.getLastTile()))
-            return true;
-        return false;
-    }
-
-    public Round getRound() {
-        return rounds;
-    }
-
-    public Player getPlayer() {
-        return player1;
-    }
-
-    public Bot getRobot() {
-        return Robot;
-    }
-
-    public Table getClassic() {
-        return classic;
-    }
-
-    public void deleteHands(Player p)
-    {
-        player1.deletesTiles();
-        Robot.deletesTiles();
-    }
-
-    public void newRound()//
-    {
-        stack.deletesTiles();
-        stack = new Dominoes();
-        classic.deleteTiles();
-    }
 }

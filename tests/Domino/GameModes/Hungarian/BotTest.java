@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 public class BotTest {
     @Test
     public void byTile() throws Exception {
-        Bot robot = new Bot();
+        Bot robot = new Bot("");
         robot.add(new Tile(4, 6));
         robot.add(new Tile(2, 9));
         robot.add(new Tile(0, 1));
@@ -23,7 +23,7 @@ public class BotTest {
 
     @Test
     public void movement_tile() throws Exception {
-        Bot robot = new Bot();
+        Bot robot = new Bot("");
         robot.add(new Tile(4, 6));
         robot.add(new Tile(2, 9));
         robot.add(new Tile(0, 1));

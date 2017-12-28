@@ -57,7 +57,7 @@ public class Table {
      * @param t Tile
      * @return Find position (first or last)
      */
-    private boolean isLeft(Tile t) {
+    public boolean isLeft(Tile t) {
         if (t.getRight() == table.get(0).getLeft() || t.getLeft() == table.get(0).getLeft()) {
             return true;
         }
@@ -68,7 +68,7 @@ public class Table {
      * @param t Tile
      * @return Find position (first or last)
      */
-    private boolean isRight(Tile t) {
+    public  boolean isRight(Tile t) {
         if (t.getLeft() == table.get(table.size() - 1).getRight() || t.getRight() == table.get(table.size() - 1).getRight()) {
             return true;
         }

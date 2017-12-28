@@ -1,7 +1,9 @@
 package Domino.UI;
 
 import Domino.Base.Tile;
+import Domino.GameModes.Hungarian.Bot;
 import Domino.GameModes.Hungarian.Hungarian;
+import Domino.GameModes.Hungarian.Player;
 import Domino.GameModes.SoloOne.SoloOne;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
@@ -131,57 +133,45 @@ public class Terminal {
         int number;
         String s;
         do {
-            ShowHands(game.getPlayer().Tiles(), "Your turn,your tiles are: ");
+            ShowHands(game.my_player().Tiles(), "Your turn,your tiles are: ");
             showTabloDomino(game.getClassic().getTable(), "Dominoes are: ");
             System.out.println("Choose one of your tiles (number)");
             number = input.nextInt();
             System.out.println("Choose l(eft) or r(ight)");
             s = input.next();
-        } while (!game.movePlayerTurn(number, s));
+      } while (!game.movePlayerTurn(number, s));
 
     }
 
-    public static void startGameHungarian(Hungarian game) {
+    public static void startGameHungarian(Hungarian game,String name,int pl) {
         System.out.println("Welcome to the Hungarian Domino ");
         while (!game.finishGame()) {
             game.Start();
             System.out.println("Round " + game.getRound().numRound() + "os");
             while (game.movesPlayers()) {
-
-                if (game.getPlayer().get_number() == 1) {
-                    while (game.playerTurn()) {
-                        inputPlayer(game);
-                    }
-                    while (game.botTurn()) {
-                        System.out.println("Its Robot turn");
-                        game.moveBotTurn();//ShowHands(game.getRobot().Tiles(),"Robot have hands:");
-                    }
-                } else if (game.getRobot().get_number() == 1) {
-                    while (game.botTurn()) {
-                        System.out.println("Its Robot turn");
-
-                        game.moveBotTurn();
-                    }
-                    while (game.playerTurn()) {
-                        inputPlayer(game);
+                for (int i = 0; i < pl; i++) {
+                    if (game.turn_notBot(i)) {
+                        while (game.botTurn(i)) {
+                            game.moveBotTurn(i);
+                        }
+                    } else {
+                        while (game.playerTurn()) {
+                            inputPlayer(game);
+                        }
                     }
                 }
             }
             System.out.println("Finish round " + game.getRound().numRound());
             game.finishRound();
-            Points("player1 ", game.getRound().pointPlayer(game.getPlayer()));
-            Points("Robot ", game.getRound().pointPlayer(game.getRobot()));
-            game.deleteHands(game.getPlayer());
-            game.deleteHands(game.getRobot());
+            game.deleteHands();
             game.newRound();
-
         }
-        if (game.getRound().pointPlayer(game.getPlayer()) >= 100)
-            System.out.println("You win");
-        else
-            System.out.println("You lost");
-    }
+            if (game.getRound().pointPlayer(game.my_player()) >= 100)
+                System.out.println("You win");
+            else
+                System.out.println("You lost");
 
+    }
     public static void main(String args[]) {
         //Add input method
         int choice = 1;
@@ -198,8 +188,8 @@ public class Terminal {
                     startSolo();
                     break;
                 case 2:
-                    Hungarian game = new Hungarian();
-                    startGameHungarian(game);
+                   Hungarian game = new Hungarian(3,"christos");
+                   startGameHungarian(game,"christos",3);
                     break;
                 case 0:
                     System.exit(0);

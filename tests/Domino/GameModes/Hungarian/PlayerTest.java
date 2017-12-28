@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 public class PlayerTest {
     @Test
     public void move() throws Exception {
-        Player p1 = new Player();
+        Player p1 = new Player("");
         p1.add(new Tile(3, 4));
         p1.add(new Tile(6, 6));
         p1.add(new Tile(1, 9));
@@ -21,7 +21,7 @@ public class PlayerTest {
 
     @Test
     public void haveMove() throws Exception {
-        Player p1 = new Player();
+        Player p1 = new Player("");
         p1.add(new Tile(3, 4));
         p1.add(new Tile(6, 6));
         p1.add(new Tile(1, 9));
@@ -33,7 +33,7 @@ public class PlayerTest {
 
     @Test
     public void maxTile() throws Exception {
-        Player p1 = new Player();
+        Player p1 = new Player("");
         p1.add(new Tile(1, 4));
         p1.add(new Tile(3, 5));
         p1.add(new Tile(1, 9));
@@ -45,7 +45,7 @@ public class PlayerTest {
 
     @Test
     public void sumTiles() throws Exception {
-        Player p1 = new Player();
+        Player p1 = new Player("");
         p1.add(new Tile(3, 4));
         p1.add(new Tile(6, 6));
         p1.add(new Tile(1, 9));

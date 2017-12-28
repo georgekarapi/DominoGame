@@ -7,8 +7,8 @@ import static org.junit.Assert.assertEquals;
 public class RoundTest {
     @Test
     public void final_round() throws Exception {
-        Player p1 = new Player();
-        Bot robot = new Bot();
+        Player p1 = new Player("");
+        Bot robot = new Bot("");
         Round r = new Round();
         r.add(p1);
         r.add(robot);
