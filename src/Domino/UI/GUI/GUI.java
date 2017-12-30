@@ -11,7 +11,7 @@ public class GUI{
         frame.setSize(512,512);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
-        frame.getContentPane().add(new TileGUI(2,4,50,40,35));
+        frame.add(new TileGUI(3,5,50,40,35));
         frame.setVisible(true);
     }
     public static void main(String args[]) {

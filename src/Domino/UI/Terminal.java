@@ -153,6 +153,7 @@ public class Terminal {
                     if (game.turn_notBot(i)) {
                         while (game.botTurn(i)) {
                             game.moveBotTurn(i);
+                            showTabloDomino(game.getClassic().getTable(), "Dominoes are: ");
                         }
                     } else {
                         while (game.playerTurn()) {
@@ -163,8 +164,11 @@ public class Terminal {
             }
             System.out.println("Finish round " + game.getRound().numRound());
             game.finishRound();
+            for(Player p:game.getplayers())
+            Points(p.get_name(),game.getRound().pointPlayer(p));
             game.deleteHands();
             game.newRound();
+
         }
             if (game.getRound().pointPlayer(game.my_player()) >= 100)
                 System.out.println("You win");
