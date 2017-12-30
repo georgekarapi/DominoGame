@@ -13,9 +13,9 @@ public class HungarianGYI extends JPanel implements ActionListener{
     private int players;
     public class GYIname implements ActionListener
     {
-        private JTextField onoma;
-        private JButton ok;
-        private JLabel keys;
+        public JTextField onoma;
+        public JButton ok;
+        public JLabel keys;
         public GYIname()
         {
             super();
@@ -45,16 +45,13 @@ public class HungarianGYI extends JPanel implements ActionListener{
             if(e.getActionCommand().equals(ok.getActionCommand()))
             { name=onoma.getText();
                 System.out.println(name);
+                setVisible(false);
+                removeAll();
+                setVisible(true);
+                GYIplayers kat =new GYIplayers();
             }
-            setVisible(false);
         }
-        public boolean visible()
-        {
-            if(isVisible())
-            return true;
-            else
-               return false;
-        }
+
     }
     public class GYIplayers implements ActionListener {
         private JButton pl[];
@@ -62,7 +59,7 @@ public class HungarianGYI extends JPanel implements ActionListener{
         public GYIplayers() {
             super();
             setLayout(null);
-            setVisible(false);
+            setVisible(true);
             setSize(500, 500);
             setBounds(0, 0, 500, 500);
 
@@ -79,7 +76,7 @@ public class HungarianGYI extends JPanel implements ActionListener{
                 add(pl[i]);
             }
         }
-
+        public void visible(){setVisible(true);}
         @Override
         public void actionPerformed(ActionEvent e) {
 
@@ -87,9 +84,9 @@ public class HungarianGYI extends JPanel implements ActionListener{
                 if (e.getActionCommand().equals(pl[i].getActionCommand())) {
                     players = i + 2;
                     setVisible(false);
+                    removeAll();
                 }
             }
-            System.out.println(players);
         }
     }
     public HungarianGYI()
@@ -100,14 +97,6 @@ public class HungarianGYI extends JPanel implements ActionListener{
         setSize(500,500);
         setBounds(0,0,500,500);
       GYIname onoma=new GYIname();
-        GYIplayers pl=new GYIplayers();
-
-      /*  pl=new JButton[3];
-        pl[0].setText("Players 2");
-        pl[1].setText("Players 3");
-        pl[2].setText("Players 4"); */
-
-
     }
 
     @Override
@@ -122,6 +111,7 @@ public class HungarianGYI extends JPanel implements ActionListener{
         fr.setLocation(50,50);
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fr.add(gui);
+
         fr.setVisible(true);
 
     }
