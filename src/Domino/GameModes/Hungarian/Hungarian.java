@@ -52,7 +52,6 @@ public class Hungarian {
             }
       }
               Tile t = players.get(0).removes(players.get(0).maxTile());
-     //   System.out.println("max="+t.getLeft()+","+t.getRight());
               classic.addTile(t, true);
     }
     public void showEver()
@@ -189,8 +188,5 @@ public class Hungarian {
      {
          return (Bot) players.get(i);
      }
-    public static void main(String args[]) {
-
-    }
 
 }
