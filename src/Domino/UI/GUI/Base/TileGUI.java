@@ -83,6 +83,9 @@ public class TileGUI extends JPanel{
         if (shape != null) {
             g2d.setColor(Color.WHITE);
             g2d.fill(shape);
+            g2d.setColor(Color.BLACK);
+            g2d.setStroke(new BasicStroke(1));
+            g2d.draw(shape);
             components.setColor(Color.BLACK);
             components.fill(comps);
         }
