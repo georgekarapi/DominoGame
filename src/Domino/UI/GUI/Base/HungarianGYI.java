@@ -13,9 +13,9 @@ public class HungarianGYI extends JPanel implements ActionListener{
     private int players;
     public class GYIname implements ActionListener
     {
-        public JTextField onoma;
-        public JButton ok;
-        public JLabel keys;
+        private JTextField onoma;
+        private JButton ok;
+        private JLabel keys;
         public GYIname()
         {
             super();
@@ -98,6 +98,10 @@ public class HungarianGYI extends JPanel implements ActionListener{
         setBounds(0,0,500,500);
       GYIname onoma=new GYIname();
     }
+    public void players2()
+    {
+
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -111,7 +115,6 @@ public class HungarianGYI extends JPanel implements ActionListener{
         fr.setLocation(50,50);
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fr.add(gui);
-
         fr.setVisible(true);
 
     }
