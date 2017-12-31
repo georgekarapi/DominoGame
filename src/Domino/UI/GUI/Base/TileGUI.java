@@ -7,16 +7,19 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.*;
+import java.util.Optional;
 
-@SuppressWarnings("serial")
 public class TileGUI extends JPanel{
     private final int posX,posY,width,height,w2,h2;
-    private Area shape;
-    private Area comps;
+    private Area shape, comps;
+    private boolean rotate;
     private Tile tile;
+    private Graphics2D g2d,components;
+    private String rot = "h";
     public Tile getTile(){ return tile;}
-    public TileGUI(int l, int r,int width, int posX, int posY) {
+    public TileGUI(int l, int r, int width, int posX, int posY, boolean rotate) {
         tile = new Tile(l, r);
+        this.rotate = rotate;
         this.posX = posX;
         this.posY = posY;
         this.width = width;
@@ -69,12 +72,12 @@ public class TileGUI extends JPanel{
         }
     }
 
-    @Override
     public void paint(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g;
-        Graphics2D components = (Graphics2D) g;
+        g2d = (Graphics2D) g.create();
+        components = (Graphics2D) g;
 
+        if(rotate){ rotate(); rotate = false;}
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         if (shape != null) {
@@ -84,11 +87,26 @@ public class TileGUI extends JPanel{
             components.fill(comps);
         }
     }
+
+    public void rotate(){
+        AffineTransform t = new AffineTransform();
+        int rotation;
+        if(rot.equals("h")){
+            rotation = 90;
+            rot = "v";
+        }else{
+            rotation = -90;
+            rot = "h";
+        }
+        t.rotate(Math.toRadians(rotation), posX, posY);
+        comps.transform(t);
+        shape.transform(t);
+    }
+
     class CustomMouseAdapter extends MouseAdapter{
         private boolean pressed = false;
         private Point point;
 
-        @Override
         public void mousePressed(MouseEvent e){
             if(e.getButton() != MouseEvent.BUTTON1){
                 return;
@@ -100,7 +118,6 @@ public class TileGUI extends JPanel{
             }
         }
 
-        @Override
         public void mouseDragged(MouseEvent e) {
             if (pressed && (e.getX() < getWidth() - w2/2 && e.getX() > 0 + w2/2) && (e.getY() < getHeight() - h2/2 && e.getY() > 0 + h2/2)) {
                 int deltaX = e.getX() - point.x;
@@ -112,7 +129,6 @@ public class TileGUI extends JPanel{
             }
         }
 
-        @Override
         public void mouseReleased(MouseEvent e) {
             pressed = false;
         }
