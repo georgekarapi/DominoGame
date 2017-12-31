@@ -4,29 +4,34 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-import static java.awt.GridBagConstraints.LINE_END;
-import static javax.swing.SwingConstants.CENTER;
-
-public class HungarianGYI extends JPanel implements ActionListener{
+public class HungarianGUI extends JPanel implements ActionListener{
     private String name;
     private int players;
+    private JFrame windows;
+    public HungarianGUI(JFrame windows)
+    {
+        super();
+        this.windows=windows;
+        setLayout(null);
+        setVisible(true);
+        setBounds(0,0,800,800);
+        setBackground(Color.LIGHT_GRAY);
+        GYIname onoma=new GYIname();
+    }
     public class GYIname implements ActionListener
     {
         private JTextField onoma;
         private JButton ok;
         private JLabel keys;
+
         public GYIname()
         {
             super();
             onoma=new JTextField();
             JLabel keys=new JLabel("Your name:");
             ok=new JButton("OK");
-
-            setLayout(null);
-            setVisible(true);
-            setSize(500,500);
-            setBounds(0,0,500,500);
 
             onoma.setBounds(250,250,200,30);
             onoma.addActionListener(this);
@@ -58,11 +63,6 @@ public class HungarianGYI extends JPanel implements ActionListener{
 
         public GYIplayers() {
             super();
-            setLayout(null);
-            setVisible(true);
-            setSize(500, 500);
-            setBounds(0, 0, 500, 500);
-
             pl = new JButton[3];
             pl[0] = new JButton("Players 2");
             pl[1] = new JButton("Players 3");
@@ -76,7 +76,6 @@ public class HungarianGYI extends JPanel implements ActionListener{
                 add(pl[i]);
             }
         }
-        public void visible(){setVisible(true);}
         @Override
         public void actionPerformed(ActionEvent e) {
 
@@ -85,37 +84,56 @@ public class HungarianGYI extends JPanel implements ActionListener{
                     players = i + 2;
                     setVisible(false);
                     removeAll();
+                    //paei sto kanonik;o game
+                    setVisible(true);
+                    Hands_Tiles  t=new Hands_Tiles();
                 }
             }
         }
     }
-    public HungarianGYI()
-    {
-        super();
-        setLayout(null);
-        setVisible(true);
-        setSize(500,500);
-        setBounds(0,0,500,500);
-      GYIname onoma=new GYIname();
-    }
-    public void players2()
-    {
 
-    }
+   public class Hands_Tiles
+   {
+       private ArrayList<JButton> hands;
+       private JPanel p1;
+       public Hands_Tiles() {
+           setBounds(0,0,800,600);
+           GridLayout gl = new GridLayout(1,6,0,0);
+           hands = new ArrayList<>();
+           p1 = new JPanel();
+           windows.add(p1);
+           p1.setLayout(gl);
+           p1.setBounds(0, 600, 800, 150);
+           p1.setBackground(Color.BLUE);
+           p1.setVisible(true);
+
+           for (int i = 0; i < 6; i++) {
+               JButton b1 = new JButton(i+"");
+               b1.setBackground(Color.GREEN);
+               b1.setSize(20,70);
+               hands.add(b1);
+               p1.add(b1);
+           }
+
+       }
+
+       }
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
         }
 
     public static void main(String args[]) {
-        HungarianGYI gui=new HungarianGYI();
         JFrame fr=new JFrame("windows");
+        HungarianGUI gui=new HungarianGUI(fr);
         fr.setLayout(null);
-        fr.setSize(800,800);
+        fr.setSize(820,801);
         fr.setLocation(50,50);
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fr.add(gui);
         fr.setVisible(true);
-
+//fr.setResizable(false);
     }
 }
