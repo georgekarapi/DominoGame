@@ -188,5 +188,6 @@ public class Hungarian {
      {
          return (Bot) players.get(i);
      }
+     public int  get_numberTile(){return numberTile;}
 
 }

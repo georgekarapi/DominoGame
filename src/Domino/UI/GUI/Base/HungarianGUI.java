@@ -1,18 +1,25 @@
 package Domino.UI.GUI.Base;
 
+import Domino.GameModes.Hungarian.Hungarian;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class HungarianGUI extends JPanel implements ActionListener{
     private String name;
     private int players;
     private JFrame windows;
+    Hungarian game;
+    private ArrayList<JPanel> panel;
+    //hashmap για πανελ και player
     public HungarianGUI(JFrame windows)
     {
         super();
+        panel=new ArrayList<>();
         this.windows=windows;
         setLayout(null);
         setVisible(true);
@@ -48,7 +55,9 @@ public class HungarianGUI extends JPanel implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
             if(e.getActionCommand().equals(ok.getActionCommand()))
-            { name=onoma.getText();
+            { if(onoma.getText().equals(""))
+                    return;
+                name=onoma.getText();
                 System.out.println(name);
                 setVisible(false);
                 removeAll();
@@ -86,46 +95,88 @@ public class HungarianGUI extends JPanel implements ActionListener{
                     removeAll();
                     //paei sto kanonik;o game
                     setVisible(true);
-                    Hands_Tiles  t=new Hands_Tiles();
+                    Hands_Tiles();
                 }
             }
         }
     }
 
-   public class Hands_Tiles
-   {
-       private ArrayList<JButton> hands;
-       private JPanel p1;
-       public Hands_Tiles() {
+
+
+
+       public void Hands_Tiles(){
+           int x=0,y=0;
+           game=new Hungarian(players,name);
+           if(players==2)
+           {x=y=0;}
+           else if(players==3)
+           {x=100; y=10;}
+           else if(players==4)
+           {x=200;y=20;}
            setBounds(0,0,800,600);
-           GridLayout gl = new GridLayout(1,6,0,0);
-           hands = new ArrayList<>();
-           p1 = new JPanel();
+           JPanel p1 = new JPanel();
+           panel.add(p1);
            windows.add(p1);
-           p1.setLayout(gl);
-           p1.setBounds(0, 600, 800, 150);
            p1.setBackground(Color.BLUE);
            p1.setVisible(true);
-
-           for (int i = 0; i < 6; i++) {
-               JButton b1 = new JButton(i+"");
+           GridLayout gl = new GridLayout(1,game.get_numberTile(),0,0);
+           p1.setLayout(gl);
+           p1.setBounds(x, 600, 800-2*x, 150-2*y);
+           for (int i = 0; i < game.get_numberTile(); i++) {
+               JButton b1 = new JButton("["+i+"]");
                b1.setBackground(Color.GREEN);
                b1.setSize(20,70);
-               hands.add(b1);
                p1.add(b1);
            }
+           players_3(game.get_numberTile());
 
        }
+       public void players_2(int x)
+       {
 
+           setBounds(100,100,600,500);
+           JPanel p2=new JPanel();
+           p2.setVisible(true);
+           p2.setLayout(new GridLayout(1,game.get_numberTile(),0,0));
+           p2.setBounds(200,20,400,70);
+           p2.setBackground(Color.WHITE);
+           for(int i=0;i<x;i++)
+           {
+               JButton b = new JButton();
+               b.setBackground(Color.yellow);
+               p2.add(b);
+           }
+           windows.add(p2);
+           panel.add(p2);
        }
-
-
+       public void players_3(int x)
+       {
+           players_2(x);
+           JPanel p3=new JPanel();
+           p3.setVisible(true);
+           p3.setLayout(new GridLayout(game.get_numberTile(),1,0,0));
+           p3.setBounds(20,150,70,400);
+           p3.setBackground(Color.BLACK);
+           for(int i=0;i<x;i++)
+           {
+               JButton b = new JButton();
+               b.setBackground(Color.yellow);
+               p3.add(b);
+           }
+           panel.add(p3);
+           windows.add(p3);
+       }
+     /*  public void players_4()
+       {
+           players_3();
+       }*/
 
     @Override
     public void actionPerformed(ActionEvent e) {
         }
 
     public static void main(String args[]) {
+
         JFrame fr=new JFrame("windows");
         HungarianGUI gui=new HungarianGUI(fr);
         fr.setLayout(null);
