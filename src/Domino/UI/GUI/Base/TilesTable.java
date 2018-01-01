@@ -11,8 +11,8 @@ import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 public class TilesTable extends JPanel{
-    TileGUI gui = new TileGUI(0,0,50,40,35, true);
-    TileGUI gui2 = new TileGUI(0,0,50,80,35, true);
+    TileGUI gui = new TileGUI(0,0,50);
+    TileGUI gui2 = new TileGUI(0,0,50);
     public void paintComponent(Graphics g){
         //setOpaque(false);
         super.paintComponent(g);
