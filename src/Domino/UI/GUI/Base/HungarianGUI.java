@@ -14,12 +14,12 @@ public class HungarianGUI extends JPanel implements ActionListener{
     private int players;
     private JFrame windows;
     Hungarian game;
-    private ArrayList<JPanel> panel;
+    private HashMap<JPanel,ArrayList<Button>> panel;
     //hashmap για πανελ και player
     public HungarianGUI(JFrame windows)
     {
         super();
-        panel=new ArrayList<>();
+        panel=new HashMap<>();
         this.windows=windows;
         setLayout(null);
         setVisible(true);
@@ -115,7 +115,7 @@ public class HungarianGUI extends JPanel implements ActionListener{
            {x=200;y=20;}
            setBounds(0,0,800,600);
            JPanel p1 = new JPanel();
-           panel.add(p1);
+
            windows.add(p1);
            p1.setBackground(Color.BLUE);
            p1.setVisible(true);
@@ -127,18 +127,77 @@ public class HungarianGUI extends JPanel implements ActionListener{
                b1.setBackground(Color.GREEN);
                b1.setSize(20,70);
                p1.add(b1);
+               //panel.put(p1,);
            }
-           players_3(game.get_numberTile());
+           if(players==2)
+           players_2(game.get_numberTile());
+           else if(players==3)
+            players_3(game.get_numberTile());
+            else if(players==4)
+                players_4(game.get_numberTile());
+            TableGUI g=new TableGUI(this);
+            g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),true);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+           g.add_TableGUI(new JButton(),false);
+
 
        }
        public void players_2(int x)
        {
-
+           int y=100*(players-2);
            setBounds(100,100,600,500);
+           setBackground(Color.cyan);
            JPanel p2=new JPanel();
            p2.setVisible(true);
            p2.setLayout(new GridLayout(1,game.get_numberTile(),0,0));
-           p2.setBounds(200,20,400,70);
+           p2.setBounds(200,20,400-y,70);
            p2.setBackground(Color.WHITE);
            for(int i=0;i<x;i++)
            {
@@ -147,15 +206,17 @@ public class HungarianGUI extends JPanel implements ActionListener{
                p2.add(b);
            }
            windows.add(p2);
-           panel.add(p2);
+         //  panel.add(p2);
+           //removes_Hands(p2,p2.);
        }
        public void players_3(int x)
        {
            players_2(x);
+           int y=100*(players-2);
            JPanel p3=new JPanel();
            p3.setVisible(true);
            p3.setLayout(new GridLayout(game.get_numberTile(),1,0,0));
-           p3.setBounds(20,150,70,400);
+           p3.setBounds(20,150,70,400-y);
            p3.setBackground(Color.BLACK);
            for(int i=0;i<x;i++)
            {
@@ -163,13 +224,33 @@ public class HungarianGUI extends JPanel implements ActionListener{
                b.setBackground(Color.yellow);
                p3.add(b);
            }
-           panel.add(p3);
+         //  panel.add(p3);
            windows.add(p3);
        }
-     /*  public void players_4()
+       public void players_4(int x)
        {
-           players_3();
-       }*/
+           players_3(x);
+           int y=100*(players-2);
+           JPanel p4=new JPanel();
+           p4.setVisible(true);
+           p4.setLayout(new GridLayout(game.get_numberTile(),1,0,0));
+           p4.setBounds(720,150,70,400-y);
+           p4.setBackground(Color.BLACK);
+           for(int i=0;i<x;i++)
+           {
+               JButton b = new JButton();
+               b.setBackground(Color.yellow);
+               p4.add(b);
+           }
+         //  panel.add(p4);
+           windows.add(p4);
+       }
+       public void removes_Hands(Panel p,int b)
+       {
+
+         //  p.setBounds(p.getX(),p.getY(),p.getWidth()-x,p.getHeight());
+          // p.remove(b);
+       }
 
     @Override
     public void actionPerformed(ActionEvent e) {
