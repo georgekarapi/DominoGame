@@ -7,17 +7,20 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.*;
-import java.util.Optional;
+import java.awt.image.BufferedImage;
 
-public class TileGUI extends JPanel{
+public class TileGUI extends JComponent{
     private final int posX,posY,width,height,w2,h2;
     private Area shape, comps;
+    private Path2D complete;
+    private BufferedImage bimage;
     private boolean rotate;
     private Tile tile;
-    private Graphics2D g2d,components;
+    private Graphics2D g2d,components,pic;
     private String rot = "h";
     public Tile getTile(){ return tile;}
     public TileGUI(int l, int r, int width, int posX, int posY, boolean rotate) {
+        setOpaque(false);
         tile = new Tile(l, r);
         this.rotate = rotate;
         this.posX = posX;
@@ -26,21 +29,22 @@ public class TileGUI extends JPanel{
         this.height = width / 2;
         w2 = width/2;
         h2 = height/2;
-        Shape tile2d = new RoundRectangle2D.Double(posX, posY, width, height,height / 6,height / 6);
-        shape = new Area(tile2d);
-        comps = new Area();
-        comps.add(new Area(new Rectangle2D.Double(posX + w2,posY,2,height)));
+        shape = new Area(new RoundRectangle2D.Double(0, 0, width, height,height / 6,height / 6));
+        comps = new Area(new Rectangle2D.Double(w2,0,2,height));
+        createDots(comps, tile.getLeft());
+        //createDots(comps, tile.getRight());
 
-        createDots(comps, posX, posY, tile.getLeft());
-        createDots(comps, posX + w2, posY, tile.getRight());
+        bimage = new BufferedImage(width + 1, height + 1, BufferedImage.TYPE_INT_ARGB);
+        pic = bimage.createGraphics();
+        draw();
         CustomMouseAdapter mouseAdapter = new CustomMouseAdapter();
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
     }
     private Shape dot(float x, float y) {
-        return new Ellipse2D.Float(x, y, height / 6, height / 6);
+        return new Ellipse2D.Float(0, 0, height / 6, height / 6);
     }
-    private void createDots(Area comps, int posX, int posY, int num){
+    private void createDots(Area comps, int num){
         int rows = 1;
         int y = h2;
         int tnum = num;
@@ -52,14 +56,14 @@ public class TileGUI extends JPanel{
         }
         for (int i = 0; i < rows; i++) {
             if(tnum == 2){
-                comps.add(new Area(dot((posX - (height / 6) / 2) + (w2 / 3), y + posY - (height / 6) / 2)));
-                comps.add(new Area(dot((posX - (height / 6) / 2) + (w2 / 3) + (w2 / 3), y + posY - (height / 6) / 2)));
+                comps.add(new Area(dot(((height / 6) / 2) + (w2 / 3), y + (height / 6) / 2)));
+                comps.add(new Area(dot(((height / 6) / 2) + (w2 / 3) + (w2 / 3), y + (height / 6) / 2)));
                 tnum -= 2;
             }else if(tnum != 0){
-                comps.add(new Area(dot((posX - (height / 6) / 2) + (w2 / 2), y + posY - (height / 6) / 2)));
+                comps.add(new Area(dot(((height / 6) / 2) + (w2 / 2), y + (height / 6) / 2)));
                 if(tnum == 3){
-                    comps.add(new Area(dot((posX - (height / 6) / 2) + ((w2 / 2) - ((w2 / 2) / 2)), y + posY - (height / 6) / 2)));
-                    comps.add(new Area(dot((posX - (height / 6) / 2) + ((w2 / 2) + ((w2 / 2) / 2)), y + posY - (height / 6) / 2)));
+                    comps.add(new Area(dot(((height / 6) / 2) + ((w2 / 2) - ((w2 / 2) / 2)), y + (height / 6) / 2)));
+                    comps.add(new Area(dot(((height / 6) / 2) + ((w2 / 2) + ((w2 / 2) / 2)), y + (height / 6) / 2)));
                     tnum -= 2;
                 }
                 tnum--;
@@ -71,26 +75,24 @@ public class TileGUI extends JPanel{
             }
         }
     }
-
-    public void paint(Graphics g) {
+    public void paintComponent(Graphics g){
         super.paintComponent(g);
-        g2d = (Graphics2D) g.create();
-        components = (Graphics2D) g;
-
-        if(rotate){ rotate(); rotate = false;}
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        if (shape != null) {
-            g2d.setColor(Color.WHITE);
-            g2d.fill(shape);
-            g2d.setColor(Color.BLACK);
-            g2d.setStroke(new BasicStroke(1));
-            g2d.draw(shape);
-            components.setColor(Color.BLACK);
-            components.fill(comps);
-        }
+        g.drawImage(bimage,posX,posY,null);
     }
 
+    public BufferedImage getImage(){
+        return bimage;
+    }
+    public void draw() {
+        pic.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        pic.setColor(Color.WHITE);
+        pic.fill(shape);
+        pic.setColor(Color.BLACK);
+        pic.setStroke(new BasicStroke(1));
+        pic.draw(shape);
+        pic.fill(comps);
+        pic.dispose();
+    }
     public void rotate(){
         AffineTransform t = new AffineTransform();
         int rotation;
