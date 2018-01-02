@@ -1,5 +1,6 @@
 package Domino.UI.GUI.Base;
 
+import javax.swing.ImageIcon;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
