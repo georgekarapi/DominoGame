@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class TableGUI   {
+public class TableGUI {
     private ArrayList<TileGUI> grid;
     private Table table;
     public JPanel p1;

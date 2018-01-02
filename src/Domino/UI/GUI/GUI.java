@@ -1,26 +1,28 @@
 package Domino.UI.GUI;
 
-import Domino.Base.Tile;
+import Domino.UI.GUI.Base.DraggableImage;
 import Domino.UI.GUI.Base.TileGUI;
-import Domino.UI.GUI.Base.TilesTable;
 
 import javax.swing.*;
-import javax.swing.plaf.LayerUI;
 import java.awt.*;
 
-public class GUI{
-    TileGUI tile = new TileGUI(2,6,100);
-    TileGUI tile2 = new TileGUI(1,3,100);
+public class GUI extends JPanel {
+    TileGUI tile;
+    TileGUI tile2;
     public GUI(){
+        tile = new TileGUI(2, 6, 100, true);
+        tile2 = new TileGUI(1, 3, 100, false);
         JFrame frame = new JFrame("Domino Game");
         frame.setSize(512,512);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new GridLayout(0, 1));
-        JPanel jPanel = new JPanel();
-        ///jPanel.add(new JButton());
-        //jPanel.add(tile);
-        frame.add(tile);
+        frame.setLayout(new FlowLayout());
+        //JLabel label = new JLabel(new ImageIcon(tile.getImage()));
+        //JLabel label2 = new JLabel(new ImageIcon(tile2.getImage()));
+        frame.add(new DraggableImage(1, 3, 100, false));
         frame.setVisible(true);
+    }
+
+    public void paint(Graphics g) {
     }
 
     public static void main(String args[]) {
