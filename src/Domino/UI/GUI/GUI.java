@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GUI{
-    DraggableImage tile = new DraggableImage(2, 6, 100, false);
+    DraggableImage tile = new DraggableImage(2, 6, 100, true);
 
     //TileGUI tile2 = new TileGUI(1,3,100);
     public GUI(){
@@ -17,6 +17,7 @@ public class GUI{
         JPanel jPanel = new JPanel();
         ///jPanel.add(new JButton());
         //jPanel.add(tile);
+        tile.rotate();
         frame.add(tile);
         frame.setVisible(true);
     }

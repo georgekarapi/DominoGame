@@ -3,12 +3,14 @@ package Domino.UI.GUI.Base;
 import Domino.Base.Tile;
 
 import java.awt.*;
-import java.awt.geom.*;
-import java.awt.image.AffineTransformOp;
+import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 
 public class TileGUI extends Tile {
-    private final int width,height,w2,h2;
+    private int width, height, w2, h2;
     private Area shape, comps;
     private BufferedImage domino;
     private Graphics2D pic;
@@ -25,9 +27,10 @@ public class TileGUI extends Tile {
         createDots(comps, 0, getLeft());
         createDots(comps, w2, getRight());
 
+
         domino = new BufferedImage(width + 1, height + 1, BufferedImage.TYPE_INT_ARGB);
         pic = domino.createGraphics();
-        draw(rotate);
+        drawShape(rotate);
     }
     private Shape dot(float x, float y) {
         return new Ellipse2D.Float(x, y, height / 6, height / 6);
@@ -68,7 +71,10 @@ public class TileGUI extends Tile {
         return domino;
     }
 
-    public void draw(boolean rotate) {
+    public void drawShape(boolean rotate) {
+        if (rotate) {
+            rotate();
+        }
         pic.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         pic.setColor(Color.WHITE);
         pic.fill(shape);
@@ -76,29 +82,25 @@ public class TileGUI extends Tile {
         pic.setStroke(new BasicStroke(1));
         pic.draw(shape);
         pic.fill(comps);
-        if (rotate) {
-            rotate();
-        }
         pic.dispose();
     }
 
     public void rotate() {
-        AffineTransform t = new AffineTransform();
-        BufferedImage rotated = new BufferedImage(height + 1, width + 1, BufferedImage.TYPE_INT_ARGB);
-        ;
+        int temp = width;
+        width = height;
+        height = temp;
         int orientation;
         if (rotation.equals("h")) {
-            pic = rotated.createGraphics();
             orientation = 90;
             rotation = "v";
         } else {
+
             orientation = -90;
             rotation = "h";
         }
-        t.rotate(Math.toRadians(orientation), domino.getWidth() / 2, domino.getHeight() / 2);
-
-        AffineTransformOp op = new AffineTransformOp(t,
-                AffineTransformOp.TYPE_BILINEAR);
-        domino = op.filter(domino, null);
+        domino = new BufferedImage(width + 1, height + 1, BufferedImage.TYPE_INT_ARGB);
+        pic = domino.createGraphics();
+        pic.rotate(Math.toRadians(orientation), w2 - w2 / 2, h2);
+        drawShape(false);
     }
 }
