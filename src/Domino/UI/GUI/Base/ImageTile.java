@@ -95,8 +95,8 @@ public ImageTile(JLabel l, int Lx, int Ly)
     public static void main(String args[]) {
     JFrame f=new JFrame();
     JPanel p=new JPanel();
-TileGUI t=new TileGUI(2,2,100);
-        TileGUI t1=new TileGUI(4,1,100);
+TileGUI t=new TileGUI(2,2,100,false);
+        TileGUI t1=new TileGUI(4,1,100,false);
         JLabel l=new JLabel(new ImageIcon(t.getImage()));
         JLabel l1=new JLabel(new ImageIcon(t1.getImage()));
        l1.setBounds(100,100,100,100);
