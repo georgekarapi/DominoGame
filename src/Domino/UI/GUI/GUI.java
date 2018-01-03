@@ -17,7 +17,7 @@ public class GUI{
         JPanel jPanel = new JPanel();
         ///jPanel.add(new JButton());
         //jPanel.add(tile);
-        frame.add(tile);
+        //frame.add(tile);
         frame.setVisible(true);
     }
 
