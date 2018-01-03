@@ -1,6 +1,7 @@
-package Domino.UI.GUI.Base;
+package Domino.UI.GUI.GameModes;
 
 import Domino.GameModes.Hungarian.Hungarian;
+import Domino.UI.GUI.Base.TableGUI;
 
 import javax.swing.*;
 import java.awt.*;
