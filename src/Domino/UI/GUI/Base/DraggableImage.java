@@ -49,7 +49,6 @@ public class DraggableImage extends JLabel {
                 repaint();
             }
         }
-
         public void mouseReleased(MouseEvent e) {
             pressed = false;
         }

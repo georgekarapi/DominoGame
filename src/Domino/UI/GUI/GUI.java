@@ -17,7 +17,6 @@ public class GUI{
         JPanel jPanel = new JPanel();
         ///jPanel.add(new JButton());
         //jPanel.add(tile);
-        tile.rotate();
         frame.add(tile);
         frame.setVisible(true);
     }
