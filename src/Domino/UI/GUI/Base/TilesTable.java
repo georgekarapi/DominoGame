@@ -1,18 +1,11 @@
 package Domino.UI.GUI.Base;
 
-import Domino.Base.Dominoes;
-import Domino.Base.Tile;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
-import java.util.ArrayList;
 
 public class TilesTable extends JPanel{
-    TileGUI gui = new TileGUI(0,0,50);
-    TileGUI gui2 = new TileGUI(0,0,50);
+    TileGUI gui = new TileGUI(0, 0, 50, true);
+    TileGUI gui2 = new TileGUI(0, 0, 50, false);
     public void paintComponent(Graphics g){
         //setOpaque(false);
         super.paintComponent(g);
