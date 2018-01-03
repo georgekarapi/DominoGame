@@ -15,7 +15,7 @@ public class HungarianGUI extends JPanel implements ActionListener{
     private int players;
     private JFrame windows;
     Hungarian game;
-    private HashMap<JPanel,ArrayList<Button>> panel;
+    private HashMap<JPanel,ArrayList<JLabel>> panel;
     //hashmap για πανελ και player
     public HungarianGUI(JFrame windows)
     {
