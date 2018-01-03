@@ -9,14 +9,24 @@ import java.awt.image.BufferedImage;
 public class DraggableImage extends JLabel {
     private TileGUI tile;
     private BufferedImage image;
+    private int width;
 
     public DraggableImage(int l, int r, int width, boolean rotate) {
+        this.width = width;
         tile = new TileGUI(l, r, width, rotate);
         image = tile.getImage();
         setIcon(new ImageIcon(image));
         CustomMouseAdapter mouseAdapter = new CustomMouseAdapter();
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
+    }
+
+    public void rotate() {
+        tile = new TileGUI(tile.getLeft(), tile.getRight(), width + 1, tile.rotation == "h" ? true : false);
+        image = tile.getImage();
+        setIcon(new ImageIcon(image));
+        revalidate();
+        repaint();
     }
 
     class CustomMouseAdapter extends MouseAdapter {
@@ -39,6 +49,7 @@ public class DraggableImage extends JLabel {
                 repaint();
             }
         }
+
         public void mouseReleased(MouseEvent e) {
             pressed = false;
         }
