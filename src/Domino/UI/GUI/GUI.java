@@ -13,18 +13,18 @@ public class GUI{
         JFrame frame = new JFrame("Domino Game");
         frame.setSize(512,512);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new GridLayout(0, 1));
-        JPanel a = new JPanel();
-        JPanel b = new JPanel();
-        a.setBounds(0,0,512,300);
-        b.setBounds(0,300,512,200);
-        frame.add(a);
-        frame.add(b);
-       JLayeredPane lp=new JLayeredPane();
-        ///jPanel.add(new JButton());
-        //jPanel.add(tile);
-        tile.rotate();
-        frame.add(tile);
+        frame.setLayout(new BorderLayout());
+        JLayeredPane jLayeredPane = frame.getLayeredPane();
+        jLayeredPane.setLayout(new GridLayout(0, 1));
+        JPanel jPanel = new JPanel();
+        JPanel jPanel1 = new JPanel();
+        jPanel.setBorder(BorderFactory.createTitledBorder(
+                "Panel 1"));
+        jPanel1.setBorder(BorderFactory.createTitledBorder(
+                "Panel 2"));
+        jPanel.add(tile);
+        jLayeredPane.add(jPanel, JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane.add(jPanel1, JLayeredPane.DEFAULT_LAYER);
         frame.setVisible(true);
     }
 

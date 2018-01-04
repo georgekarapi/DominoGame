@@ -1,5 +1,7 @@
 package Domino.UI.GUI.Base;
 
+import javafx.scene.Parent;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -32,13 +34,19 @@ public class DraggableImage extends JLabel {
 
     class CustomMouseAdapter extends MouseAdapter {
         private boolean pressed = false;
-
+        private Point point;
         @Override
         public void mousePressed(MouseEvent e) {
             if (e.getButton() != MouseEvent.BUTTON1) {
                 return;
             }
-            pressed = true;
+            if(e.getComponent() instanceof DraggableImage) {
+                if (getRootPane().getLayeredPane().getLayer(e.getComponent()) != JLayeredPane.DRAG_LAYER) {
+                    getRootPane().getLayeredPane().add(DraggableImage.this, JLayeredPane.DRAG_LAYER);
+                }
+                point = e.getPoint();
+                pressed = true;
+            }
         }
 
         @Override
@@ -46,7 +54,7 @@ public class DraggableImage extends JLabel {
             if (pressed) {
                 Point p = e.getPoint();
                 p = SwingUtilities.convertPoint(e.getComponent(), p, e.getComponent().getParent());
-                setBounds(p.x, p.y, image.getWidth(), image.getHeight());
+                setBounds(p.x - point.x, p.y - point.y, image.getWidth(), image.getHeight());
                 repaint();
             }
         }
