@@ -5,6 +5,7 @@ import Domino.Base.Tile;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 public class TableGUI{
@@ -36,6 +37,7 @@ public class TableGUI{
         j.setBounds(300,0,50,50);
         x1=300;y1=0; x2=300 ;y2=0;
         p.add(j);
+        j.removeMouseMotionListener((MouseMotionListener) DraggableImage.CustomMouseAdapter);
        // grid.add(j);
             return true;}
             return false;
