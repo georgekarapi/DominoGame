@@ -1,11 +1,12 @@
 package Domino.UI.GUI.Base;
 
-import javafx.scene.Parent;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 public class DraggableImage extends JLabel {
@@ -59,6 +60,17 @@ public class DraggableImage extends JLabel {
         }
 
         public void mouseReleased(MouseEvent e) {
+//            if(getRootPane().getLayeredPane().findComponentAt(e.getPoint()) instanceof TableGUI){
+//
+//            }
+//            Timer timer = new Timer(100, new ActionListener() {
+//                @Override
+//                public void actionPerformed(ActionEvent ae) {
+//                    setBounds(point.x, point.y, image.getWidth(), image.getHeight());
+//                    repaint();
+//                }
+//            });
+//            timer.start();
             pressed = false;
         }
     }
