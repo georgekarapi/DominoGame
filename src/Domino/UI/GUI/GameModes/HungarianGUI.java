@@ -119,10 +119,10 @@ public class HungarianGUI extends JPanel implements ActionListener{
            else if(players==4)
            {x=200;y=20;}
            setBounds(0,0,800,600);
-           TilesTable p1 = new TilesTable(100,600,600,200,game.my_player().Tiles(),100);
-           windows.add(p1);
+           JLayeredPane jLayeredPane =windows.getLayeredPane();
+           TilesTable p1 = new TilesTable(100,650,600,200,game.my_player().Tiles(),100,jLayeredPane);
+          // windows.add(p1);
            //p1.setBackground(Color.BLUE);
-           p1.setVisible(true);
            if(players==2)
            players_2(game.get_numberTile());
            else if(players==3)
@@ -130,8 +130,11 @@ public class HungarianGUI extends JPanel implements ActionListener{
             else if(players==4)
                 players_4(game.get_numberTile());
 
+           //jLayeredPane.setBounds(100,600,600,200);
+        //   jLayeredPane.add(p1, JLayeredPane.DEFAULT_LAYER);
+        //  jLayeredPane.add(this, JLayeredPane.DEFAULT_LAYER);
            TableGUI g=new TableGUI(game.getClassic(),this);
-           g.add_TableGUI(new Tile(2,4),true);
+           g.add_TableGUI(new Tile(6,6),true);
 
        }
        public void players_2(int x)

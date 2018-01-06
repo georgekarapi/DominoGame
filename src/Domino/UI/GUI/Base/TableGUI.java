@@ -24,6 +24,7 @@ public class TableGUI{
     private JPanel p;
     public TableGUI(Table t,JPanel p)
     {
+
         grid=new ArrayList<>(24);
         x1=y1=x2=y2=0;
         this.t=t;
@@ -37,7 +38,8 @@ public class TableGUI{
         j.setBounds(300,0,50,50);
         x1=300;y1=0; x2=300 ;y2=0;
         p.add(j);
-        j.removeMouseMotionListener((MouseMotionListener) DraggableImage.CustomMouseAdapter);
+        j.removeMouseMotionListener(j.getMouseAdapter());
+            j.removeMouseListener(j.getMouseAdapter());
        // grid.add(j);
             return true;}
             return false;

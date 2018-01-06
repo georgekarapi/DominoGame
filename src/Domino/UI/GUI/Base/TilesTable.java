@@ -1,27 +1,32 @@
 package Domino.UI.GUI.Base;
 
 import Domino.Base.Tile;
+import com.sun.org.apache.xml.internal.security.utils.JDKXPathAPI;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class TilesTable extends JPanel{
+public class TilesTable {
+    private JLayeredPane panel;
     private ArrayList<DraggableImage> tiles;
-    public TilesTable(int x, int y, int width, int height, ArrayList<Tile> T, int widthTile)
-    {
-        setBounds(x,y,width,height);
-        setLayout(new GridLayout(1,T.size()+1,0,0));
-        tiles=new ArrayList<>();
-        setVisible(true);
+
+    public TilesTable(int x, int y, int width, int height, ArrayList<Tile> T, int widthTile,JLayeredPane p)
+    {    panel=p;
+      // this.setBounds(x,y,width,height);
+      // this.setLayout(null);//
+        tiles=new ArrayList<>(); //setLayout(new GridBagLayout());.
+       //  setVisible(true);
         for(Tile t:T)
         {
             tiles.add(new DraggableImage(t.getLeft(),t.getRight(),widthTile,true));
         }
+
         for(DraggableImage d:tiles)
         {
-            add(d);
-
+         d.setBounds(x,y,widthTile,widthTile);
+            panel.add(d);
+            x=x+widthTile/2+10;
         }
     }
     public void addTiles(DraggableImage t,int x){tiles.add(x,t);}
@@ -41,9 +46,8 @@ public class TilesTable extends JPanel{
         p.add(new Tile(3,1));
         p.add(new Tile(4,4));
         p.add(new Tile(1,2));
-        TilesTable t=new TilesTable(0,0,800,800,p,100);
-
-       fr.add(t);
+      // TilesTable t=new TilesTable(0,0,800,800,p,50);
+    //  fr.add(t);
        fr.setVisible(true);
     }
 }
