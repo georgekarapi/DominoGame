@@ -1,14 +1,14 @@
 package Domino.UI.GUI.Base;
 
 import Domino.Base.Table;
+import Domino.Base.Tile;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class TableGUI   {
-    private ArrayList<JButton> grid;
-    private JPanel panel;
+public class TableGUI{
+    private ArrayList<DraggableImage> grid;
     private int x1;
     private int y1;
     private int x2;
@@ -19,32 +19,38 @@ public class TableGUI   {
     private boolean search2=true;
     private boolean search3=true;
     private  int K=0;
-    public TableGUI(JPanel panel)
+    private Table t;
+    private JPanel p;
+    public TableGUI(Table t,JPanel p)
     {
         grid=new ArrayList<>(24);
-        this.panel=panel;
         x1=y1=x2=y2=0;
+        this.t=t;
+        this.p=p;
     }
-    public void add_TableGUI(JButton j,boolean  lr) //KANONIKA ENA TileGUI ,an prostethike aristera h deksia ,aristera true k deksia false
+    public boolean add_TableGUI(Tile t, boolean  lr) //KANONIKA ENA TileGUI ,an prostethike aristera h deksia ,aristera true k deksia false
     {
 
        if(grid.isEmpty())
-        {  j.setBounds(300,0,50,25);
-        j.setBackground(Color.red);
+        { DraggableImage j=new DraggableImage(t.getLeft(),t.getRight(),50,false);
+        j.setBounds(300,0,50,50);
         x1=300;y1=0; x2=300 ;y2=0;
-        panel.add(j);
-        grid.add(j);}
-        else if(lr==true)
+        p.add(j);
+       // grid.add(j);
+            return true;}
+            return false;
+      /*  else if(lr==true &&t.isLeft(j.getTileGUI()))
             {
+                t.addTile(j.getTileGUI(),true);
                 if(x1-50>0 && search)
                 {
                     x1=x1-50;
                     j.setBounds(x1,y1,50,25);
                     j.setBackground(Color.BLACK);
-                    panel.add(j);
+                    add(j);
                     grid.add(j);
                 }
-                else if(y1+50<panel.getHeight()&&search1)
+                else if(y1+50<getHeight()&&search1)
                 {
 
                    if(search)
@@ -55,7 +61,7 @@ public class TableGUI   {
                     j.setBounds(x1,y1,25,50);
                     y1=y1+50;
                     j.setBackground(Color.BLACK);
-                    panel.add(j);
+                    add(j);
                     grid.add(j);
                 }
                 else if(N<2)
@@ -66,7 +72,7 @@ public class TableGUI   {
                        {x1=x1+50;}
                         j.setBounds(x1,y1,50,25);
                     j.setBackground(Color.BLACK);
-                    panel.add(j);
+                    add(j);
                     grid.add(j);
                     if(N==2){x1=x1+50;y1=y1+25;}
                 }
@@ -75,21 +81,23 @@ public class TableGUI   {
                     y1=y1-50;
                     j.setBounds(x1,y1,25,50);
                     j.setBackground(Color.BLACK);
-                    panel.add(j);
+                    add(j);
                     grid.add(j);
                 }
+                return true;
             }
-            else
+            else if(t.isRight(j.getTileGUI()))
            {
-               if(x2+70<panel.getWidth() && search2)
+               t.addTile(j.getTileGUI(),false);
+               if(x2+70<getWidth() && search2)
                {
                    x2=x2+50;
                    j.setBounds(x2,y2,50,25);
                    j.setBackground(Color.BLACK);
-                   panel.add(j);
+                   add(j);
                    grid.add(j);
                }
-               else if(y2+50<panel.getHeight()&&search3)
+               else if(y2+50<getHeight()&&search3)
                {
 
                    if(search2)
@@ -101,7 +109,7 @@ public class TableGUI   {
                    j.setBounds(x2,y2,25,50);
                    y2=y2+50;
                    j.setBackground(Color.BLACK);
-                   panel.add(j);
+                   add(j);
                    grid.add(j);
                }
                else if(K<3)
@@ -112,7 +120,7 @@ public class TableGUI   {
                    x2=x2-50;
                    j.setBounds(x2,y2,50,25);
                    j.setBackground(Color.BLACK);
-                   panel.add(j);
+                   add(j);
                    grid.add(j);
                    if(K==3){x2=x2-25;}
                }
@@ -121,11 +129,11 @@ public class TableGUI   {
                    y2=y2-50;
                    j.setBounds(x2,y2,25,50);
                    j.setBackground(Color.BLACK);
-                   panel.add(j);
+                   add(j);
                    grid.add(j);
-               }
+               }return true;
            }
-
+return false;*/
     }
     public static void main(String args[]) {
        JFrame fr=new JFrame("windows");

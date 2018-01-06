@@ -31,7 +31,7 @@ public class DraggableImage extends JLabel {
         revalidate();
         repaint();
     }
-
+    public TileGUI getTileGUI(){return tile;}
     class CustomMouseAdapter extends MouseAdapter {
         private boolean pressed = false;
         private Point point;

@@ -1,7 +1,10 @@
 package Domino.UI.GUI.GameModes;
 
+import Domino.Base.Tile;
 import Domino.GameModes.Hungarian.Hungarian;
+import Domino.UI.GUI.Base.DraggableImage;
 import Domino.UI.GUI.Base.TableGUI;
+import Domino.UI.GUI.Base.TilesTable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -108,6 +111,7 @@ public class HungarianGUI extends JPanel implements ActionListener{
        public void Hands_Tiles(){
            int x=0,y=0;
            game=new Hungarian(players,name);
+           game.Start();
            if(players==2)
            {x=y=0;}
            else if(players==3)
@@ -115,79 +119,19 @@ public class HungarianGUI extends JPanel implements ActionListener{
            else if(players==4)
            {x=200;y=20;}
            setBounds(0,0,800,600);
-           JPanel p1 = new JPanel();
-
+           TilesTable p1 = new TilesTable(100,600,600,200,game.my_player().Tiles(),100);
            windows.add(p1);
-           p1.setBackground(Color.BLUE);
+           //p1.setBackground(Color.BLUE);
            p1.setVisible(true);
-           GridLayout gl = new GridLayout(1,game.get_numberTile(),0,0);
-           p1.setLayout(gl);
-           p1.setBounds(x, 600, 800-2*x, 150-2*y);
-           for (int i = 0; i < game.get_numberTile(); i++) {
-               JButton b1 = new JButton("["+i+"]");
-               b1.setBackground(Color.GREEN);
-               b1.setSize(20,70);
-               p1.add(b1);
-               //panel.put(p1,);
-           }
            if(players==2)
            players_2(game.get_numberTile());
            else if(players==3)
             players_3(game.get_numberTile());
             else if(players==4)
                 players_4(game.get_numberTile());
-            TableGUI g=new TableGUI(this);
-            g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),true);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
-           g.add_TableGUI(new JButton(),false);
 
+           TableGUI g=new TableGUI(game.getClassic(),this);
+           g.add_TableGUI(new Tile(2,4),true);
 
        }
        public void players_2(int x)
@@ -207,8 +151,7 @@ public class HungarianGUI extends JPanel implements ActionListener{
                p2.add(b);
            }
            windows.add(p2);
-         //  panel.add(p2);
-           //removes_Hands(p2,p2.);
+
        }
        public void players_3(int x)
        {
