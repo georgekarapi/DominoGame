@@ -13,13 +13,14 @@ public class DraggableImage extends JLabel {
     private TileGUI tile;
     private BufferedImage image;
     private int width;
+    private CustomMouseAdapter mouseAdapter;
 
     public DraggableImage(int l, int r, int width, boolean rotate) {
         this.width = width;
         tile = new TileGUI(l, r, width, rotate);
         image = tile.getImage();
         setIcon(new ImageIcon(image));
-        CustomMouseAdapter mouseAdapter = new CustomMouseAdapter();
+        mouseAdapter = new CustomMouseAdapter();
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
     }
@@ -30,6 +31,10 @@ public class DraggableImage extends JLabel {
         setIcon(new ImageIcon(image));
         revalidate();
         repaint();
+    }
+
+    public CustomMouseAdapter getMouseAdapter(){
+        return mouseAdapter;
     }
 
     class CustomMouseAdapter extends MouseAdapter {

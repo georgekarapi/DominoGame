@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GUI{
-    DraggableImage tile = new DraggableImage(2, 6, 20, true);
+    DraggableImage tile = new DraggableImage(2, 6, 250, true);
 
     //TileGUI tile2 = new TileGUI(1,3,100);
     public GUI(){
