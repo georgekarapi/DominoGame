@@ -10,7 +10,7 @@ public class GUI{
     DraggableImage tile = new DraggableImage(2, 6, 100, true);
     DraggableImage tile1 = new DraggableImage(3, 1, 150, true);
     public GUI(){
-        JFrame frame = new JFrame("Domino Game");
+       /* JFrame frame = new JFrame("Domino Game");
         frame.setSize(512,512);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
@@ -29,8 +29,8 @@ public class GUI{
         jPanel.add(tile);
         jLayeredPane.add(jPanel, JLayeredPane.DEFAULT_LAYER);
         jLayeredPane.add(jPanel1, JLayeredPane.DEFAULT_LAYER);
-        frame.setVisible(true);
-      /*  JFrame frame = new JFrame("Domino Game");
+        frame.setVisible(true);*/
+        JFrame frame = new JFrame("Domino Game");
         frame.setSize(512,512);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
@@ -42,7 +42,7 @@ public class GUI{
         jPanel.add(tile);
         jPanel.add(tile1);
         frame.add(jPanel);
-        frame.setVisible(true);*/
+        frame.setVisible(true);
     }
 
     public static void main(String args[]) {

@@ -109,6 +109,7 @@ public class HungarianGUI extends JPanel implements ActionListener{
 
 
        public void Hands_Tiles(){
+
            int x=0,y=0;
            game=new Hungarian(players,name);
            game.Start();
@@ -118,30 +119,55 @@ public class HungarianGUI extends JPanel implements ActionListener{
            {x=100; y=10;}
            else if(players==4)
            {x=200;y=20;}
-           setBounds(0,0,800,600);
-           JLayeredPane jLayeredPane =windows.getLayeredPane();
-           TilesTable p1 = new TilesTable(100,650,600,200,game.my_player().Tiles(),100,jLayeredPane);
-          // windows.add(p1);
-           //p1.setBackground(Color.BLUE);
+           TilesTable p1 = new TilesTable(100,650,600,200,game.my_player().Tiles(),70,this);
            if(players==2)
            players_2(game.get_numberTile());
            else if(players==3)
             players_3(game.get_numberTile());
             else if(players==4)
                 players_4(game.get_numberTile());
-
-           //jLayeredPane.setBounds(100,600,600,200);
-        //   jLayeredPane.add(p1, JLayeredPane.DEFAULT_LAYER);
-        //  jLayeredPane.add(this, JLayeredPane.DEFAULT_LAYER);
-           TableGUI g=new TableGUI(game.getClassic(),this);
-           g.add_TableGUI(new Tile(6,6),true);
-
+           JPanel a=new JPanel();a.setLayout(null);
+          a.setBounds(100,100,600,500);a.setBackground(Color.cyan);
+           add(a);
+           TableGUI g=new TableGUI(game.getClassic(),a);
+          g.add_TableGUI(new Tile(5,2),true);
+           g.add_TableGUI(new Tile(1,2),true);
+          g.add_TableGUI(new Tile(1,6),true);
+            g.add_TableGUI(new Tile(5,6),true);
+            g.add_TableGUI(new Tile(5,3),true);
+          g.add_TableGUI(new Tile(3,4),true);
+           g.add_TableGUI(new Tile(5,4),true);
+           g.add_TableGUI(new Tile(5,1),true);
+           g.add_TableGUI(new Tile(1,2),true);
+           g.add_TableGUI(new Tile(4,2),true);
+           g.add_TableGUI(new Tile(4,1),true);
+           g.add_TableGUI(new Tile(3,1),true);
+           g.add_TableGUI(new Tile(2,3),true);
+           g.add_TableGUI(new Tile(2,5),false);
+           g.add_TableGUI(new Tile(2,0),false);
+           g.add_TableGUI(new Tile(4,0),false);
+           g.add_TableGUI(new Tile(1,4),false);
+           g.add_TableGUI(new Tile(4,0),false);
+          /*  g.add_TableGUI(new Tile(3,0),false);
+          g.add_TableGUI(new Tile(6,2),true);
+           g.add_TableGUI(new Tile(6,0),true);
+           g.add_TableGUI(new Tile(0,2),true);
+           g.add_TableGUI(new Tile(2,1),true);
+           g.add_TableGUI(new Tile(0,1),true);
+           g.add_TableGUI(new Tile(0,4),true);
+           g.add_TableGUI(new Tile(4,0),true);
+           g.add_TableGUI(new Tile(0,2),true);
+           g.add_TableGUI(new Tile(2,1),true);
+           g.add_TableGUI(new Tile(0,1),true);
+           g.add_TableGUI(new Tile(0,4),true);
+           g.add_TableGUI(new Tile(3,2),true);
+           g.add_TableGUI(new Tile(4,2),true);
+           g.add_TableGUI(new Tile(5,2),true);
+           g.add_TableGUI(new Tile(1,3),true);*/
        }
        public void players_2(int x)
        {
            int y=100*(players-2);
-           setBounds(100,100,600,500);
-           setBackground(Color.cyan);
            JPanel p2=new JPanel();
            p2.setVisible(true);
            p2.setLayout(new GridLayout(1,game.get_numberTile(),0,0));
@@ -153,7 +179,7 @@ public class HungarianGUI extends JPanel implements ActionListener{
                b.setBackground(Color.yellow);
                p2.add(b);
            }
-           windows.add(p2);
+           add(p2);
 
        }
        public void players_3(int x)
@@ -171,8 +197,7 @@ public class HungarianGUI extends JPanel implements ActionListener{
                b.setBackground(Color.yellow);
                p3.add(b);
            }
-         //  panel.add(p3);
-           windows.add(p3);
+           add(p3);
        }
        public void players_4(int x)
        {
@@ -189,8 +214,7 @@ public class HungarianGUI extends JPanel implements ActionListener{
                b.setBackground(Color.yellow);
                p4.add(b);
            }
-         //  panel.add(p4);
-           windows.add(p4);
+           add(p4);
        }
        public void removes_Hands(Panel p,int b)
        {
