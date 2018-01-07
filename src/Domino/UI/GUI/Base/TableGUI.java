@@ -19,7 +19,7 @@ public class TableGUI{
     private  int N=0;
     private boolean search2=true;
     private boolean search3=true;
-    private  int K=0;
+    private  boolean K=true;
     private Table table;
     private JPanel p;
     public TableGUI(Table table,JPanel p)
@@ -88,16 +88,16 @@ public class TableGUI{
                    j.removeMouseMotionListener(j.getMouseAdapter());
                    j.removeMouseListener(j.getMouseAdapter());
                }
-               }
+
                else if(y2+50<p.getHeight()&&search3)
-               {
+               {System.out.println("1234");
                    System.out.println(x2+","+y2);
-                   DraggableImage j = new DraggableImage(t.getRight(), t.getLeft(), 50, true);
+                   DraggableImage j = new DraggableImage(t.getLeft(), t.getRight(), 50, true);
                    if(search2)
                    {
                        search2=false;
-                       y2=150;
-                       x2=x2-50;
+                       y2=40;
+                       x2=x2+25;
                    }
                    j.setBounds(x2,y2,50,50);
                    y2=y2+50;
@@ -105,26 +105,19 @@ public class TableGUI{
                    j.removeMouseMotionListener(j.getMouseAdapter());
                    j.removeMouseListener(j.getMouseAdapter());
                }
-             /*  else if(K<3)
+       else
                {
+                   if(K){y2=y2-25;K=false;}
+                   DraggableImage j = new DraggableImage(t.getRight(), t.getLeft(), 50, false);
                    search3=false;
-                   K++;
-                  // if(K==2)
                    x2=x2-50;
                    j.setBounds(x2,y2,50,25);
-                   j.setBackground(Color.BLACK);
-                   add(j);
-                   grid.add(j);
-                   if(K==3){x2=x2-25;}
+                   p.add(j);
+                   j.removeMouseMotionListener(j.getMouseAdapter());
+                   j.removeMouseListener(j.getMouseAdapter());
+
                }
-               else
-               {
-                   y2=y2-50;
-                   j.setBounds(x2,y2,25,50);
-                   j.setBackground(Color.BLACK);
-                   add(j);
-                   grid.add(j);
-               }*/
+    }
 
 return false; }
 
