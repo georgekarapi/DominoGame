@@ -18,18 +18,18 @@ public class HungarianGUI extends JPanel implements ActionListener{
     private int players;
     private JFrame windows;
     Hungarian game;
-    private HashMap<JPanel,ArrayList<JLabel>> panel;
+    Button turn;
     //hashmap για πανελ και player
     public HungarianGUI(JFrame windows)
     {
         super();
-        panel=new HashMap<>();
         this.windows=windows;
         setLayout(null);
         setVisible(true);
         setBounds(0,0,800,800);
-        setBackground(Color.LIGHT_GRAY);
+        setBackground(Color.orange);
         GYIname onoma=new GYIname();
+        turn=new Button("123");
     }
     public class GYIname implements ActionListener
     {
@@ -119,7 +119,10 @@ public class HungarianGUI extends JPanel implements ActionListener{
            {x=100; y=10;}
            else if(players==4)
            {x=200;y=20;}
-           TilesTable p1 = new TilesTable(100,650,600,200,game.my_player().Tiles(),70,this);
+           TilesTable p1 = new TilesTable(100,650,600,200,game.my_player().Tiles(),68,this);
+           JLabel your=new JLabel(game.my_player().get_name());
+           your.setBounds(100,620,70,10);
+           add(your);
            if(players==2)
            players_2(game.get_numberTile());
            else if(players==3)
@@ -127,8 +130,16 @@ public class HungarianGUI extends JPanel implements ActionListener{
             else if(players==4)
                 players_4(game.get_numberTile());
            JPanel a=new JPanel();a.setLayout(null);
-          a.setBounds(100,100,600,500);a.setBackground(Color.cyan);
+          a.setBounds(100,100,600,500);
+          a.setBackground(Color.GREEN);
            add(a);
+           turn.setBounds(640,630,130,130);
+           turn.setLabel(game.get_Player(0).get_name()+" turn");
+           turn.setBackground(Color.pink);
+           add(turn);
+
+
+
            TableGUI g=new TableGUI(game.getClassic(),a);
           g.add_TableGUI(new Tile(5,2),true);
            g.add_TableGUI(new Tile(1,2),true);
@@ -181,7 +192,8 @@ public class HungarianGUI extends JPanel implements ActionListener{
            g.add_TableGUI(new Tile(1,3),true);*/
        }
        public void players_2(int x)
-       {
+       {    JLabel la2=new JLabel("robot1");
+            la2.setBounds(200,0,75,10);
            int y=100*(players-2);
            JPanel p2=new JPanel();
            p2.setVisible(true);
@@ -195,10 +207,12 @@ public class HungarianGUI extends JPanel implements ActionListener{
                p2.add(b);
            }
            add(p2);
-
+           add(la2);
        }
        public void players_3(int x)
        {
+           JLabel la3=new JLabel("robot2");
+           la3.setBounds(30,136,70,10);
            players_2(x);
            int y=100*(players-2);
            JPanel p3=new JPanel();
@@ -209,13 +223,16 @@ public class HungarianGUI extends JPanel implements ActionListener{
            for(int i=0;i<x;i++)
            {
                JButton b = new JButton();
-               b.setBackground(Color.yellow);
+               b.setBackground(Color.red);
                p3.add(b);
            }
            add(p3);
+           add(la3);
        }
        public void players_4(int x)
        {
+           JLabel la4=new JLabel("robot3");
+           la4.setBounds(730,136,70,10);
            players_3(x);
            int y=100*(players-2);
            JPanel p4=new JPanel();
@@ -230,6 +247,7 @@ public class HungarianGUI extends JPanel implements ActionListener{
                p4.add(b);
            }
            add(p4);
+           add(la4);
        }
        public void removes_Hands(Panel p,int b)
        {

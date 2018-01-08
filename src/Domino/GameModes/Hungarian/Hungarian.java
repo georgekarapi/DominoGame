@@ -184,9 +184,9 @@ public class Hungarian {
          else
            return false;
      }
-     public Bot get_Bot(int i)
+     public Player get_Player(int i)
      {
-         return (Bot) players.get(i);
+         return  players.get(i);
      }
      public int  get_numberTile(){return numberTile;}
 

@@ -51,13 +51,12 @@ public class TableGUI{
                      search = false;
                      y1 = 40;
                  }
-                 //  j.rotate();
                  j.setBounds(x1, y1, 50, 50);
                  y1 = y1 + 50;
                  j.removeMouseMotionListener(j.getMouseAdapter());
                  j.removeMouseListener(j.getMouseAdapter());
                  p.add(j);
-             } else {//if (N < 2)
+             } else {
                  DraggableImage j = new DraggableImage(t.getRight(), t.getLeft(), 50, false);
                  search1 = false;
                  N++;
