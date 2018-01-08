@@ -9,6 +9,7 @@ import Domino.Base.Dominoes;
 import Domino.Base.Table;
 import Domino.Base.Tile;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -189,5 +190,14 @@ public class Hungarian {
          return  players.get(i);
      }
      public int  get_numberTile(){return numberTile;}
-
+     public ArrayList<Bot> gets_Bots()
+     {
+         ArrayList<Bot> b=new ArrayList<>();
+         for(Player p:players.values())
+         {
+             if(p instanceof Bot){}
+             b.add((Bot)p);
+         }
+        return b;
+     }
 }

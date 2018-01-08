@@ -146,7 +146,7 @@ public class Terminal {
     public static void startGameHungarian(Hungarian game,String name,int pl) {
         System.out.println("Welcome to the Hungarian Domino ");
         while (!game.finishGame()) {
-            game.Start();
+          //  game.Start(); sto telos sta grafika
             System.out.println("Round " + game.getRound().numRound() + "os");
             while (game.movesPlayers()) {
                 for (int i = 0; i < pl; i++) {

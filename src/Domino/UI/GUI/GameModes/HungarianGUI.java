@@ -1,7 +1,10 @@
 package Domino.UI.GUI.GameModes;
 
 import Domino.Base.Tile;
+import Domino.GameModes.Hungarian.Bot;
 import Domino.GameModes.Hungarian.Hungarian;
+import Domino.GameModes.Hungarian.Player;
+import Domino.GameModes.Hungarian.Round;
 import Domino.UI.GUI.Base.DraggableImage;
 import Domino.UI.GUI.Base.TableGUI;
 import Domino.UI.GUI.Base.TilesTable;
@@ -17,9 +20,10 @@ public class HungarianGUI extends JPanel implements ActionListener{
     private String name;
     private int players;
     private JFrame windows;
-    Hungarian game;
-    Button turn;
-    //hashmap για πανελ και player
+    private Hungarian game;
+    private Button turn;
+    private ArrayList<JPanel> panels;
+    private boxScore box;
     public HungarianGUI(JFrame windows)
     {
         super();
@@ -29,7 +33,8 @@ public class HungarianGUI extends JPanel implements ActionListener{
         setBounds(0,0,800,800);
         setBackground(Color.orange);
         GYIname onoma=new GYIname();
-        turn=new Button("123");
+        turn=new Button();
+        panels=new ArrayList<>();
     }
     public class GYIname implements ActionListener
     {
@@ -97,14 +102,40 @@ public class HungarianGUI extends JPanel implements ActionListener{
                     players = i + 2;
                     setVisible(false);
                     removeAll();
-                    //paei sto kanonik;o game
                     setVisible(true);
-                    Hands_Tiles();
+                    Hands_Tiles();//paei sto kanonik;o game
                 }
             }
         }
     }
 
+public class boxScore extends JPanel
+    {
+        private Round round;
+        private ArrayList<Bot> bots;
+        private HashMap<Player,JLabel>  score;
+        public boxScore(int x,int y,int w,int h){
+            round=game.getRound();
+            setLayout(new GridLayout(players+1,1));
+            setBounds(x,y,w,h);
+            score=new HashMap<>();
+            setBackground(Color.pink);
+            for(Player p:game.getplayers())
+            {
+                score.put(p,new JLabel(p.get_name()+" "+round.pointPlayer(p)+" points"));
+                add(score.get(p));
+
+            }
+
+        }
+        public void finish_round()
+        {
+            for(Player p:score.keySet() )
+            {
+                score.get(p).setText(p.get_name()+round.pointPlayer(p)+" points");
+            }
+        }
+    }
 
 
 
@@ -121,7 +152,7 @@ public class HungarianGUI extends JPanel implements ActionListener{
            {x=200;y=20;}
            TilesTable p1 = new TilesTable(100,650,600,200,game.my_player().Tiles(),68,this);
            JLabel your=new JLabel(game.my_player().get_name());
-           your.setBounds(100,620,70,10);
+           your.setBounds(100,620,100,10);
            add(your);
            if(players==2)
            players_2(game.get_numberTile());
@@ -129,17 +160,24 @@ public class HungarianGUI extends JPanel implements ActionListener{
             players_3(game.get_numberTile());
             else if(players==4)
                 players_4(game.get_numberTile());
-           JPanel a=new JPanel();a.setLayout(null);
-          a.setBounds(100,100,600,500);
-          a.setBackground(Color.GREEN);
-           add(a);
-           turn.setBounds(640,630,130,130);
+
+
+           //poios paizei
+           turn.setBounds(660,630,130,130);
            turn.setLabel(game.get_Player(0).get_name()+" turn");
            turn.setBackground(Color.pink);
            add(turn);
 
 
+           box=new boxScore(680,0,100,75);
+           add(box);
 
+
+//gia to tamlo arxikopoisi
+           JPanel a=new JPanel();a.setLayout(null);
+           a.setBounds(100,100,600,500);
+           a.setBackground(Color.GREEN);
+           add(a);
            TableGUI g=new TableGUI(game.getClassic(),a);
           g.add_TableGUI(new Tile(5,2),true);
            g.add_TableGUI(new Tile(1,2),true);
@@ -192,14 +230,13 @@ public class HungarianGUI extends JPanel implements ActionListener{
            g.add_TableGUI(new Tile(1,3),true);*/
        }
        public void players_2(int x)
-       {    JLabel la2=new JLabel("robot1");
+       {    JLabel la2=new JLabel("bot1");
             la2.setBounds(200,0,75,10);
            int y=100*(players-2);
            JPanel p2=new JPanel();
            p2.setVisible(true);
            p2.setLayout(new GridLayout(1,game.get_numberTile(),0,0));
            p2.setBounds(200,20,400-y,70);
-           p2.setBackground(Color.WHITE);
            for(int i=0;i<x;i++)
            {
                JButton b = new JButton();
@@ -208,10 +245,11 @@ public class HungarianGUI extends JPanel implements ActionListener{
            }
            add(p2);
            add(la2);
+           panels.add(p2);
        }
        public void players_3(int x)
        {
-           JLabel la3=new JLabel("robot2");
+           JLabel la3=new JLabel("bot2");
            la3.setBounds(30,136,70,10);
            players_2(x);
            int y=100*(players-2);
@@ -219,7 +257,6 @@ public class HungarianGUI extends JPanel implements ActionListener{
            p3.setVisible(true);
            p3.setLayout(new GridLayout(game.get_numberTile(),1,0,0));
            p3.setBounds(20,150,70,400-y);
-           p3.setBackground(Color.BLACK);
            for(int i=0;i<x;i++)
            {
                JButton b = new JButton();
@@ -228,10 +265,11 @@ public class HungarianGUI extends JPanel implements ActionListener{
            }
            add(p3);
            add(la3);
+           panels.add(p3);
        }
        public void players_4(int x)
        {
-           JLabel la4=new JLabel("robot3");
+           JLabel la4=new JLabel("bot3");
            la4.setBounds(730,136,70,10);
            players_3(x);
            int y=100*(players-2);
@@ -239,15 +277,15 @@ public class HungarianGUI extends JPanel implements ActionListener{
            p4.setVisible(true);
            p4.setLayout(new GridLayout(game.get_numberTile(),1,0,0));
            p4.setBounds(720,150,70,400-y);
-           p4.setBackground(Color.BLACK);
            for(int i=0;i<x;i++)
            {
                JButton b = new JButton();
-               b.setBackground(Color.yellow);
+               b.setBackground(Color.blue);
                p4.add(b);
            }
            add(p4);
            add(la4);
+           panels.add(p4);
        }
        public void removes_Hands(Panel p,int b)
        {
@@ -269,6 +307,7 @@ public class HungarianGUI extends JPanel implements ActionListener{
         fr.setLocation(50,50);
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fr.add(gui);
+        fr.setResizable(false);
         fr.setVisible(true);
 //fr.setResizable(false);
     }
