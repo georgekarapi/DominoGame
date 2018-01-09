@@ -95,7 +95,7 @@ public class Player {
     public void deletesTiles() {
         tiles.clear();
     }
-    public String get_name(){return  "My name is "+name; }
+    public String get_name(){return name; }
     public void show()
     {
         System.out.println("My name is "+name);

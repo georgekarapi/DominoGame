@@ -18,18 +18,18 @@ public class HungarianGUI extends JPanel implements ActionListener{
     private int players;
     private JFrame windows;
     Hungarian game;
-    private HashMap<JPanel,ArrayList<JLabel>> panel;
+    Button turn;
     //hashmap για πανελ και player
     public HungarianGUI(JFrame windows)
     {
         super();
-        panel=new HashMap<>();
         this.windows=windows;
         setLayout(null);
         setVisible(true);
         setBounds(0,0,800,800);
-        setBackground(Color.LIGHT_GRAY);
+        setBackground(Color.orange);
         GYIname onoma=new GYIname();
+        turn=new Button("123");
     }
     public class GYIname implements ActionListener
     {
@@ -109,6 +109,7 @@ public class HungarianGUI extends JPanel implements ActionListener{
 
 
        public void Hands_Tiles(){
+
            int x=0,y=0;
            game=new Hungarian(players,name);
            game.Start();
@@ -118,27 +119,82 @@ public class HungarianGUI extends JPanel implements ActionListener{
            {x=100; y=10;}
            else if(players==4)
            {x=200;y=20;}
-           setBounds(0,0,800,600);
-           TilesTable p1 = new TilesTable(100,600,600,200,game.my_player().Tiles(),100);
-           windows.add(p1);
-           //p1.setBackground(Color.BLUE);
-           p1.setVisible(true);
+           TilesTable p1 = new TilesTable(100,650,600,200,game.my_player().Tiles(),68,this);
+           JLabel your=new JLabel(game.my_player().get_name());
+           your.setBounds(100,620,70,10);
+           add(your);
            if(players==2)
            players_2(game.get_numberTile());
            else if(players==3)
             players_3(game.get_numberTile());
             else if(players==4)
                 players_4(game.get_numberTile());
+           JPanel a=new JPanel();a.setLayout(null);
+          a.setBounds(100,100,600,500);
+          a.setBackground(Color.GREEN);
+           add(a);
+           turn.setBounds(640,630,130,130);
+           turn.setLabel(game.get_Player(0).get_name()+" turn");
+           turn.setBackground(Color.pink);
+           add(turn);
 
-           TableGUI g=new TableGUI(game.getClassic(),this);
-           g.add_TableGUI(new Tile(2,4),true);
 
+
+           TableGUI g=new TableGUI(game.getClassic(),a);
+          g.add_TableGUI(new Tile(5,2),true);
+           g.add_TableGUI(new Tile(1,2),true);
+          g.add_TableGUI(new Tile(1,6),true);
+            g.add_TableGUI(new Tile(5,6),true);
+            g.add_TableGUI(new Tile(5,3),true);
+          g.add_TableGUI(new Tile(3,4),true);
+           g.add_TableGUI(new Tile(5,4),true);
+           g.add_TableGUI(new Tile(4,1),true);
+           g.add_TableGUI(new Tile(3,1),true);
+           g.add_TableGUI(new Tile(2,3),true);
+           g.add_TableGUI(new Tile(2,5),false);
+           g.add_TableGUI(new Tile(2,0),false);
+           g.add_TableGUI(new Tile(4,0),false);
+           g.add_TableGUI(new Tile(1,4),false);
+           g.add_TableGUI(new Tile(1,2),false);
+           g.add_TableGUI(new Tile(2,2),false);
+           g.add_TableGUI(new Tile(3,2),false);
+           g.add_TableGUI(new Tile(3,5),false);
+           g.add_TableGUI(new Tile(5,0),false);
+           g.add_TableGUI(new Tile(0,4),false);
+           g.add_TableGUI(new Tile(4,4),false);
+           g.add_TableGUI(new Tile(4,5),false);
+           g.add_TableGUI(new Tile(2,5),false);
+           g.add_TableGUI(new Tile(1,2),false);
+           g.add_TableGUI(new Tile(1,6),false);
+           g.add_TableGUI(new Tile(2,6),false);
+           g.add_TableGUI(new Tile(2,1),false);
+           g.add_TableGUI(new Tile(1,1),false);
+           g.add_TableGUI(new Tile(3,1),false);
+           g.add_TableGUI(new Tile(3,5),false);
+           g.add_TableGUI(new Tile(2,5),false);
+           g.add_TableGUI(new Tile(2,0),false);
+           g.add_TableGUI(new Tile(0,0),false);
+          /*  g.add_TableGUI(new Tile(3,0),false);
+          g.add_TableGUI(new Tile(6,2),true);
+           g.add_TableGUI(new Tile(6,0),true);
+           g.add_TableGUI(new Tile(0,2),true);
+           g.add_TableGUI(new Tile(2,1),true);
+           g.add_TableGUI(new Tile(0,1),true);
+           g.add_TableGUI(new Tile(0,4),true);
+           g.add_TableGUI(new Tile(4,0),true);
+           g.add_TableGUI(new Tile(0,2),true);
+           g.add_TableGUI(new Tile(2,1),true);
+           g.add_TableGUI(new Tile(0,1),true);
+           g.add_TableGUI(new Tile(0,4),true);
+           g.add_TableGUI(new Tile(3,2),true);
+           g.add_TableGUI(new Tile(4,2),true);
+           g.add_TableGUI(new Tile(5,2),true);
+           g.add_TableGUI(new Tile(1,3),true);*/
        }
        public void players_2(int x)
-       {
+       {    JLabel la2=new JLabel("robot1");
+            la2.setBounds(200,0,75,10);
            int y=100*(players-2);
-           setBounds(100,100,600,500);
-           setBackground(Color.cyan);
            JPanel p2=new JPanel();
            p2.setVisible(true);
            p2.setLayout(new GridLayout(1,game.get_numberTile(),0,0));
@@ -150,11 +206,13 @@ public class HungarianGUI extends JPanel implements ActionListener{
                b.setBackground(Color.yellow);
                p2.add(b);
            }
-           windows.add(p2);
-
+           add(p2);
+           add(la2);
        }
        public void players_3(int x)
        {
+           JLabel la3=new JLabel("robot2");
+           la3.setBounds(30,136,70,10);
            players_2(x);
            int y=100*(players-2);
            JPanel p3=new JPanel();
@@ -165,14 +223,16 @@ public class HungarianGUI extends JPanel implements ActionListener{
            for(int i=0;i<x;i++)
            {
                JButton b = new JButton();
-               b.setBackground(Color.yellow);
+               b.setBackground(Color.red);
                p3.add(b);
            }
-         //  panel.add(p3);
-           windows.add(p3);
+           add(p3);
+           add(la3);
        }
        public void players_4(int x)
        {
+           JLabel la4=new JLabel("robot3");
+           la4.setBounds(730,136,70,10);
            players_3(x);
            int y=100*(players-2);
            JPanel p4=new JPanel();
@@ -186,8 +246,8 @@ public class HungarianGUI extends JPanel implements ActionListener{
                b.setBackground(Color.yellow);
                p4.add(b);
            }
-         //  panel.add(p4);
-           windows.add(p4);
+           add(p4);
+           add(la4);
        }
        public void removes_Hands(Panel p,int b)
        {
