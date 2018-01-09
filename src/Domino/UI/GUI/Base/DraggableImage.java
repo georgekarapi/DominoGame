@@ -10,12 +10,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.PipedOutputStream;
 
 public class DraggableImage extends JLabel {
     private TileGUI tile;
     private BufferedImage image;
     private int width;
+    private TableGUI table;
     private CustomMouseAdapter mouseAdapter;
 
     public DraggableImage(int l, int r, int width, boolean rotate) {
@@ -23,6 +26,17 @@ public class DraggableImage extends JLabel {
         tile = new TileGUI(l, r, width, rotate);
         image = tile.getImage();
         setIcon(new ImageIcon(image));
+        mouseAdapter = new CustomMouseAdapter();
+        addMouseListener(mouseAdapter);
+        addMouseMotionListener(mouseAdapter);
+    }
+
+    public DraggableImage(int l, int r, int width, boolean rotate, TableGUI table) {
+        this.width = width;
+        tile = new TileGUI(l, r, width, rotate);
+        image = tile.getImage();
+        setIcon(new ImageIcon(image));
+        this.table = table;
         mouseAdapter = new CustomMouseAdapter();
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
@@ -43,6 +57,7 @@ public class DraggableImage extends JLabel {
     class CustomMouseAdapter extends MouseAdapter {
         private boolean pressed = false;
         private Point point, old;
+
         @Override
         public void mousePressed(MouseEvent e) {
             if (e.getButton() != MouseEvent.BUTTON1) {
@@ -50,6 +65,10 @@ public class DraggableImage extends JLabel {
             }
             if(e.getComponent() instanceof DraggableImage) {
 
+//                System.out.println(e.getComponent().getBounds());
+//                System.out.println(e.getPoint());
+//                Point pointer = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(), e.getComponent().getParent());
+//                System.out.println(pointer);
                 if (getRootPane().getLayeredPane().getLayer(e.getComponent()) != JLayeredPane.DRAG_LAYER) {
                     getRootPane().getLayeredPane().add(DraggableImage.this, JLayeredPane.DRAG_LAYER);
                 }
@@ -70,14 +89,14 @@ public class DraggableImage extends JLabel {
         }
 
         public void mouseReleased(MouseEvent e) {
-           // JPanel jPanel = TableGUI();
-           // if(jPanel.contains(e.getPoint())){
-           //     System.out.println("in");
-          //  }
-           // else{
-                setBounds(old.x, old.y, image.getWidth(), image.getHeight());
-          //  }
-            pressed = false;
+            if(pressed) {
+                Rectangle2D tableBounds = TableGUI.getPos();
+                Point pointer = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(), e.getComponent().getParent());
+                if (!tableBounds.getBounds().contains(pointer) && !table.add_tile(tile, pointer.x, pointer.y)) {
+                    setBounds(old.x, old.y, image.getWidth(), image.getHeight());
+                }
+                pressed = false;
+            }
         }
     }
 }
