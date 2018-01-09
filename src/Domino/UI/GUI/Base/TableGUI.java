@@ -32,12 +32,15 @@ public class TableGUI{
         first.setBounds(300,0,50,50);
         x1=300;y1=0; x2=300 ;y2=0;
         p.add(first);
+        //p.
     }
-    public boolean add_TableGUI(Tile t, boolean  lr) //KANONIKA ENA TileGUI ,an prostethike aristera h deksia ,aristera true k deksia false
-    {
-         if(lr&& table.isLeft(t)) {
-             table.addTile(t, true);
-             t = table.getFirstTile();
+    public boolean add_TableGUI( boolean  lr) //KANONIKA ENA TileGUI ,an prostethike aristera h deksia ,aristera true k deksia false
+    {   Tile t;
+        if(lr)
+         t=table.getFirstTile();
+        else
+            t=table.getLastTile();
+         if(lr) {
              if (x1 - 50 > 0 && search) {
                  DraggableImage j = new DraggableImage(t.getLeft(), t.getRight(), 50, false);
                  x1 = x1 - 50;
@@ -74,10 +77,8 @@ public class TableGUI{
 
              }return true;
          }
-           else if(!lr && table.isRight(t))
+           else if(!lr)
            {
-               table.addTile(t, false);
-               t = table.getLastTile();
                if(x2+100<p.getWidth() && search2)
                {
                    DraggableImage j = new DraggableImage(t.getLeft(), t.getRight(), 50, false);

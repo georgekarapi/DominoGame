@@ -92,11 +92,9 @@ public class Hungarian {
          } else if (Robot.byTile(classic.getLastTile().getRight())) {
              Tile t = Robot.movement_tile(classic.getLastTile().getRight());
              classic.addTile(t, false);
-             return true;
+             return false;
          }
-
-         return false;
-
+return true;
      }
 
      public boolean finishGame()
@@ -139,7 +137,7 @@ public class Hungarian {
          return false;
      }
 
-     public boolean botTurn(int i)
+     public boolean bot_have_move(int i)
      {
          Bot Robot=(Bot) players.get(i);
          Robot.show();
@@ -178,7 +176,7 @@ public class Hungarian {
          }
           return null;
      }
-     public boolean turn_notBot(int i)
+     public boolean turn_Bot(int i)
      {
          if(players.get(i) instanceof Bot)
          return true;
@@ -199,5 +197,14 @@ public class Hungarian {
              b.add((Bot)p);
          }
         return b;
+     }
+     public Player Name(String name)
+     {
+         for(Player p:players.values())
+         {
+             if(name.equals(p.get_name()))
+                 return p;
+         }
+         return null;
      }
 }

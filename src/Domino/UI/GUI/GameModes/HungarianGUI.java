@@ -18,12 +18,14 @@ import java.util.HashMap;
 
 public class HungarianGUI extends JPanel implements ActionListener{
     private String name;
-    private int players;
+    private int players=2;
     private JFrame windows;
     private Hungarian game;
     private Button turn;
     private ArrayList<JPanel> panels;
     private boxScore box;
+    private TilesTable my;
+    private TableGUI table;
     public HungarianGUI(JFrame windows)
     {
         super();
@@ -32,33 +34,66 @@ public class HungarianGUI extends JPanel implements ActionListener{
         setVisible(true);
         setBounds(0,0,800,800);
         setBackground(Color.orange);
-        GYIname onoma=new GYIname();
         turn=new Button();
         panels=new ArrayList<>();
+
+       // thread1.interrupt();
+        GYIname onoma=new GYIname();
+
+
     }
-    public class GYIname implements ActionListener
+    public class Interrupt implements Runnable {
+        private Thread thread2;
+        public Interrupt(){}
+        public void run() {
+                if (Thread.interrupted())
+                    return;
+                else{
+                    constructor();startGameHungarian();
+
+            }
+            }
+        }
+    public class Interrupt2 implements Runnable {
+        public void run() {
+            if (Thread.interrupted())
+                return;
+            else{
+
+
+            }
+        }
+    }
+        public class GYIname  implements ActionListener
     {
         private JTextField onoma;
         private JButton ok;
         private JLabel keys;
-
+        private JPanel p;
         public GYIname()
         {
             super();
+
+
+            p=new JPanel();
+            p.setLayout(null);
+            p.setBounds(0,0,800,800);setBackground(Color.orange);
+            add(p);
+
             onoma=new JTextField();
             JLabel keys=new JLabel("Your name:");
             ok=new JButton("OK");
 
             onoma.setBounds(250,250,200,30);
             onoma.addActionListener(this);
-            add(onoma);
+            p.add(onoma);
 
             keys.setBounds(170,250,100,30);
-            add(keys);
+            p.add(keys);
 
             ok.addActionListener(this);
             ok.setBounds(220,300,200,40);
-            add(ok);
+            p.add(ok);
 
         }
         @Override
@@ -69,18 +104,34 @@ public class HungarianGUI extends JPanel implements ActionListener{
                 name=onoma.getText();
                 System.out.println(name);
                 setVisible(false);
-                removeAll();
-                setVisible(true);
+               // remove(keys);
+                p.remove(ok);
+                p.remove(onoma);
+                p.removeAll();
+                p.setVisible(true);
+                remove(p);
                 GYIplayers kat =new GYIplayers();
             }
         }
 
-    }
-    public class GYIplayers implements ActionListener {
-        private JButton pl[];
 
-        public GYIplayers() {
+    }
+    public class GYIplayers   implements ActionListener {
+        private JButton pl[];
+        public Thread thread1;
+        private JPanel pw;
+        public GYIplayers(){
             super();
+
+
+            pw=new JPanel();
+            pw.setLayout(null);
+            pw.setBackground(Color.orange);
+            pw.setBounds(0,0,800,800);
+            add(pw);
+
+
+           thread1= new Thread(new Interrupt());;
             pl = new JButton[3];
             pl[0] = new JButton("Players 2");
             pl[1] = new JButton("Players 3");
@@ -91,7 +142,7 @@ public class HungarianGUI extends JPanel implements ActionListener{
             pl[2].setBounds(250, 400, 200, 50);
             for (int i = 0; i < 3; i++) {
                 pl[i].addActionListener(this);
-                add(pl[i]);
+                pw.add(pl[i]);
             }
         }
         @Override
@@ -100,15 +151,31 @@ public class HungarianGUI extends JPanel implements ActionListener{
             for (int i = 0; i < 3; i++) {
                 if (e.getActionCommand().equals(pl[i].getActionCommand())) {
                     players = i + 2;
-                    setVisible(false);
-                    removeAll();
-                    setVisible(true);
-                    Hands_Tiles();//paei sto kanonik;o game
+                    pw.setVisible(false);
+                    pw.removeAll();
+                    pw.setVisible(true);
+                   thread1.start();
+                    //paei sto kanonik;o gamesleep();
+
                 }
             }
         }
     }
+    public  void constructor()//arxikopoiei gia to paixnidi ta antikeimena
+    {
 
+        game=new Hungarian(players,name);
+        JLabel your=new JLabel(game.my_player().get_name());
+        your.setBounds(100,620,100,10);
+        add(your);
+        box=new boxScore(680,0,100,75);
+        add(box);
+        turn.setBounds(660,630,130,130);
+        turn.setLabel(game.get_Player(0).get_name()+" turn");
+        turn.setBackground(Color.pink);
+        add(turn);
+
+    }
 public class boxScore extends JPanel
     {
         private Round round;
@@ -124,7 +191,6 @@ public class boxScore extends JPanel
             {
                 score.put(p,new JLabel(p.get_name()+" "+round.pointPlayer(p)+" points"));
                 add(score.get(p));
-
             }
 
         }
@@ -136,98 +202,30 @@ public class boxScore extends JPanel
             }
         }
     }
-
-
-
-       public void Hands_Tiles(){
+       public  void Hands_Tiles(){
 
            int x=0,y=0;
-           game=new Hungarian(players,name);
-           game.Start();
            if(players==2)
            {x=y=0;}
            else if(players==3)
            {x=100; y=10;}
            else if(players==4)
            {x=200;y=20;}
-           TilesTable p1 = new TilesTable(100,650,600,200,game.my_player().Tiles(),68,this);
-           JLabel your=new JLabel(game.my_player().get_name());
-           your.setBounds(100,620,100,10);
-           add(your);
+           my= new TilesTable(100,650,600,200,game.my_player().Tiles(),68,this);
            if(players==2)
            players_2(game.get_numberTile());
            else if(players==3)
             players_3(game.get_numberTile());
             else if(players==4)
                 players_4(game.get_numberTile());
-
-
-           //poios paizei
-           turn.setBounds(660,630,130,130);
-           turn.setLabel(game.get_Player(0).get_name()+" turn");
-           turn.setBackground(Color.pink);
-           add(turn);
-
-
-           box=new boxScore(680,0,100,75);
-           add(box);
-
-
 //gia to tamlo arxikopoisi
            JPanel a=new JPanel();a.setLayout(null);
            a.setBounds(100,100,600,500);
            a.setBackground(Color.GREEN);
            add(a);
-           TableGUI g=new TableGUI(game.getClassic(),a);
-          g.add_TableGUI(new Tile(5,2),true);
-           g.add_TableGUI(new Tile(1,2),true);
-          g.add_TableGUI(new Tile(1,6),true);
-            g.add_TableGUI(new Tile(5,6),true);
-            g.add_TableGUI(new Tile(5,3),true);
-          g.add_TableGUI(new Tile(3,4),true);
-           g.add_TableGUI(new Tile(5,4),true);
-           g.add_TableGUI(new Tile(4,1),true);
-           g.add_TableGUI(new Tile(3,1),true);
-           g.add_TableGUI(new Tile(2,3),true);
-           g.add_TableGUI(new Tile(2,5),false);
-           g.add_TableGUI(new Tile(2,0),false);
-           g.add_TableGUI(new Tile(4,0),false);
-           g.add_TableGUI(new Tile(1,4),false);
-           g.add_TableGUI(new Tile(1,2),false);
-           g.add_TableGUI(new Tile(2,2),false);
-           g.add_TableGUI(new Tile(3,2),false);
-           g.add_TableGUI(new Tile(3,5),false);
-           g.add_TableGUI(new Tile(5,0),false);
-           g.add_TableGUI(new Tile(0,4),false);
-           g.add_TableGUI(new Tile(4,4),false);
-           g.add_TableGUI(new Tile(4,5),false);
-           g.add_TableGUI(new Tile(2,5),false);
-           g.add_TableGUI(new Tile(1,2),false);
-           g.add_TableGUI(new Tile(1,6),false);
-           g.add_TableGUI(new Tile(2,6),false);
-           g.add_TableGUI(new Tile(2,1),false);
-           g.add_TableGUI(new Tile(1,1),false);
-           g.add_TableGUI(new Tile(3,1),false);
-           g.add_TableGUI(new Tile(3,5),false);
-           g.add_TableGUI(new Tile(2,5),false);
-           g.add_TableGUI(new Tile(2,0),false);
-           g.add_TableGUI(new Tile(0,0),false);
-          /*  g.add_TableGUI(new Tile(3,0),false);
-          g.add_TableGUI(new Tile(6,2),true);
-           g.add_TableGUI(new Tile(6,0),true);
-           g.add_TableGUI(new Tile(0,2),true);
-           g.add_TableGUI(new Tile(2,1),true);
-           g.add_TableGUI(new Tile(0,1),true);
-           g.add_TableGUI(new Tile(0,4),true);
-           g.add_TableGUI(new Tile(4,0),true);
-           g.add_TableGUI(new Tile(0,2),true);
-           g.add_TableGUI(new Tile(2,1),true);
-           g.add_TableGUI(new Tile(0,1),true);
-           g.add_TableGUI(new Tile(0,4),true);
-           g.add_TableGUI(new Tile(3,2),true);
-           g.add_TableGUI(new Tile(4,2),true);
-           g.add_TableGUI(new Tile(5,2),true);
-           g.add_TableGUI(new Tile(1,3),true);*/
+           table=new TableGUI(game.getClassic(),a);
+
+
        }
        public void players_2(int x)
        {    JLabel la2=new JLabel("bot1");
@@ -286,14 +284,68 @@ public class boxScore extends JPanel
            add(p4);
            add(la4);
            panels.add(p4);
+
        }
-       public void removes_Hands(Panel p,int b)
+    public  void startGameHungarian()
+    {int k;
+        while (!game.finishGame()) {
+              game.Start();//sto telos sta grafika
+            Hands_Tiles();
+            k=game.get_numberTile();
+            System.out.println("Round " + game.getRound().numRound() + "os");
+           k= remove_Hands(0,k);
+            while (game.movesPlayers()) {
+                for (int i = 0; i < players; i++) {
+                    if (game.turn_Bot(i)) {
+                        while (game.bot_have_move(i)) {
+                           boolean lr= game.moveBotTurn(i);
+                           table.add_TableGUI(lr);
+                          k=remove_Hands(i,k);
+                          sleep();
+                        }
+                    } else {
+                        while (game.playerTurn()) {
+                           return;
+                        }
+                    }
+                }
+            }
+            System.out.println("Finish round " + game.getRound().numRound());
+            game.finishRound();
+            box.finish_round();//dinei sto paixtei poy kerdise se ayto to giro toys pontoys
+            //for(Player p:game.getplayers())
+              //  Points(p.get_name(),game.getRound().pointPlayer(p));
+            game.deleteHands();
+            panels.removeAll(panels);
+            game.newRound();
+            this.removeAll();
+        }
+        if (game.getRound().pointPlayer(game.my_player()) >= 100)
+            System.out.println("You win");
+        else
+            System.out.println("You lost");
+    }
+       public int remove_Hands(int i,int k)
        {
-
-         //  p.setBounds(p.getX(),p.getY(),p.getWidth()-x,p.getHeight());
-          // p.remove(b);
+           if(game.get_Player(i).get_name().equals("bot1"))
+           {k--;    panels.get(0).remove(k); panels.get(0).setBounds(panels.get(0).getX(),panels.get(0).getY(),panels.get(0).getWidth()-30,panels.get(0).getHeight()); }
+           else if(game.get_Player(i).get_name().equals("bot2"))
+               panels.get(1).remove(0);
+           else if(game.get_Player(i).get_name().equals("bot3"))
+               panels.get(2).remove(0);
+return k;
        }
-
+public void sleep()
+{
+    try
+    {
+        Thread.sleep(2000);
+    }
+    catch(InterruptedException ex)
+    {
+        Thread.currentThread().interrupt();
+    }
+}
     @Override
     public void actionPerformed(ActionEvent e) {
         }
@@ -312,3 +364,56 @@ public class boxScore extends JPanel
 //fr.setResizable(false);
     }
 }
+
+
+
+
+/*   g.add_TableGUI(new Tile(5,2),true);
+           g.add_TableGUI(new Tile(1,2),true);
+          g.add_TableGUI(new Tile(1,6),true);
+            g.add_TableGUI(new Tile(5,6),true);
+            g.add_TableGUI(new Tile(5,3),true);
+          g.add_TableGUI(new Tile(3,4),true);
+           g.add_TableGUI(new Tile(5,4),true);
+           g.add_TableGUI(new Tile(4,1),true);
+           g.add_TableGUI(new Tile(3,1),true);
+           g.add_TableGUI(new Tile(2,3),true);
+           g.add_TableGUI(new Tile(2,5),false);
+           g.add_TableGUI(new Tile(2,0),false);
+           g.add_TableGUI(new Tile(4,0),false);
+           g.add_TableGUI(new Tile(1,4),false);
+           g.add_TableGUI(new Tile(1,2),false);
+           g.add_TableGUI(new Tile(2,2),false);
+           g.add_TableGUI(new Tile(3,2),false);
+           g.add_TableGUI(new Tile(3,5),false);
+           g.add_TableGUI(new Tile(5,0),false);
+           g.add_TableGUI(new Tile(0,4),false);
+           g.add_TableGUI(new Tile(4,4),false);
+           g.add_TableGUI(new Tile(4,5),false);
+           g.add_TableGUI(new Tile(2,5),false);
+           g.add_TableGUI(new Tile(1,2),false);
+           g.add_TableGUI(new Tile(1,6),false);
+           g.add_TableGUI(new Tile(2,6),false);
+           g.add_TableGUI(new Tile(2,1),false);
+           g.add_TableGUI(new Tile(1,1),false);
+           g.add_TableGUI(new Tile(3,1),false);
+           g.add_TableGUI(new Tile(3,5),false);
+           g.add_TableGUI(new Tile(2,5),false);
+           g.add_TableGUI(new Tile(2,0),false);
+           g.add_TableGUI(new Tile(0,0),false);
+           g.add_TableGUI(new Tile(3,0),false);
+          g.add_TableGUI(new Tile(6,2),true);
+           g.add_TableGUI(new Tile(6,0),true);
+           g.add_TableGUI(new Tile(0,2),true);
+           g.add_TableGUI(new Tile(2,1),true);
+           g.add_TableGUI(new Tile(0,1),true);
+           g.add_TableGUI(new Tile(0,4),true);
+           g.add_TableGUI(new Tile(4,0),true);
+           g.add_TableGUI(new Tile(0,2),true);
+           g.add_TableGUI(new Tile(2,1),true);
+           g.add_TableGUI(new Tile(0,1),true);
+           g.add_TableGUI(new Tile(0,4),true);
+           g.add_TableGUI(new Tile(3,2),true);
+           g.add_TableGUI(new Tile(4,2),true);
+           g.add_TableGUI(new Tile(5,2),true);
+           g.add_TableGUI(new Tile(1,3),true);*/
