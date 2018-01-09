@@ -24,8 +24,8 @@ public class TableGUI{
     private boolean search3=true;
     private  boolean K=true;
     private Table table;
-    private   JPanel p;
-    public Rectangle2D get_Bounds(){return p.getBounds();}
+    private static JPanel p;
+    public static Rectangle2D getPos(){return p.getBounds();}
     public TableGUI(Table table,JPanel p)
     {
        this.table=table;

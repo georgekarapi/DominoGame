@@ -10,7 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.PipedOutputStream;
 
 public class DraggableImage extends JLabel {
     private TileGUI tile;
@@ -43,6 +45,7 @@ public class DraggableImage extends JLabel {
     class CustomMouseAdapter extends MouseAdapter {
         private boolean pressed = false;
         private Point point, old;
+
         @Override
         public void mousePressed(MouseEvent e) {
             if (e.getButton() != MouseEvent.BUTTON1) {
@@ -50,6 +53,10 @@ public class DraggableImage extends JLabel {
             }
             if(e.getComponent() instanceof DraggableImage) {
 
+//                System.out.println(e.getComponent().getBounds());
+//                System.out.println(e.getPoint());
+//                Point pointer = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(), e.getComponent().getParent());
+//                System.out.println(pointer);
                 if (getRootPane().getLayeredPane().getLayer(e.getComponent()) != JLayeredPane.DRAG_LAYER) {
                     getRootPane().getLayeredPane().add(DraggableImage.this, JLayeredPane.DRAG_LAYER);
                 }
@@ -70,14 +77,16 @@ public class DraggableImage extends JLabel {
         }
 
         public void mouseReleased(MouseEvent e) {
-            JPanel jPanel = TableGUI.getP();
-            if(jPanel.contains(e.getPoint())){
-                System.out.println("in");
+            if(pressed) {
+                Rectangle2D table = TableGUI.getPos();
+                Point pointer = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(), e.getComponent().getParent());
+                if (table.getBounds().contains(pointer)) {
+                    //getRootPane().getContentPane().
+                } else {
+                    setBounds(old.x, old.y, image.getWidth(), image.getHeight());
+                }
+                pressed = false;
             }
-            else{
-                setBounds(old.x, old.y, image.getWidth(), image.getHeight());
-            }
-            pressed = false;
         }
     }
 }
