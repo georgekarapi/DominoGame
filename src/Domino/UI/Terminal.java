@@ -146,13 +146,13 @@ public class Terminal {
     public static void startGameHungarian(Hungarian game,String name,int pl) {
         System.out.println("Welcome to the Hungarian Domino ");
         while (!game.finishGame()) {
-            game.Start();
+          //  game.Start(); sto telos sta grafika
             System.out.println("Round " + game.getRound().numRound() + "os");
             while (game.movesPlayers()) {
                 for (int i = 0; i < pl; i++) {
-                    if (game.turn_notBot(i)) {
-                        while (game.botTurn(i)) {
-                            game.moveBotTurn(i);
+                   if (game.turn_Bot(i)) {
+                       while (game.bot_have_move(i)) {
+                          game.moveBotTurn(i);
                             showTabloDomino(game.getClassic().getTable(), "Dominoes are: ");
                         }
                     } else {
@@ -163,7 +163,7 @@ public class Terminal {
                 }
             }
             System.out.println("Finish round " + game.getRound().numRound());
-            game.finishRound();
+            game.finishRound();//dinei sto paixtei poy kerdise se ayto to giro toys pontoys
             for(Player p:game.getplayers())
             Points(p.get_name(),game.getRound().pointPlayer(p));
             game.deleteHands();
