@@ -20,7 +20,7 @@ public class TableGUI{
     private boolean search2=true;
     private boolean search3=true;
     private  boolean K=true;
-    private  Table  table;
+    private Table table;
     private JPanel p;
     public TableGUI(Table table,JPanel p)
     {
@@ -32,11 +32,10 @@ public class TableGUI{
         first.setBounds(300,0,50,50);
         x1=300;y1=0; x2=300 ;y2=0;
         p.add(first);
-
+        //p.
     }
     public boolean add_TableGUI( boolean  lr) //KANONIKA ENA TileGUI ,an prostethike aristera h deksia ,aristera true k deksia false
-    {   p.setVisible(false);
-        Tile t;
+    {   Tile t;
         if(lr)
          t=table.getFirstTile();
         else
@@ -76,7 +75,7 @@ public class TableGUI{
                  j.removeMouseListener(j.getMouseAdapter());
                  p.add(j);
 
-             }p.setVisible(true);return true;
+             }return true;
          }
            else if(!lr)
            {
@@ -118,12 +117,9 @@ public class TableGUI{
                    j.removeMouseListener(j.getMouseAdapter());
 
                }
-               p.setVisible(true);return  true;
     }
 
 return false; }
-    public void deletes()
-    {p.removeAll();}
 
     public static void main(String args[]) {
        JFrame fr=new JFrame("windows");

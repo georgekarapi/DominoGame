@@ -1,6 +1,9 @@
 package Domino.UI.GUI.Base;
 
 
+import Domino.GameModes.Hungarian.Hungarian;
+import Domino.UI.GUI.GameModes.HungarianGUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -39,16 +42,18 @@ public class DraggableImage extends JLabel {
 
     class CustomMouseAdapter extends MouseAdapter {
         private boolean pressed = false;
-        private Point point;
+        private Point point, old;
         @Override
         public void mousePressed(MouseEvent e) {
             if (e.getButton() != MouseEvent.BUTTON1) {
                 return;
             }
             if(e.getComponent() instanceof DraggableImage) {
+
                 if (getRootPane().getLayeredPane().getLayer(e.getComponent()) != JLayeredPane.DRAG_LAYER) {
                     getRootPane().getLayeredPane().add(DraggableImage.this, JLayeredPane.DRAG_LAYER);
                 }
+                old = getLocation();
                 point = e.getPoint();
                 pressed = true;
             }
@@ -65,17 +70,13 @@ public class DraggableImage extends JLabel {
         }
 
         public void mouseReleased(MouseEvent e) {
-//            if(getRootPane().getLayeredPane().findComponentAt(e.getPoint()) instanceof TableGUI){
-//
-//            }
-//            Timer timer = new Timer(100, new ActionListener() {
-//                @Override
-//                public void actionPerformed(ActionEvent ae) {
-//                    setBounds(point.x, point.y, image.getWidth(), image.getHeight());
-//                    repaint();
-//                }
-//            });
-//            timer.start();
+            JPanel jPanel = TableGUI.getP();
+            if(jPanel.contains(e.getPoint())){
+                System.out.println("in");
+            }
+            else{
+                setBounds(old.x, old.y, image.getWidth(), image.getHeight());
+            }
             pressed = false;
         }
     }
