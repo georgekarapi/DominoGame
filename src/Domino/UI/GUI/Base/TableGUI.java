@@ -2,10 +2,13 @@ package Domino.UI.GUI.Base;
 
 import Domino.Base.Table;
 import Domino.Base.Tile;
+import javafx.scene.shape.Rectangle;
 
+import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 public class TableGUI{
@@ -21,7 +24,8 @@ public class TableGUI{
     private boolean search3=true;
     private  boolean K=true;
     private Table table;
-    private JPanel p;
+    private   JPanel p;
+    public Rectangle2D get_Bounds(){return p.getBounds();}
     public TableGUI(Table table,JPanel p)
     {
        this.table=table;
@@ -32,7 +36,7 @@ public class TableGUI{
         first.setBounds(300,0,50,50);
         x1=300;y1=0; x2=300 ;y2=0;
         p.add(first);
-        //p.
+
     }
     public boolean add_TableGUI( boolean  lr) //KANONIKA ENA TileGUI ,an prostethike aristera h deksia ,aristera true k deksia false
     {   Tile t;
