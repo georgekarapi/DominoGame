@@ -31,17 +31,6 @@ public class DraggableImage extends JLabel {
         addMouseMotionListener(mouseAdapter);
     }
 
-    public DraggableImage(int l, int r, int width, boolean rotate, TableGUI table) {
-        this.width = width;
-        tile = new TileGUI(l, r, width, rotate);
-        image = tile.getImage();
-        setIcon(new ImageIcon(image));
-        this.table = table;
-        mouseAdapter = new CustomMouseAdapter();
-        addMouseListener(mouseAdapter);
-        addMouseMotionListener(mouseAdapter);
-    }
-
     public void rotate() {
         tile = new TileGUI(tile.getLeft(), tile.getRight(), width + 1, tile.rotation == "h" ? true : false);
         image = tile.getImage();
@@ -90,9 +79,8 @@ public class DraggableImage extends JLabel {
 
         public void mouseReleased(MouseEvent e) {
             if(pressed) {
-                Rectangle2D tableBounds = TableGUI.getPos();
                 Point pointer = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(), e.getComponent().getParent());
-                if (!tableBounds.getBounds().contains(pointer) && !table.add_tile(tile, pointer.x, pointer.y)) {
+                if (!table.p.getBounds().contains(pointer) && !table.add_tile(tile, pointer.x, pointer.y)) {
                     setBounds(old.x, old.y, image.getWidth(), image.getHeight());
                 }
                 pressed = false;

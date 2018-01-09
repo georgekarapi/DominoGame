@@ -24,7 +24,7 @@ public class TableGUI{
     private boolean search3=true;
     private  boolean K=true;
     private Table table;
-    private  JPanel p;
+    public  JPanel p;
 
     public TableGUI(Table table,JPanel p)
     {
