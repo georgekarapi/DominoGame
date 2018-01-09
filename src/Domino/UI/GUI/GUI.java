@@ -1,9 +1,12 @@
 package Domino.UI.GUI;
 
 import Domino.UI.GUI.Base.DraggableImage;
+import Domino.UI.GUI.Base.NewGame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 public class GUI{
     DraggableImage tile = new DraggableImage(2, 6, 250, true);
@@ -13,25 +16,22 @@ public class GUI{
         JFrame frame = new JFrame("Domino Game");
         frame.setSize(512,512);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(null);
-        JLayeredPane jLayeredPane = frame.getLayeredPane();
-        jLayeredPane.setLayout(null);
-        JPanel jPanel = new JPanel();
-       jPanel.setBounds(0,0,512,300);
-       JPanel jPanel1 = new JPanel();
-        jPanel.setBounds(0,0,512,212);
-        jPanel.setBorder(BorderFactory.createTitledBorder(
-                "Panel 1"));
-        jPanel1.setBorder(BorderFactory.createTitledBorder(
-                "Panel 2"));
-        tile.setBounds(100,100,20,10);
-        tile.setLocation(100,100);
-        jPanel.add(tile);
-        jLayeredPane.add(jPanel, JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane.add(jPanel1, JLayeredPane.DEFAULT_LAYER);
+        frame.setLayout(new BorderLayout());
+
+        //frame.add(new NewGame());
+
+        //frame.addComponentListener(new ResizeListener());
         frame.setVisible(true);
     }
-
+//    class ResizeListener implements ComponentListener {
+//        public void componentHidden(ComponentEvent e) {}
+//        public void componentMoved(ComponentEvent e) {}
+//        public void componentShown(ComponentEvent e) {}
+//
+//        public void componentResized(ComponentEvent e) {
+//            Dimension newSize = e.getComponent().getBounds().getSize();
+//        }
+//    }
     public static void main(String args[]) {
         new GUI();
     }
