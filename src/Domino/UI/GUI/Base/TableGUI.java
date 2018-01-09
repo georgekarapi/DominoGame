@@ -21,7 +21,11 @@ public class TableGUI{
     private boolean search3=true;
     private  boolean K=true;
     private Table table;
-    private JPanel p;
+    public static JPanel p;
+
+    public static JPanel getP(){
+        return p;
+    }
     public TableGUI(Table table,JPanel p)
     {
        this.table=table;
