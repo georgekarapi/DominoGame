@@ -40,20 +40,21 @@ public class TableGUI{
     }
     public boolean add_TableGUI( boolean  lr) //KANONIKA ENA TileGUI ,an prostethike aristera h deksia ,aristera true k deksia false
     {   Tile t;
+   // p.setVisible(false);
         if(lr)
          t=table.getFirstTile();
         else
             t=table.getLastTile();
          if(lr) {
              if (x1 - 50 > 0 && search) {
-                 DraggableImage j = new DraggableImage(t.getLeft(), t.getRight(), 50, false);
+                 DraggableImage j = new DraggableImage(t.getLeft(), t.getRight(), 50, false,table);
                  x1 = x1 - 50;
                  j.setBounds(x1, y1, 50, 50);
                  p.add(j);
                  j.removeMouseMotionListener(j.getMouseAdapter());
                  j.removeMouseListener(j.getMouseAdapter());
              } else if (y1 + 50 < p.getHeight() && search1) {
-                 DraggableImage j = new DraggableImage(t.getRight(), t.getLeft(), 50, true);
+                 DraggableImage j = new DraggableImage(t.getRight(), t.getLeft(), 50, true,table);
                  if (search) {
                      search = false;
                      y1 = 40;
@@ -64,7 +65,7 @@ public class TableGUI{
                  j.removeMouseListener(j.getMouseAdapter());
                  p.add(j);
              } else {
-                 DraggableImage j = new DraggableImage(t.getRight(), t.getLeft(), 50, false);
+                 DraggableImage j = new DraggableImage(t.getRight(), t.getLeft(), 50, false,table);
                  search1 = false;
                  N++;
                  if (N == 1) {
@@ -79,13 +80,15 @@ public class TableGUI{
                  j.removeMouseListener(j.getMouseAdapter());
                  p.add(j);
 
-             }return true;
+             } p.repaint();// p.setVisible(true);
+             return true;
+
          }
            else if(!lr)
            {
                if(x2+100<p.getWidth() && search2)
                {
-                   DraggableImage j = new DraggableImage(t.getLeft(), t.getRight(), 50, false);
+                   DraggableImage j = new DraggableImage(t.getLeft(), t.getRight(), 50, false,table);
                    x2=x2+50;
                    j.setBounds(x2,y2,50,50);
                    p.add(j);
@@ -96,7 +99,7 @@ public class TableGUI{
                else if(y2+50<p.getHeight()&&search3)
                {System.out.println("1234");
                    System.out.println(x2+","+y2);
-                   DraggableImage j = new DraggableImage(t.getLeft(), t.getRight(), 50, true);
+                   DraggableImage j = new DraggableImage(t.getLeft(), t.getRight(), 50, true,table);
                    if(search2)
                    {
                        search2=false;
@@ -120,10 +123,15 @@ public class TableGUI{
                    j.removeMouseMotionListener(j.getMouseAdapter());
                    j.removeMouseListener(j.getMouseAdapter());
 
-               }
+               } p.repaint();// p.setVisible(true);
+               return true;
     }
 
 return false; }
+public boolean add_mouse(Tile t,int u ,int v)
+{
+    return true;
+}
 
     public static void main(String args[]) {
        JFrame fr=new JFrame("windows");
