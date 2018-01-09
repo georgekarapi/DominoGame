@@ -144,7 +144,6 @@ public class HungarianGUI extends JPanel implements ActionListener {
         box = new boxScore(680, 0, 100, 75);
         add(box);
         turn.setBounds(660, 630, 130, 130);
-        turn.setLabel(game.get_Player(0).get_name() + " turn");
         turn.setBackground(Color.pink);
         add(turn);
 
@@ -285,10 +284,12 @@ setVisible(true);
             k = game.get_numberTile();
             System.out.println("Round " + game.getRound().numRound() + "os");
             k = remove_Hands(0, k);
+            sleep();
             while (game.movesPlayers()) {
                 for (int i = 0; i < players; i++) {
                     if (game.turn_Bot(i)) {
                         while (game.bot_have_move(i)) {
+                            turn.setLabel(game.get_Player(i).get_name()+" turn");
                             boolean lr = game.moveBotTurn(i);
                             k = remove_Hands(i, k);
                             sleep();
@@ -302,7 +303,8 @@ setVisible(true);
                         }
                     } else {
                         while (game.playerTurn()) {
-return;
+              turn.setLabel(game.get_Player(i).get_name()+" turn");
+              return;
                         }
                     }
                 }
@@ -340,11 +342,11 @@ public class Interrupt3 implements Runnable
         if (game.get_Player(i).get_name().equals("bot1")) {
             k--;
             panels.get(0).remove(k);
-            panels.get(0).setBounds(panels.get(0).getX(), panels.get(0).getY(), panels.get(0).getWidth() - 30, panels.get(0).getHeight());
+            panels.get(0).setBounds(panels.get(0).getX(), panels.get(0).getY(), panels.get(0).getWidth() - 30, panels.get(0).getHeight());panels.get(0).repaint();
         } else if (game.get_Player(i).get_name().equals("bot2"))
-            panels.get(1).remove(0);
+        { panels.get(1).remove(0);panels.get(1).repaint();}
         else if (game.get_Player(i).get_name().equals("bot3"))
-            panels.get(2).remove(0);
+        {panels.get(2).remove(0);panels.get(2).repaint();}
         return k;
     }
 
@@ -376,56 +378,3 @@ public class Interrupt3 implements Runnable
 //fr.setResizable(false);
     }
 }
-
-
-
-
-/*   g.add_TableGUI(new Tile(5,2),true);
-           g.add_TableGUI(new Tile(1,2),true);
-          g.add_TableGUI(new Tile(1,6),true);
-            g.add_TableGUI(new Tile(5,6),true);
-            g.add_TableGUI(new Tile(5,3),true);
-          g.add_TableGUI(new Tile(3,4),true);
-           g.add_TableGUI(new Tile(5,4),true);
-           g.add_TableGUI(new Tile(4,1),true);
-           g.add_TableGUI(new Tile(3,1),true);
-           g.add_TableGUI(new Tile(2,3),true);
-           g.add_TableGUI(new Tile(2,5),false);
-           g.add_TableGUI(new Tile(2,0),false);
-           g.add_TableGUI(new Tile(4,0),false);
-           g.add_TableGUI(new Tile(1,4),false);
-           g.add_TableGUI(new Tile(1,2),false);
-           g.add_TableGUI(new Tile(2,2),false);
-           g.add_TableGUI(new Tile(3,2),false);
-           g.add_TableGUI(new Tile(3,5),false);
-           g.add_TableGUI(new Tile(5,0),false);
-           g.add_TableGUI(new Tile(0,4),false);
-           g.add_TableGUI(new Tile(4,4),false);
-           g.add_TableGUI(new Tile(4,5),false);
-           g.add_TableGUI(new Tile(2,5),false);
-           g.add_TableGUI(new Tile(1,2),false);
-           g.add_TableGUI(new Tile(1,6),false);
-           g.add_TableGUI(new Tile(2,6),false);
-           g.add_TableGUI(new Tile(2,1),false);
-           g.add_TableGUI(new Tile(1,1),false);
-           g.add_TableGUI(new Tile(3,1),false);
-           g.add_TableGUI(new Tile(3,5),false);
-           g.add_TableGUI(new Tile(2,5),false);
-           g.add_TableGUI(new Tile(2,0),false);
-           g.add_TableGUI(new Tile(0,0),false);
-           g.add_TableGUI(new Tile(3,0),false);
-          g.add_TableGUI(new Tile(6,2),true);
-           g.add_TableGUI(new Tile(6,0),true);
-           g.add_TableGUI(new Tile(0,2),true);
-           g.add_TableGUI(new Tile(2,1),true);
-           g.add_TableGUI(new Tile(0,1),true);
-           g.add_TableGUI(new Tile(0,4),true);
-           g.add_TableGUI(new Tile(4,0),true);
-           g.add_TableGUI(new Tile(0,2),true);
-           g.add_TableGUI(new Tile(2,1),true);
-           g.add_TableGUI(new Tile(0,1),true);
-           g.add_TableGUI(new Tile(0,4),true);
-           g.add_TableGUI(new Tile(3,2),true);
-           g.add_TableGUI(new Tile(4,2),true);
-           g.add_TableGUI(new Tile(5,2),true);
-           g.add_TableGUI(new Tile(1,3),true);*/

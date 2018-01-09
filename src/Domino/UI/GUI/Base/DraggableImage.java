@@ -70,13 +70,13 @@ public class DraggableImage extends JLabel {
         }
 
         public void mouseReleased(MouseEvent e) {
-            JPanel jPanel = TableGUI.getP();
-            if(jPanel.contains(e.getPoint())){
-                System.out.println("in");
-            }
-            else{
+           // JPanel jPanel = TableGUI();
+           // if(jPanel.contains(e.getPoint())){
+           //     System.out.println("in");
+          //  }
+           // else{
                 setBounds(old.x, old.y, image.getWidth(), image.getHeight());
-            }
+          //  }
             pressed = false;
         }
     }

@@ -40,6 +40,7 @@ public class TableGUI{
     }
     public boolean add_TableGUI( boolean  lr) //KANONIKA ENA TileGUI ,an prostethike aristera h deksia ,aristera true k deksia false
     {   Tile t;
+   // p.setVisible(false);
         if(lr)
          t=table.getFirstTile();
         else
@@ -79,7 +80,9 @@ public class TableGUI{
                  j.removeMouseListener(j.getMouseAdapter());
                  p.add(j);
 
-             }return true;
+             } p.repaint();// p.setVisible(true);
+             return true;
+
          }
            else if(!lr)
            {
@@ -120,7 +123,8 @@ public class TableGUI{
                    j.removeMouseMotionListener(j.getMouseAdapter());
                    j.removeMouseListener(j.getMouseAdapter());
 
-               }
+               } p.repaint();// p.setVisible(true);
+               return true;
     }
 
 return false; }
