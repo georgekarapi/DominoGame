@@ -24,8 +24,8 @@ public class TableGUI{
     private boolean search3=true;
     private  boolean K=true;
     private Table table;
-    private static JPanel p;
-    public static Rectangle2D getPos(){return p.getBounds();}
+    private  JPanel p;
+
     public TableGUI(Table table,JPanel p)
     {
        this.table=table;
@@ -115,7 +115,7 @@ public class TableGUI{
        else
                {
                    if(K){y2=y2-25;K=false;}
-                   DraggableImage j = new DraggableImage(t.getRight(), t.getLeft(), 50, this);
+                   DraggableImage j = new DraggableImage(t.getRight(), t.getLeft(), 50, true,this);
                    search3=false;
                    x2=x2-50;
                    j.setBounds(x2,y2,50,25);

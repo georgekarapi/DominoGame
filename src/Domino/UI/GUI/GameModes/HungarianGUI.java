@@ -304,7 +304,7 @@ setVisible(true);
                     } else {
                         while (game.playerTurn()) {
               turn.setLabel(game.get_Player(i).get_name()+" turn");
-              return;
+
                         }
                     }
                 }
