@@ -128,9 +128,18 @@ public class TableGUI{
     }
 
 return false; }
-public boolean add_mouse(Tile t,int u ,int v)
-{
-    return true;
+public boolean add_tile(Tile t,int u ,int v)
+{    if((table.isRight(t) ||table.isLeft(t)) && (u>p.getX() && u<p.getX()+ p.getWidth() && v>p.getY()&&v<p.getY()+p.getHeight()))
+     {
+         int difference1=Math.abs(u-x1)+Math.abs(v-y1);
+         int difference2=Math.abs(u-x2)+Math.abs(v-y2);
+         if(difference1<difference2)
+             add_TableGUI(true);
+         else
+             add_TableGUI(false);
+         return true;
+     }
+    return false;
 }
 
     public static void main(String args[]) {

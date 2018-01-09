@@ -16,7 +16,7 @@ public class TilesTable {
         tiles=new ArrayList<>();
         for(Tile t:T)
         {
-            tiles.add(new DraggableImage(t.getLeft(),t.getRight(),widthTile,true),classic);
+            tiles.add(new DraggableImage(t.getLeft(),t.getRight(),widthTile,true,classic));
         }
         for(DraggableImage d:tiles)
         {
