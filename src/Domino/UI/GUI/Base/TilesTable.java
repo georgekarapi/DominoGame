@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class TilesTable {
     private ArrayList<DraggableImage> tiles;
-    public TilesTable(int x, int y, int width, int height, ArrayList<Tile> T, int widthTile,JPanel p,Table classic)
+    public TilesTable(int x, int y, int width, int height, ArrayList<Tile> T, int widthTile,JPanel p,TableGUI classic)
     {
 
         tiles=new ArrayList<>();

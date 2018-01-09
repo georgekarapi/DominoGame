@@ -189,7 +189,7 @@ public class HungarianGUI extends JPanel implements ActionListener {
             y = 20;
         }
         System.out.println("ela tora");
-        my = new TilesTable(100, 650, 600, 200, game.my_player().Tiles(), 68, this,game.getClassic());
+        my = new TilesTable(100, 650, 600, 200, game.my_player().Tiles(), 68, this,table);
         if (players == 2)
             players_2(game.get_numberTile());
         else if (players == 3)
