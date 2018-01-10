@@ -4,6 +4,7 @@ package Domino.UI.GUI.Base;
 import Domino.Base.Tile;
 import Domino.GameModes.Hungarian.Hungarian;
 import Domino.UI.GUI.GameModes.HungarianGUI;
+import com.sun.javafx.geom.Rectangle;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,17 +18,16 @@ import java.io.PipedOutputStream;
 
 public class DraggableImage extends JLabel {
     private TileGUI tile;
+    public TableGUI table;
     private BufferedImage image;
     private int width;
-    private TableGUI table;
     private CustomMouseAdapter mouseAdapter;
 private TilesTable my;
-    public DraggableImage(int l, int r, int width, boolean rotate,TableGUI table) {
+    public DraggableImage(int l, int r, int width, boolean rotate) {
         this.width = width;
         tile = new TileGUI(l, r, width, rotate);
         image = tile.getImage();
         setIcon(new ImageIcon(image));
-        this.table=table;
         mouseAdapter = new CustomMouseAdapter();
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
