@@ -38,11 +38,8 @@ public class TableGUI{
         first.setBounds(300,0,50,50);
         x1=300;y1=0; x2=300 ;y2=0;
         p.add(first);
-        p.repaint();
-
     }
     public JPanel get_panel(){return p;}
-    public  void remove_all(){p.removeAll();}
     public boolean add_TableGUI( boolean  lr) //KANONIKA ENA TileGUI ,an prostethike aristera h deksia ,aristera true k deksia false
     {   Tile t;
    // p.setVisible(false);

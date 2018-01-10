@@ -1,6 +1,7 @@
 package Domino.UI;
 
 import Domino.Base.Tile;
+import Domino.GameModes.Cardinal;
 import Domino.GameModes.Hungarian.Bot;
 import Domino.GameModes.Hungarian.Hungarian;
 import Domino.GameModes.Hungarian.Player;
@@ -88,6 +89,9 @@ public class Terminal {
             input = scan.nextInt();
         } while (min > input && input < max);
         return input;
+    }
+    public static void startCardinal(){
+        Cardinal cardinal = new Cardinal(inputTile(2,4), "giorgos");
     }
 
     public static void startSolo() {
@@ -184,6 +188,7 @@ public class Terminal {
             System.out.println();
             System.out.println("1.Solo 1");
             System.out.println("2.Hungarian");
+            System.out.println("3.Cardinal");
             System.out.println("0. Exit");
             Scanner scan = new Scanner(System.in);
             choice = scan.nextInt();
@@ -194,6 +199,9 @@ public class Terminal {
                 case 2:
                    Hungarian game = new Hungarian(3,"christos");
                    startGameHungarian(game,"christos",3);
+                    break;
+                case 3:
+                    startCardinal();
                     break;
                 case 0:
                     System.exit(0);
