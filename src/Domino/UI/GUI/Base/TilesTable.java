@@ -29,7 +29,7 @@ public class TilesTable {
             p.add(d);
             x=x+widthTile/2+15;
         }
-        for(DraggableImage d:tiles){d.get_My(this);}
+        for(DraggableImage d:tiles){d.get_My(this);d.table=classic;}
     }
     public void addTiles(DraggableImage t,int x){tiles.add(x,t);}
     public void removeTile( Tile t)
