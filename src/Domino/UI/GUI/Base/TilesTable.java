@@ -12,6 +12,7 @@ public class TilesTable {
     private ArrayList<DraggableImage> tiles;
     private JPanel p;
     private TableGUI classic;
+    private boolean mouseListener=true;
     public TilesTable(int x, int y, int width, int height, ArrayList<Tile> T, int widthTile,JPanel p,TableGUI classic)
     {
        this.p=p;
@@ -44,6 +45,24 @@ public class TilesTable {
 
         }
     }
+    public void removeMouseListenet()
+    {for(DraggableImage d:tiles)
+    {
+        d.removeMouseListener(d.getMouseAdapter());
+        d.removeMouseMotionListener(d.getMouseAdapter());
+        mouseListener=false;
+    }
+    }
+    public void addMouseListener()
+    {
+        for(DraggableImage d:tiles)
+        {
+            d.addMouseListener(d.getMouseAdapter());
+            d.addMouseMotionListener(d.getMouseAdapter());
+            mouseListener=true;
+        }
+    }
+    public boolean get_mouseListener(){return mouseListener;}
     public class Interr implements Runnable {
         DraggableImage d;
         public Interr(DraggableImage d){this.d=d;}

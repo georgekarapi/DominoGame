@@ -294,6 +294,7 @@ setVisible(true);
                 for (int i = 0; i < players; i++) {
                     if (game.turn_Bot(i)) {
                         while (game.bot_have_move(i)) {
+                            my.removeMouseListenet();
                             turn.setLabel(game.get_Player(i).get_name()+" turn");
                             boolean lr = game.moveBotTurn(i);
                             k = remove_Hands(i, k);
@@ -307,7 +308,8 @@ setVisible(true);
                             sleep();
                         }
                     } else {
-
+                        if(!my.get_mouseListener())
+                           my.addMouseListener();
                             turn.setLabel(game.get_Player(i).get_name()+" turn");
                             Thread my_turn=new Thread(new Interrupt4());
                             my_turn.start();
@@ -315,8 +317,6 @@ setVisible(true);
                                 my_turn.join();
                             } catch (InterruptedException e) {
                             }
-
-
                     }
                 }
             }

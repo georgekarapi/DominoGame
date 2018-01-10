@@ -90,19 +90,11 @@ public  void get_My(TilesTable my){this.my=my;}
                 {
                     setBounds(old.x, old.y, image.getWidth(), image.getHeight());
                 }
-                else{
-                    Thread thead=new Thread(new Interrupts(tile));
-                    thead.start();
+                else{my.removeTile(tile);
+
                 }
                 pressed = false;
             }
-        }
-    }
-    public class Interrupts implements Runnable {
-        Tile t;
-        public Interrupts(Tile t){this.t=t;}
-        public void run() {
-            my.removeTile(tile);
         }
     }
 }

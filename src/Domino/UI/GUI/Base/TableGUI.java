@@ -118,7 +118,7 @@ public class TableGUI{
        else
                {
                    if(K){y2=y2-25;K=false;}
-                   DraggableImage j = new DraggableImage(t.getRight(), t.getLeft(), 50, true,this);
+                   DraggableImage j = new DraggableImage(t.getRight(), t.getLeft(), 50, false,this);
                    search3=false;
                    x2=x2-50;
                    j.setBounds(x2,y2,50,25);
@@ -126,7 +126,7 @@ public class TableGUI{
                    j.removeMouseMotionListener(j.getMouseAdapter());
                    j.removeMouseListener(j.getMouseAdapter());
 
-               } p.repaint();// p.setVisible(true);
+               } p.repaint();
                return true;
     }
 
