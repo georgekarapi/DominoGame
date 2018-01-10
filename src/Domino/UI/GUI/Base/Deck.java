@@ -8,7 +8,8 @@ import java.util.ArrayList;
 
 public class Deck extends JPanel{
     public TableGUI tableGUI;
-    public Deck(ArrayList<ArrayList<Tile>> tiles, int collumns, int rows){
+    public Deck(ArrayList<ArrayList<Tile>> tiles, int collumns, int rows, TableGUI tableGUI){
+        this.tableGUI = tableGUI;
         setBorder(BorderFactory.createTitledBorder("Deck"));
         setMinimumSize(new Dimension(200, 200));
         setLayout(new GridLayout(4,7,2,2));

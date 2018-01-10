@@ -13,11 +13,11 @@ public class SoloOneGUI extends JPanel{
     public SoloOneGUI(){
         soloOne = new SoloOne();
         setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
-        Deck deck = new Deck(soloOne.tilesLeft(), 4, 7);
+
         JPanel tableGUI = new JPanel();
-        tableGUI.setMinimumSize(new Dimension(512,512));
         TableGUI table = new TableGUI(soloOne, tableGUI);
-        deck.tableGUI = table;
+        Deck deck = new Deck(soloOne.tilesLeft(), 4, 7, table);
+        tableGUI.setMinimumSize(new Dimension(512,512));
         tableGUI.setBackground(Color.pink);
         add(tableGUI);
         add(deck);

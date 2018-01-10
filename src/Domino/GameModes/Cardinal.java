@@ -2,16 +2,18 @@ package Domino.GameModes;
 
 import Domino.Base.Dominoes;
 import Domino.GameModes.Hungarian.Bot;
+import Domino.GameModes.Hungarian.Hungarian;
 import Domino.GameModes.Hungarian.Player;
 
 import java.util.ArrayList;
 
-public class Cardinal {
+public class Cardinal extends Hungarian{
     private ArrayList<Bot> bots;
     private Player player;
     private Dominoes dominoes;
 
     public Cardinal(int players, String name){
+        super(players,name);
         dominoes = new Dominoes();
         bots = new ArrayList<>();
         if(players > 2){
