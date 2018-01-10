@@ -171,13 +171,17 @@ public class HungarianGUI extends JPanel implements ActionListener {
 
         public void finish_round() {
             for (Player p : score.keySet()) {
-                score.get(p).setText(p.get_name() + round.pointPlayer(p) + " points");
+                score.get(p).setText(p.get_name() +" "+ round.pointPlayer(p) + " points");
             }
         }
     }
 
     public void Hands_Tiles() {
         game.Start();
+
+
+
+
         int x = 0, y = 0;
         if (players == 2) {
             x = y = 0;
@@ -188,8 +192,6 @@ public class HungarianGUI extends JPanel implements ActionListener {
             x = 200;
             y = 20;
         }
-        System.out.println("ela tora");
-
         if (players == 2)
             players_2(game.get_numberTile());
         else if (players == 3)
@@ -204,6 +206,7 @@ public class HungarianGUI extends JPanel implements ActionListener {
         table = new TableGUI(game.getClassic(),a);table.set_Player(game.my_player());
         my = new TilesTable(100, 650, 600, 200, game.my_player().Tiles(), 68, this,table);
         table.set_TilesTable(my);
+        repaint();
 //gia to tamlo arxikopoisi
 setVisible(true);
 
@@ -221,10 +224,13 @@ setVisible(true);
             JButton b = new JButton();
             b.setBackground(Color.yellow);
             p2.add(b);
+            b.repaint();
         }
         add(p2);
         add(la2);
         panels.add(p2);
+
+
     }
 
     public void players_3(int x) {
@@ -244,6 +250,7 @@ setVisible(true);
         add(p3);
         add(la3);
         panels.add(p3);
+        p3.repaint();
     }
 
     public void players_4(int x) {
@@ -276,20 +283,36 @@ setVisible(true);
         public void run() {bool=game.playerTurn();//game.my_player().show();
         }
     }
+    public class Interrupt10 implements Runnable {
+        private int k;
+        private int i;
+        public int get_k(){return k;}
+       public  Interrupt10(int i,int k){this.k=k;this.i=i;}
+        public void run() {
+            k = remove_Hands(i, k);
+        }
+    }
     public void startGameHungarian(){
         int k;
         constructor();
         while (!game.finishGame()) {
             //sto telos sta grafika
+            k = game.get_numberTile();
             Thread t=new Thread(new Interrupt2());
             t.start();
             try {
                 t.join();
             } catch (InterruptedException e) {
             }
-            k = game.get_numberTile();
             System.out.println("Round " + game.getRound().numRound() + "os");
-            k = remove_Hands(0, k);
+            Interrupt10 inter10=new Interrupt10(0,k);
+            Thread pl=new Thread(inter10);
+            pl.start();
+            try {
+                pl.join();
+            } catch (InterruptedException e) {
+            }
+            k=inter10.get_k();
             sleep();
             while (game.movesPlayers()) {
                 for (int i = 0; i < players; i++) {
@@ -298,7 +321,15 @@ setVisible(true);
                             my.removeMouseListenet();
                             turn.setLabel(game.get_Player(i).get_name()+" turn");
                             boolean lr = game.moveBotTurn(i);
-                            k = remove_Hands(i, k);
+                            Interrupt10 inter11=new Interrupt10(i,k);
+                            Thread p11=new Thread(inter11);
+                            p11.start();
+                            try {
+                                p11.join();
+                            } catch (InterruptedException e) {
+                            }
+                            k=inter11.get_k();
+                            //k = remove_Hands(i, k);
                             sleep();
                             Thread x=new Thread(new Interrupt3(lr));
                             x.start();
@@ -323,7 +354,6 @@ setVisible(true);
                                 }
                                 bool=inter.get_bool();
                             }
-
                     }
                 }
             }
@@ -333,9 +363,15 @@ setVisible(true);
             //for(Player p:game.getplayers())
             //  Points(p.get_name(),game.getRound().pointPlayer(p));
             game.deleteHands();
-            panels.removeAll(panels);
+            remove(table.get_panel());
+            table=null;
+           // panels.removeAll(panels);
+            my.removes_all_DraggableImage();
+            for(JPanel jp:panels)
+            {jp.setVisible(false);remove(jp);}
             game.newRound();
-            this.removeAll();
+            repaint();
+
         }
         if (game.getRound().pointPlayer(game.my_player()) >= 100)
             System.out.println("You win");
@@ -370,7 +406,7 @@ public class Interrupt3 implements Runnable
 
     public void sleep() {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
