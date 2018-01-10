@@ -201,7 +201,7 @@ public class HungarianGUI extends JPanel implements ActionListener {
         a.setBounds(100, 100, 600, 500);
         a.setBackground(Color.GREEN);
         add(a);
-        table = new TableGUI(game.getClassic(),a,game.my_player());
+        table = new TableGUI(game.getClassic(),a);table.set_Player(game.my_player());
         my = new TilesTable(100, 650, 600, 200, game.my_player().Tiles(), 68, this,table);
         table.set_TilesTable(my);
 //gia to tamlo arxikopoisi
@@ -271,13 +271,14 @@ setVisible(true);
         }
     }
     public class Interrupt4 implements Runnable {
-        public void run() {while (game.playerTurn()) {game.my_player().show(); }
+        private boolean bool=true;
+        public boolean get_bool(){return  bool;}
+        public void run() {bool=game.playerTurn();//game.my_player().show();
         }
     }
     public void startGameHungarian(){
         int k;
         constructor();
-
         while (!game.finishGame()) {
             //sto telos sta grafika
             Thread t=new Thread(new Interrupt2());
@@ -311,12 +312,18 @@ setVisible(true);
                         if(!my.get_mouseListener())
                            my.addMouseListener();
                             turn.setLabel(game.get_Player(i).get_name()+" turn");
-                            Thread my_turn=new Thread(new Interrupt4());
-                            my_turn.start();
-                            try {
-                                my_turn.join();
-                            } catch (InterruptedException e) {
+                            boolean bool=true;
+                            while (bool) {
+                                Interrupt4 inter= new Interrupt4();
+                                Thread my_turn=new Thread(inter);
+                                my_turn.start();
+                                try {
+                                    my_turn.join();
+                                } catch (InterruptedException e) {
+                                }
+                                bool=inter.get_bool();
                             }
+
                     }
                 }
             }

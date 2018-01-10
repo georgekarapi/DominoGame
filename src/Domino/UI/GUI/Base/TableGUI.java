@@ -28,7 +28,7 @@ public class TableGUI{
     public  JPanel p;
     private Player my;
     private TilesTable mon;
-    public TableGUI(Table table, JPanel p, Player my)
+    public TableGUI(Table table, JPanel p)
     {
        this.table=table;
         this.p=p;
@@ -38,7 +38,6 @@ public class TableGUI{
         first.setBounds(300,0,50,50);
         x1=300;y1=0; x2=300 ;y2=0;
         p.add(first);
-        this.my=my;
     }
     public JPanel get_panel(){return p;}
     public boolean add_TableGUI( boolean  lr) //KANONIKA ENA TileGUI ,an prostethike aristera h deksia ,aristera true k deksia false
@@ -145,14 +144,15 @@ public boolean add_tile(Tile t,int u ,int v)
              difference2=5000;
 
          if(difference1<difference2)
-         {t=my.removes(t);table.addTile(t,true);add_TableGUI(true);return true;}
+         {my.removes(t);table.addTile(t,true);add_TableGUI(true);my.show();return true;}
          else
-         {t=my.removes(t);table.addTile(t,false);add_TableGUI(false);return true;}
+         {my.removes(t);table.addTile(t,false);add_TableGUI(false);my.show();return true;}
 
      }
     return false;
 }
 public void set_TilesTable(TilesTable mon){this.mon=mon;}
+public void set_Player(Player my){this.my=my;}
     public static void main(String args[]) {
        JFrame fr=new JFrame("windows");
        fr.setLocation(100,100);

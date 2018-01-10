@@ -72,9 +72,12 @@ public class Player {
     }
 
     public Tile removes(Tile t) {
-        Tile z = new Tile(t.getLeft(), t.getRight());
-        tiles.remove(t);
-        return z;
+        for(int i=0;i<tiles.size();i++)
+        {
+            if(tiles.get(i).getLeft()==t.getLeft()&&tiles.get(i).getRight()==t.getRight()||tiles.get(i).getLeft()==t.getRight()&&tiles.get(i).getRight()==t.getLeft())
+            {  return tiles.remove(i);}
+        }
+          return null;
     }
 
     public int sumTiles() {
