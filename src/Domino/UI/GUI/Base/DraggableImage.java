@@ -91,7 +91,6 @@ public  void get_My(TilesTable my){this.my=my;}
                     setBounds(old.x, old.y, image.getWidth(), image.getHeight());
                 }
                 else{my.removeTile(tile);
-
                 }
                 pressed = false;
             }
