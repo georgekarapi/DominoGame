@@ -146,7 +146,10 @@ public class HungarianGUI extends JPanel implements ActionListener {
         turn.setBounds(660, 630, 130, 130);
         turn.setBackground(Color.pink);
         add(turn);
-
+        for(int i=0;i<game.get_numberTile();i++)
+        {
+            panels.add(new JPanel());
+        }
         // Hands_Tiles();
 
     }
@@ -178,9 +181,6 @@ public class HungarianGUI extends JPanel implements ActionListener {
 
     public void Hands_Tiles() {
         game.Start();
-
-
-
 
         int x = 0, y = 0;
         if (players == 2) {
@@ -216,21 +216,13 @@ setVisible(true);
         JLabel la2 = new JLabel("bot1");
         la2.setBounds(200, 0, 75, 10);
         int y = 100 * (players - 2);
-        JPanel p2 = new JPanel();
-        p2.setVisible(true);
-        p2.setLayout(new GridLayout(1, game.get_numberTile(), 0, 0));
-        p2.setBounds(200, 20, 400 - y, 70);
-        for (int i = 0; i < x; i++) {
-            JButton b = new JButton();
-            b.setBackground(Color.yellow);
-            p2.add(b);
-            b.repaint();
-        }
-        add(p2);
+       // panels.get(0).setVisible(false);
+        panels.get(0).setLayout(new GridLayout(1, game.get_numberTile(), 0, 0));
+        panels.get(0).setBounds(200, 20, 400 - y, 70);
+        add_button(panels.get(0),x);
         add(la2);
-        panels.add(p2);
-
-
+        add(panels.get(0));
+        // panels.get(0).repaint();panels.get(0).setVisible(true);
     }
 
     public void players_3(int x) {
@@ -238,19 +230,14 @@ setVisible(true);
         la3.setBounds(30, 136, 70, 10);
         players_2(x);
         int y = 100 * (players - 2);
-        JPanel p3 = new JPanel();
-        p3.setVisible(true);
-        p3.setLayout(new GridLayout(game.get_numberTile(), 1, 0, 0));
-        p3.setBounds(20, 150, 70, 400 - y);
-        for (int i = 0; i < x; i++) {
-            JButton b = new JButton();
-            b.setBackground(Color.red);
-            p3.add(b);
-        }
-        add(p3);
+
+        //panels.get(1).setVisible(false);
+        panels.get(1).setLayout(new GridLayout(game.get_numberTile(), 1, 0, 0));
+        panels.get(1).setBounds(20, 150, 70, 400 - y);
+        add_button(panels.get(1),x);
+        add(panels.get(1));
         add(la3);
-        panels.add(p3);
-        p3.repaint();
+        //panels.get(1).repaint();panels.get(1).setVisible(true);
     }
 
     public void players_4(int x) {
@@ -258,19 +245,27 @@ setVisible(true);
         la4.setBounds(730, 136, 70, 10);
         players_3(x);
         int y = 100 * (players - 2);
-        JPanel p4 = new JPanel();
-        p4.setVisible(true);
-        p4.setLayout(new GridLayout(game.get_numberTile(), 1, 0, 0));
-        p4.setBounds(720, 150, 70, 400 - y);
-        for (int i = 0; i < x; i++) {
-            JButton b = new JButton();
-            b.setBackground(Color.blue);
-            p4.add(b);
-        }
-        add(p4);
-        add(la4);
-        panels.add(p4);
 
+        //panels.get(2).setVisible(false);
+        panels.get(2).setLayout(new GridLayout(game.get_numberTile(), 1, 0, 0));
+        panels.get(2).setBounds(720, 150, 70, 400 - y);
+        add_button(panels.get(2),x);
+        add(panels.get(2));
+        add(la4);
+        panels.add(panels.get(2));
+        //panels.get(2).repaint();panels.get(2).setVisible(true);
+
+    }
+    private void add_button(JPanel pan,int number)
+    {
+        pan.removeAll();
+        for (int i = 0; i < number; i++) {
+            JButton b = new JButton();
+            b.setBackground(Color.red);
+            b.setVisible(false);
+            pan.add(b);b.setVisible(true);
+           b.repaint();
+        }
     }
     public class Interrupt2 implements Runnable {
         public void run() {
@@ -365,10 +360,14 @@ setVisible(true);
             game.deleteHands();
             remove(table.get_panel());
             table=null;
-           // panels.removeAll(panels);
             my.removes_all_DraggableImage();
-            for(JPanel jp:panels)
-            {jp.setVisible(false);remove(jp);}
+           // panels.removeAll(panels);
+           Thread thread9=new Thread(new Interrupt9());
+            thread9.start();
+            try {
+               thread9.join();
+            } catch (InterruptedException e) {
+            }
             game.newRound();
             repaint();
 
@@ -382,6 +381,14 @@ setVisible(true);
         public void run() {
             startGameHungarian();
 
+        }
+    }
+    public class Interrupt9 implements Runnable
+    {
+        public void run() {
+            for(JPanel jp:panels)
+            {add_button(jp,game.get_numberTile());jp.repaint();;
+            }
         }
     }
 public class Interrupt3 implements Runnable
