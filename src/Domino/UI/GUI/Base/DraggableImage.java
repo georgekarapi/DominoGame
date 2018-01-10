@@ -1,6 +1,7 @@
 package Domino.UI.GUI.Base;
 
 
+import Domino.Base.Tile;
 import Domino.GameModes.Hungarian.Hungarian;
 import Domino.UI.GUI.GameModes.HungarianGUI;
 
@@ -20,17 +21,19 @@ public class DraggableImage extends JLabel {
     private int width;
     private TableGUI table;
     private CustomMouseAdapter mouseAdapter;
-
-    public DraggableImage(int l, int r, int width, boolean rotate) {
+private TilesTable my;
+    public DraggableImage(int l, int r, int width, boolean rotate,TableGUI table) {
         this.width = width;
         tile = new TileGUI(l, r, width, rotate);
         image = tile.getImage();
         setIcon(new ImageIcon(image));
+        this.table=table;
         mouseAdapter = new CustomMouseAdapter();
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
     }
-
+public TileGUI get_TileGUI(){return tile;}
+public  void get_My(TilesTable my){this.my=my;}
     public void rotate() {
         tile = new TileGUI(tile.getLeft(), tile.getRight(), width + 1, tile.rotation == "h" ? true : false);
         image = tile.getImage();
@@ -80,11 +83,26 @@ public class DraggableImage extends JLabel {
         public void mouseReleased(MouseEvent e) {
             if(pressed) {
                 Point pointer = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(), e.getComponent().getParent());
-                if (!table.p.getBounds().contains(pointer) && !table.add_tile(tile, pointer.x, pointer.y)) {
+                if (!table.p.getBounds().contains(pointer))  {
                     setBounds(old.x, old.y, image.getWidth(), image.getHeight());
+                }
+                else if(!table.add_tile(tile, pointer.x, pointer.y))
+                {
+                    setBounds(old.x, old.y, image.getWidth(), image.getHeight());
+                }
+                else{
+                    Thread thead=new Thread(new Interrupts(tile));
+                    thead.start();
                 }
                 pressed = false;
             }
+        }
+    }
+    public class Interrupts implements Runnable {
+        Tile t;
+        public Interrupts(Tile t){this.t=t;}
+        public void run() {
+            my.removeTile(tile);
         }
     }
 }

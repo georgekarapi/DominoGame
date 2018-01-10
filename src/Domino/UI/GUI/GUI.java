@@ -7,8 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GUI{
-    DraggableImage tile = new DraggableImage(2, 6, 100, true);
-    DraggableImage tile1 = new DraggableImage(3, 1, 150, true);
+   //DraggableImage tile = new DraggableImage(2, 6, 100, true);
+ //  DraggableImage tile1 = new DraggableImage(3, 1, 150, true);
     public GUI(){
        /* JFrame frame = new JFrame("Domino Game");
         frame.setSize(512,512);
@@ -39,8 +39,8 @@ public class GUI{
         jPanel.setLayout(new GridBagLayout());
         jPanel.setVisible(true);
         //tile.setBounds(200,200,100,50);
-        jPanel.add(tile);
-        jPanel.add(tile1);
+     //   jPanel.add(tile);
+     //   jPanel.add(tile1);
         frame.add(jPanel);
         frame.setVisible(true);
     }

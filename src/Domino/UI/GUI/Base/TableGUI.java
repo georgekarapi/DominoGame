@@ -2,6 +2,7 @@ package Domino.UI.GUI.Base;
 
 import Domino.Base.Table;
 import Domino.Base.Tile;
+import Domino.GameModes.Hungarian.Player;
 import javafx.scene.shape.Rectangle;
 
 import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
@@ -25,19 +26,21 @@ public class TableGUI{
     private  boolean K=true;
     private Table table;
     public  JPanel p;
-
-    public TableGUI(Table table,JPanel p)
+    private Player my;
+    private TilesTable mon;
+    public TableGUI(Table table, JPanel p, Player my)
     {
        this.table=table;
         this.p=p;
-        DraggableImage first=new DraggableImage(table.getFirstTile().getLeft(),table.getFirstTile().getRight(),50,false);
+        DraggableImage first=new DraggableImage(table.getFirstTile().getLeft(),table.getFirstTile().getRight(),50,false,this);
         first.removeMouseMotionListener(first.getMouseAdapter());
         first.removeMouseListener(first.getMouseAdapter());
         first.setBounds(300,0,50,50);
         x1=300;y1=0; x2=300 ;y2=0;
         p.add(first);
-
+        this.my=my;
     }
+    public JPanel get_panel(){return p;}
     public boolean add_TableGUI( boolean  lr) //KANONIKA ENA TileGUI ,an prostethike aristera h deksia ,aristera true k deksia false
     {   Tile t;
    // p.setVisible(false);
@@ -129,19 +132,27 @@ public class TableGUI{
 
 return false; }
 public boolean add_tile(Tile t,int u ,int v)
-{    if(table.isRight(t) ||table.isLeft(t)  )//(u>p.getX() && u<p.getX()+ p.getWidth() && v>p.getY()&&v<p.getY()+p.getHeight())
-     {
-         int difference1=Math.abs(u-x1)+Math.abs(v-y1);
-         int difference2=Math.abs(u-x2)+Math.abs(v-y2);
-         if(difference1<difference2)
-             add_TableGUI(true);
+{    if(table.isLeft(t)||table.isRight(t))
+     {int difference1,difference2;
+
+         if(table.isLeft(t))
+         {difference1 =Math.abs(u-x1)+Math.abs(v-y1); }
          else
-             add_TableGUI(false);
-         return true;
+             difference1=5000;
+         if(table.isRight(t))
+         {difference2 =Math.abs(u-x2)+Math.abs(v-y2);}
+         else
+             difference2=5000;
+
+         if(difference1<difference2)
+         {t=my.removes(t);table.addTile(t,true);add_TableGUI(true);return true;}
+         else
+         {t=my.removes(t);table.addTile(t,false);add_TableGUI(false);return true;}
+
      }
     return false;
 }
-
+public void set_TilesTable(TilesTable mon){this.mon=mon;}
     public static void main(String args[]) {
        JFrame fr=new JFrame("windows");
        fr.setLocation(100,100);

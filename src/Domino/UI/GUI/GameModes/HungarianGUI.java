@@ -189,7 +189,7 @@ public class HungarianGUI extends JPanel implements ActionListener {
             y = 20;
         }
         System.out.println("ela tora");
-        my = new TilesTable(100, 650, 600, 200, game.my_player().Tiles(), 68, this,table);
+
         if (players == 2)
             players_2(game.get_numberTile());
         else if (players == 3)
@@ -201,7 +201,9 @@ public class HungarianGUI extends JPanel implements ActionListener {
         a.setBounds(100, 100, 600, 500);
         a.setBackground(Color.GREEN);
         add(a);
-        table = new TableGUI(game.getClassic(), a);
+        table = new TableGUI(game.getClassic(),a,game.my_player());
+        my = new TilesTable(100, 650, 600, 200, game.my_player().Tiles(), 68, this,table);
+        table.set_TilesTable(my);
 //gia to tamlo arxikopoisi
 setVisible(true);
 
@@ -264,9 +266,12 @@ setVisible(true);
 
     }
     public class Interrupt2 implements Runnable {
-        private Thread thread2;
         public void run() {
             Hands_Tiles();
+        }
+    }
+    public class Interrupt4 implements Runnable {
+        public void run() {while (game.playerTurn()) {game.my_player().show(); }
         }
     }
     public void startGameHungarian(){
@@ -302,10 +307,16 @@ setVisible(true);
                             sleep();
                         }
                     } else {
-                        while (game.playerTurn()) {
-              turn.setLabel(game.get_Player(i).get_name()+" turn");
 
-                        }
+                            turn.setLabel(game.get_Player(i).get_name()+" turn");
+                            Thread my_turn=new Thread(new Interrupt4());
+                            my_turn.start();
+                            try {
+                                my_turn.join();
+                            } catch (InterruptedException e) {
+                            }
+
+
                     }
                 }
             }
@@ -325,7 +336,7 @@ setVisible(true);
             System.out.println("You lost");
     }
     public class Interrupt1 implements Runnable {
-        public void run() {System.out.println("1");
+        public void run() {
             startGameHungarian();
 
         }
