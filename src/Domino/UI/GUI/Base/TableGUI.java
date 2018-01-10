@@ -32,12 +32,12 @@ public class TableGUI{
     {
        this.table=table;
         this.p=p;
-        DraggableImage first=new DraggableImage(table.getFirstTile().getLeft(),table.getFirstTile().getRight(),50,false);
-        first.removeMouseMotionListener(first.getMouseAdapter());
-        first.removeMouseListener(first.getMouseAdapter());
-        first.setBounds(300,0,50,50);
+        //DraggableImage first=new DraggableImage(table.getFirstTile().getLeft(),table.getFirstTile().getRight(),50,false);
+        //first.removeMouseMotionListener(first.getMouseAdapter());
+        //first.removeMouseListener(first.getMouseAdapter());
+        //first.setBounds(300,0,50,50);
         x1=300;y1=0; x2=300 ;y2=0;
-        p.add(first);
+        //p.add(first);
     }
     public JPanel get_panel(){return p;}
     public boolean add_TableGUI( boolean  lr) //KANONIKA ENA TileGUI ,an prostethike aristera h deksia ,aristera true k deksia false
