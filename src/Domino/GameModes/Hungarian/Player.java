@@ -6,6 +6,7 @@
 package Domino.GameModes.Hungarian;
 
 import Domino.Base.Tile;
+import Domino.GameModes.Cardinal;
 
 import java.util.ArrayList;
 
@@ -108,5 +109,20 @@ public class Player {
             System.out.print(tiles.indexOf(t) + ".[" + t.getLeft() + "|" + t.getRight() + "]");
         }
         }
+    }
+
+
+
+
+    //Cardinal
+    public boolean Cardinal_haveMove(Tile lef, Tile rig)
+    {
+        if (!tiles.isEmpty()) {
+            for (Tile t : tiles) {
+                if (t.getLeft() + lef.getLeft() ==7|| t.getRight() + lef.getLeft()==7 || t.getLeft() + rig.getRight()==7 || t.getRight() + rig.getRight()==7||t.balader())
+                    return true;
+            }
+        }
+        return false;
     }
 }
