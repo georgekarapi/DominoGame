@@ -123,6 +123,7 @@ public class TableGUI{
        else
                {
                    if(K){y2=y2-25;K=false;}
+                   t.swapTile();
                    DraggableImage j = new DraggableImage(t, 50, false);
                    search3=false;
                    x2=x2-50;
