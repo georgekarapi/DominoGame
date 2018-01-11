@@ -16,8 +16,8 @@ public class TileGUI extends Tile {
     private Graphics2D pic;
     String rotation = "h";
 
-    public TileGUI(int l, int r, int width, boolean rotate) {
-        super(l, r);
+    public TileGUI(Tile tile, int width, boolean rotate) {
+        super(tile.getLeft(), tile.getRight());
         this.width = width;
         this.height = width / 2;
         w2 = this.width/2;

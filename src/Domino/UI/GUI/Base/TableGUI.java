@@ -3,17 +3,13 @@ package Domino.UI.GUI.Base;
 import Domino.Base.Table;
 import Domino.Base.Tile;
 import Domino.GameModes.Hungarian.Player;
-import javafx.scene.shape.Rectangle;
 
-import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseMotionListener;
-import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
 
 public class TableGUI{
   //  private ArrayList<DraggableImage> grid;
+  public Deck deck;
     private int x1;
     private int y1;
     private int x2;
@@ -32,8 +28,8 @@ public class TableGUI{
     {
        this.table=table;
         this.p=p;
-        if(!table.getTable().isEmpty())
-        {  DraggableImage first=new DraggableImage(table.getFirstTile().getLeft(),table.getFirstTile().getRight(),50,false);
+        if(!table.getTable().isEmpty()) {
+            DraggableImage first = new DraggableImage(table.getFirstTile(), 50, false);
         first.removeMouseMotionListener(first.getMouseAdapter());
         first.removeMouseListener(first.getMouseAdapter());
         first.setBounds(300,0,50,50);
@@ -48,8 +44,8 @@ public class TableGUI{
         else
         t=table.getLastTile();
    // p.setVisible(false);
-        if(table.getTable().isEmpty())
-        { DraggableImage first=new DraggableImage(table.getFirstTile().getLeft(),table.getFirstTile().getRight(),50,false);
+        if(table.getTable().isEmpty()) {
+            DraggableImage first = new DraggableImage(table.getFirstTile(), 50, false);
             first.removeMouseMotionListener(first.getMouseAdapter());
             first.removeMouseListener(first.getMouseAdapter());
             first.setBounds(300,0,50,50);
@@ -58,14 +54,14 @@ public class TableGUI{
         }
         if(lr) {
              if (x1 - 50 > 0 && search) {
-                 DraggableImage j = new DraggableImage(t.getLeft(), t.getRight(), 50, false);
+                 DraggableImage j = new DraggableImage(t, 50, false);
                  x1 = x1 - 50;
                  j.setBounds(x1, y1, 50, 50);
                  p.add(j);
                  j.removeMouseMotionListener(j.getMouseAdapter());
                  j.removeMouseListener(j.getMouseAdapter());
              } else if (y1 + 50 < p.getHeight() && search1) {
-                 DraggableImage j = new DraggableImage(t.getRight(), t.getLeft(), 50, true);
+                 DraggableImage j = new DraggableImage(t, 50, true);
                  if (search) {
                      search = false;
                      y1 = 40;
@@ -76,7 +72,7 @@ public class TableGUI{
                  j.removeMouseListener(j.getMouseAdapter());
                  p.add(j);
              } else {
-                 DraggableImage j = new DraggableImage(t.getRight(), t.getLeft(), 50, false);
+                 DraggableImage j = new DraggableImage(t, 50, false);
                  search1 = false;
                  N++;
                  if (N == 1) {
@@ -99,7 +95,7 @@ public class TableGUI{
            {
                if(x2+100<p.getWidth() && search2)
                {
-                   DraggableImage j = new DraggableImage(t.getLeft(), t.getRight(), 50, false);
+                   DraggableImage j = new DraggableImage(t, 50, false);
                    x2=x2+50;
                    j.setBounds(x2,y2,50,50);
                    p.add(j);
@@ -110,7 +106,7 @@ public class TableGUI{
                else if(y2+50<p.getHeight()&&search3)
                {System.out.println("1234");
                    System.out.println(x2+","+y2);
-                   DraggableImage j = new DraggableImage(t.getLeft(), t.getRight(), 50, true);
+                   DraggableImage j = new DraggableImage(t, 50, true);
                    if(search2)
                    {
                        search2=false;
@@ -126,7 +122,7 @@ public class TableGUI{
        else
                {
                    if(K){y2=y2-25;K=false;}
-                   DraggableImage j = new DraggableImage(t.getRight(), t.getLeft(), 50, false);
+                   DraggableImage j = new DraggableImage(t, 50, false);
                    search3=false;
                    x2=x2-50;
                    j.setBounds(x2,y2,50,25);
@@ -139,23 +135,24 @@ public class TableGUI{
     }
 
 return false; }
-public boolean add_tile(Tile t,int u ,int v)
-{    if(table.isLeft(t)||table.isRight(t))
-     {int difference1,difference2;
 
-         if(table.isLeft(t))
-         {difference1 =Math.abs(u-x1)+Math.abs(v-y1); }
-         else
-             difference1=5000;
-         if(table.isRight(t))
-         {difference2 =Math.abs(u-x2)+Math.abs(v-y2);}
-         else
-             difference2=5000;
-
-         if(difference1<difference2)
-         {my.removes(t);table.addTile(t,true);add_TableGUI(true);my.show();return true;}
-         else
-         {my.removes(t);table.addTile(t,false);add_TableGUI(false);my.show();return true;}
+    public boolean add_tile(DraggableImage t, int u, int v) {
+        Tile tile = t.tile;
+        if (table.additionCheck(tile)) {
+            Point point = new Point(u, v);
+            if (deck != null) {
+                deck.removeTile(t);
+            } else {
+                my.removes(tile);
+            }
+            if (point.distance(new Point(x1, y1)) < point.distance(new Point(x2, y2))) {
+                table.addTile(tile, true);
+                add_TableGUI(true);
+            } else {
+                table.addTile(tile, false);
+                add_TableGUI(false);
+            }
+            return true;
 
      }
     return false;

@@ -2,30 +2,24 @@ package Domino.UI.GUI.Base;
 
 
 import Domino.Base.Tile;
-import Domino.GameModes.Hungarian.Hungarian;
-import Domino.UI.GUI.GameModes.HungarianGUI;
-import com.sun.javafx.geom.Rectangle;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.io.PipedOutputStream;
 
 public class DraggableImage extends JLabel {
-    private TileGUI tile;
+    public TileGUI tile;
     public TableGUI table;
     private BufferedImage image;
-    private int width;
+    public int width;
     private CustomMouseAdapter mouseAdapter;
 private TilesTable my;
-    public DraggableImage(int l, int r, int width, boolean rotate) {
+
+    public DraggableImage(Tile oldTile, int width, boolean rotate) {
         this.width = width;
-        tile = new TileGUI(l, r, width, rotate);
+        this.tile = new TileGUI(oldTile, width, rotate);
         image = tile.getImage();
         setIcon(new ImageIcon(image));
         mouseAdapter = new CustomMouseAdapter();
@@ -35,11 +29,21 @@ private TilesTable my;
 public TileGUI get_TileGUI(){return tile;}
 public  void get_My(TilesTable my){this.my=my;}
     public void rotate() {
-        tile = new TileGUI(tile.getLeft(), tile.getRight(), width + 1, tile.rotation == "h" ? true : false);
+        tile = new TileGUI(tile, width + 1, tile.rotation == "h" ? true : false);
         image = tile.getImage();
         setIcon(new ImageIcon(image));
         revalidate();
         repaint();
+    }
+
+    public void disableMouse() {
+        removeMouseListener(mouseAdapter);
+        removeMouseMotionListener(mouseAdapter);
+    }
+
+    public void enableMouse() {
+        addMouseListener(mouseAdapter);
+        addMouseMotionListener(mouseAdapter);
     }
 
     public CustomMouseAdapter getMouseAdapter(){
@@ -83,14 +87,10 @@ public  void get_My(TilesTable my){this.my=my;}
         public void mouseReleased(MouseEvent e) {
             if(pressed) {
                 Point pointer = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(), e.getComponent().getParent());
-                if (!table.p.getBounds().contains(pointer))  {
-                    setBounds(old.x, old.y, image.getWidth(), image.getHeight());
-                }
-                else if(!table.add_tile(tile, pointer.x, pointer.y))
-                {
-                    setBounds(old.x, old.y, image.getWidth(), image.getHeight());
-                }
-                else{my.removeTile(tile);
+                if (table.p.getBounds().contains(pointer)) {
+                    if (!table.add_tile(DraggableImage.this, pointer.x, pointer.y)) {
+                        setBounds(old.x, old.y, image.getWidth(), image.getHeight());
+                    }
                 }
                 pressed = false;
             }

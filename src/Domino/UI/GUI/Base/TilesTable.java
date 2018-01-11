@@ -1,11 +1,8 @@
 package Domino.UI.GUI.Base;
 
-import Domino.Base.Table;
 import Domino.Base.Tile;
-import com.sun.org.apache.xml.internal.security.utils.JDKXPathAPI;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
 public class TilesTable {
@@ -20,7 +17,7 @@ public class TilesTable {
         tiles=new ArrayList<>();
         for(Tile t:T)
         {
-            tiles.add(new DraggableImage(t.getLeft(),t.getRight(),widthTile,true));
+            tiles.add(new DraggableImage(t, widthTile, true));
 
         }
         for(DraggableImage d:tiles)
