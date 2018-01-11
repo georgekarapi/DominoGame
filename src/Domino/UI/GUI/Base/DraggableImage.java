@@ -92,6 +92,8 @@ public  void get_My(TilesTable my){this.my=my;}
                         setBounds(old.x, old.y, image.getWidth(), image.getHeight());
                     }
                 }
+                else
+                    setBounds(old.x, old.y, image.getWidth(), image.getHeight());
                 pressed = false;
             }
         }

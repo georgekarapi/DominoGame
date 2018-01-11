@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class TableGUI{
   //  private ArrayList<DraggableImage> grid;
-  public Deck deck;
+  public Deck deck=null;
     private int x1;
     private int y1;
     private int x2;
@@ -39,9 +39,9 @@ public class TableGUI{
     public boolean add_TableGUI( boolean  lr) //KANONIKA ENA TileGUI ,an prostethike aristera h deksia ,aristera true k deksia false
     {   Tile t;
         if(lr)
-        t=table.getFirstTile();
+        t=new Tile(table.getFirstTile().getLeft(),table.getFirstTile().getRight());
         else
-        t=table.getLastTile();
+        t=new Tile(table.getLastTile().getLeft(),table.getLastTile().getRight());
    // p.setVisible(false);
         if(table.getTable().isEmpty()) {
             DraggableImage first = new DraggableImage(table.getFirstTile(), 50, false);
@@ -60,6 +60,7 @@ public class TableGUI{
                  j.removeMouseMotionListener(j.getMouseAdapter());
                  j.removeMouseListener(j.getMouseAdapter());
              } else if (y1 + 50 < p.getHeight() && search1) {
+                 t.swapTile();
                  DraggableImage j = new DraggableImage(t, 50, true);
                  if (search) {
                      search = false;
@@ -71,6 +72,7 @@ public class TableGUI{
                  j.removeMouseListener(j.getMouseAdapter());
                  p.add(j);
              } else {
+                 t.swapTile();
                  DraggableImage j = new DraggableImage(t, 50, false);
                  search1 = false;
                  N++;
@@ -138,34 +140,40 @@ return false; }
     public boolean add_tile(DraggableImage t, int u, int v) {
         Tile tile = t.tile;
         if (table.additionCheck(tile)) {
+            if (table.getTable().isEmpty()) {
+                deck.removeTile(t);
+                table.addTile(tile, true);
+                    add_TableGUI(true);
+                    return true;
+                }
+                int difference1, difference2;
+                if (table.isLeft(tile)) {
+                    difference1 = Math.abs(u - x1) + Math.abs(v - y1);
+                } else
+                    difference1 = 5000;
+                if (table.isRight(tile)) {
+                    difference2 = Math.abs(u - x2) + Math.abs(v - y2);
+                } else
+                    difference2 = 5000;
+
+                if (difference1 < difference2) {
+                    table.addTile(tile, true);
+                    add_TableGUI(true);
+                    my.show();
+                } else {
+                    table.addTile(tile, false);
+                    add_TableGUI(false);
+                    my.show();
+                }
             if (deck != null) {
                 deck.removeTile(t);
             } else {
                 my.removes(tile);
+                mon.removeTile(t.tile);
+            }
+                return true;
             }
 
-            int difference1, difference2;
-            if (table.isLeft(tile)) {
-                difference1 = Math.abs(u - x1) + Math.abs(v - y1);
-            } else
-                difference1 = 5000;
-            if (table.isRight(tile)) {
-                difference2 = Math.abs(u - x2) + Math.abs(v - y2);
-            } else
-                difference2 = 5000;
-
-            if (difference1 < difference2) {
-                table.addTile(tile, true);
-                add_TableGUI(true);
-                my.show();
-            } else {
-                table.addTile(tile, false);
-                add_TableGUI(false);
-                my.show();
-            }
-            return true;
-
-     }
     return false;
 }
 public void set_TilesTable(TilesTable mon){this.mon=mon;}

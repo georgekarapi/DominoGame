@@ -368,19 +368,27 @@ setVisible(true);
             my.removes_all_DraggableImage();
         }
         if (game.getRound().pointPlayer(game.my_player()) >= 100)
-            System.out.println("You win");
+        {
+            System.out.println("You win");removeAll();repaint(); JOptionPane.showMessageDialog(windows,
+                "You Win");}
         else
-            System.out.println("You lost");
-    }
+        { System.out.println("You lost");removeAll();repaint(); JOptionPane.showMessageDialog(windows,
+                "You Lost");
+         }
+}
     public class Interrupt1 implements Runnable {//anagkasthika gt allios den se paei sto game
         public void run() {
             startGameHungarian();
 
         }
     }
-public class Interrupt3 implements Runnable
-{boolean lr;
-    public Interrupt3(boolean lr){this.lr=lr;}
+public class Interrupt3 implements Runnable {
+    boolean lr;
+
+    public Interrupt3(boolean lr) {
+        this.lr = lr;
+    }
+
     public void run() {
         table.add_TableGUI(lr);
     }
@@ -420,8 +428,8 @@ public class Interrupt3 implements Runnable
         fr.setLocation(50,50);
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fr.setResizable(false);
-        HungarianGUI gui=new HungarianGUI(fr);fr.add(gui);
+       HungarianGUI gui=new HungarianGUI(fr);fr.add(gui);
         fr.setVisible(true);
-//fr.setResizable(false);
+
     }
 }
