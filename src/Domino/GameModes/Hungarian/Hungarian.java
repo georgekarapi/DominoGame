@@ -153,7 +153,9 @@ return true;
      public Table getClassic() {
          return classic;
      }
-
+    public int  get_numberTile(){return numberTile;}
+    public void  set_get_numberTile(int num){numberTile=num;}
+    public Dominoes get_Stack(){return  stack;}
      public void deleteHands()
      {
          for(Player p:players.values())
@@ -187,7 +189,6 @@ return true;
      {
          return  players.get(i);
      }
-     public int  get_numberTile(){return numberTile;}
      public ArrayList<Bot> gets_Bots()
      {
          ArrayList<Bot> b=new ArrayList<>();

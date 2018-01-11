@@ -45,7 +45,6 @@ public class Table {
             return false;
         }
     }
-
     /**
      * @return Current Table ArrayList
      */
@@ -111,5 +110,50 @@ public class Table {
      */
     public void deleteTiles() {
         table.clear();
+    }
+
+
+
+
+
+
+
+    //Cardinal game
+    public boolean Cardinal_additionCheck(Tile t) {
+        if(table.size()>0){
+            if(t.getRight()+table.get(0).getLeft()==7||t.getLeft()+table.get(0).getLeft()==7||t.getRight()+table.get(table.size()-1).getRight()==7||t.getLeft()+table.get(table.size()-1).getRight()==7||t.balader())
+                return true;       }
+                return false;
+    }
+    public boolean Cardinal_isLeft(Tile t){
+        if(t.getRight()+table.get(0).getLeft()==7||t.getLeft()+table.get(0).getLeft()==7||t.balader())
+            return true;
+        return false;
+    }
+    public boolean Cardinal_isRight(Tile t) {
+        if(t.getRight()+table.get(table.size()-1).getRight()==7||t.getLeft()+table.get(table.size()-1).getRight()==7||t.balader())
+            return true;
+        return false;
+    }
+
+    public boolean Cardinal_addTile(Tile t,boolean left)
+    {
+        if(table.isEmpty())
+        {table.add(t);return true;}
+        if(Cardinal_isLeft(t) && left)
+        {
+            if(t.getLeft()+table.get(0).getLeft()==7)
+                t.swapTile();
+            table.add(0, t);
+            return true;
+        }
+        else if(Cardinal_isRight(t) &&!left)
+        {
+            if(t.getRight()+table.get(table.size()-1).getRight()==7)
+                t.swapTile();
+            table.add(t);
+                return true;
+        }
+        return false;
     }
 }

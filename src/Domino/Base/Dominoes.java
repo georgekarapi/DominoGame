@@ -30,7 +30,7 @@ public class Dominoes {
             return null;
         return tiles.remove(tile);
     }
-
+   public int size_Dominoes(){return tiles.size();}
     /**
      * @param HEIGHT Height of the ArrayList (up to 4)
      * @param WIDTH Width of the ArrayList (up to 7)
