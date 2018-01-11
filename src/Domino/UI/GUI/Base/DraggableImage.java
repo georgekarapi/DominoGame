@@ -66,7 +66,11 @@ public class DraggableImage extends JLabel {
                 if (getRootPane().getLayeredPane().getLayer(e.getComponent()) != JLayeredPane.DRAG_LAYER) {
                     getRootPane().getLayeredPane().add(DraggableImage.this, JLayeredPane.DRAG_LAYER);
                 }
-                old = getLocation();
+                if (getLocation().y < 200) {
+                    old = new Point(getLocation().x, getLocation().y + 512);
+                } else {
+                    old = getLocation();
+                }
                 point = e.getPoint();
                 pressed = true;
             }

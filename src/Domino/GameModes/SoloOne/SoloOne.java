@@ -6,9 +6,10 @@ import Domino.Base.Dominoes;
 import Domino.Base.Table;
 import Domino.Base.Tile;
 import Domino.UI.Terminal;
-//import Domino.UI.Terminal;
 
 import java.util.ArrayList;
+
+//import Domino.UI.Terminal;
 
 /**
  * @author Giorgos
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class SoloOne extends Table {
     public int tiles_size = 28;
     public boolean gameOver;
-    ArrayList<ArrayList<Tile>> tiles;
+    public ArrayList<ArrayList<Tile>> tiles;
 
     public SoloOne() {
         Dominoes dom;
@@ -60,6 +61,7 @@ public class SoloOne extends Table {
      */
     public boolean anyMoves() {
         for (int i = 0; i < tiles.size(); i++) {
+            System.out.println(tiles.size());
             if (tiles.get(i).size() > 0 && additionCheck(tiles.get(i).get(tiles.get(i).size() - 1))) {
                 return true;
             }
