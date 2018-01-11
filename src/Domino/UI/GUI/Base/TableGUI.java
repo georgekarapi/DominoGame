@@ -43,7 +43,7 @@ public class TableGUI{
         else
         t=new Tile(table.getLastTile().getLeft(),table.getLastTile().getRight());
    // p.setVisible(false);
-        if(table.getTable().isEmpty()) {
+        if(table.getTable().size()==1) {
             DraggableImage first = new DraggableImage(table.getFirstTile(), 50, false);
             first.removeMouseMotionListener(first.getMouseAdapter());
             first.removeMouseListener(first.getMouseAdapter());
@@ -51,91 +51,89 @@ public class TableGUI{
             x1=300;y1=0; x2=300 ;y2=0;
             p.add(first);
         }
-        if(lr) {
-             if (x1 - 50 > 0 && search) {
-                 DraggableImage j = new DraggableImage(t, 50, false);
-                 x1 = x1 - 50;
-                 j.setBounds(x1, y1, 50, 50);
-                 p.add(j);
-                 j.removeMouseMotionListener(j.getMouseAdapter());
-                 j.removeMouseListener(j.getMouseAdapter());
-             } else if (y1 + 50 < p.getHeight() && search1) {
-                 t.swapTile();
-                 DraggableImage j = new DraggableImage(t, 50, true);
-                 if (search) {
-                     search = false;
-                     y1 = 40;
-                 }
-                 j.setBounds(x1, y1, 50, 50);
-                 y1 = y1 + 50;
-                 j.removeMouseMotionListener(j.getMouseAdapter());
-                 j.removeMouseListener(j.getMouseAdapter());
-                 p.add(j);
-             } else {
-                 t.swapTile();
-                 DraggableImage j = new DraggableImage(t, 50, false);
-                 search1 = false;
-                 N++;
-                 if (N == 1) {
-                     y1 = 450;
-                     x1 = x1 + 25;
-                 }
-                 if (N >= 2) {
-                     x1 = x1 + 50;
-                 }
-                 j.setBounds(x1, y1, 50, 50);
-                 j.removeMouseMotionListener(j.getMouseAdapter());
-                 j.removeMouseListener(j.getMouseAdapter());
-                 p.add(j);
+        else {
+            if (lr) {
+                if (x1 - 50 > 0 && search) {
+                    DraggableImage j = new DraggableImage(t, 50, false);
+                    x1 = x1 - 50;
+                    j.setBounds(x1, y1, 50, 50);
+                    p.add(j);
+                    j.removeMouseMotionListener(j.getMouseAdapter());
+                    j.removeMouseListener(j.getMouseAdapter());
+                } else if (y1 + 50 < p.getHeight() && search1) {
+                    t.swapTile();
+                    DraggableImage j = new DraggableImage(t, 50, true);
+                    if (search) {
+                        search = false;
+                        y1 = 40;
+                    }
+                    j.setBounds(x1, y1, 50, 50);
+                    y1 = y1 + 50;
+                    j.removeMouseMotionListener(j.getMouseAdapter());
+                    j.removeMouseListener(j.getMouseAdapter());
+                    p.add(j);
+                } else {
+                    t.swapTile();
+                    DraggableImage j = new DraggableImage(t, 50, false);
+                    search1 = false;
+                    N++;
+                    if (N == 1) {
+                        y1 = 450;
+                        x1 = x1 + 25;
+                    }
+                    if (N >= 2) {
+                        x1 = x1 + 50;
+                    }
+                    j.setBounds(x1, y1, 50, 50);
+                    j.removeMouseMotionListener(j.getMouseAdapter());
+                    j.removeMouseListener(j.getMouseAdapter());
+                    p.add(j);
 
-             } p.repaint();// p.setVisible(true);
-             return true;
+                }
+                p.repaint();// p.setVisible(true);
+                return true;
 
-         }
-           else if(!lr)
-           {
-               if(x2+100<p.getWidth() && search2)
-               {
-                   DraggableImage j = new DraggableImage(t, 50, false);
-                   x2=x2+50;
-                   j.setBounds(x2,y2,50,50);
-                   p.add(j);
-                   j.removeMouseMotionListener(j.getMouseAdapter());
-                   j.removeMouseListener(j.getMouseAdapter());
-               }
+            } else if (!lr) {
+                if (x2 + 100 < p.getWidth() && search2) {
+                    DraggableImage j = new DraggableImage(t, 50, false);
+                    x2 = x2 + 50;
+                    j.setBounds(x2, y2, 50, 50);
+                    p.add(j);
+                    j.removeMouseMotionListener(j.getMouseAdapter());
+                    j.removeMouseListener(j.getMouseAdapter());
+                } else if (y2 + 50 < p.getHeight() && search3) {
+                    System.out.println("1234");
+                    System.out.println(x2 + "," + y2);
+                    DraggableImage j = new DraggableImage(t, 50, true);
+                    if (search2) {
+                        search2 = false;
+                        y2 = 40;
+                        x2 = x2 + 25;
+                    }
+                    j.setBounds(x2, y2, 50, 50);
+                    y2 = y2 + 50;
+                    p.add(j);
+                    j.removeMouseMotionListener(j.getMouseAdapter());
+                    j.removeMouseListener(j.getMouseAdapter());
+                } else {
+                    if (K) {
+                        y2 = y2 - 25;
+                        K = false;
+                    }
+                    t.swapTile();
+                    DraggableImage j = new DraggableImage(t, 50, false);
+                    search3 = false;
+                    x2 = x2 - 50;
+                    j.setBounds(x2, y2, 50, 25);
+                    p.add(j);
+                    j.removeMouseMotionListener(j.getMouseAdapter());
+                    j.removeMouseListener(j.getMouseAdapter());
 
-               else if(y2+50<p.getHeight()&&search3)
-               {System.out.println("1234");
-                   System.out.println(x2+","+y2);
-                   DraggableImage j = new DraggableImage(t, 50, true);
-                   if(search2)
-                   {
-                       search2=false;
-                       y2=40;
-                       x2=x2+25;
-                   }
-                   j.setBounds(x2,y2,50,50);
-                   y2=y2+50;
-                   p.add(j);
-                   j.removeMouseMotionListener(j.getMouseAdapter());
-                   j.removeMouseListener(j.getMouseAdapter());
-               }
-       else
-               {
-                   if(K){y2=y2-25;K=false;}
-                   t.swapTile();
-                   DraggableImage j = new DraggableImage(t, 50, false);
-                   search3=false;
-                   x2=x2-50;
-                   j.setBounds(x2,y2,50,25);
-                   p.add(j);
-                   j.removeMouseMotionListener(j.getMouseAdapter());
-                   j.removeMouseListener(j.getMouseAdapter());
-
-               } p.repaint();
-               return true;
-    }
-
+                }
+                p.repaint();
+                return true;
+            }
+        }
 return false; }
 
     public boolean add_tile(DraggableImage t, int u, int v) {
@@ -160,11 +158,11 @@ return false; }
                 if (difference1 < difference2) {
                     table.addTile(tile, true);
                     add_TableGUI(true);
-                    my.show();
+                  //  my.show();
                 } else {
                     table.addTile(tile, false);
                     add_TableGUI(false);
-                    my.show();
+                   // my.show();
                 }
             if (deck != null) {
                 deck.removeTile(t);
