@@ -5,7 +5,6 @@ import Domino.Base.Tile;
 import Domino.GameModes.Hungarian.Player;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class TableGUI{
   //  private ArrayList<DraggableImage> grid;
@@ -139,18 +138,30 @@ return false; }
     public boolean add_tile(DraggableImage t, int u, int v) {
         Tile tile = t.tile;
         if (table.additionCheck(tile)) {
-            Point point = new Point(u, v);
             if (deck != null) {
                 deck.removeTile(t);
             } else {
                 my.removes(tile);
             }
-            if (point.distance(new Point(x1, y1)) < point.distance(new Point(x2, y2))) {
+
+            int difference1, difference2;
+            if (table.isLeft(tile)) {
+                difference1 = Math.abs(u - x1) + Math.abs(v - y1);
+            } else
+                difference1 = 5000;
+            if (table.isRight(tile)) {
+                difference2 = Math.abs(u - x2) + Math.abs(v - y2);
+            } else
+                difference2 = 5000;
+
+            if (difference1 < difference2) {
                 table.addTile(tile, true);
                 add_TableGUI(true);
+                my.show();
             } else {
                 table.addTile(tile, false);
                 add_TableGUI(false);
+                my.show();
             }
             return true;
 
