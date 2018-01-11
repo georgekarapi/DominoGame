@@ -32,13 +32,13 @@ public class Cardinal extends Hungarian{
         }
      return false;
     }
-    public boolean cardinal_has_move_bot(int i){
+   /* public boolean cardinal_has_move_bot(int i){
         if(get_Player(i).Cardinal_haveMove(getClassic().getFirstTile(),getClassic().getLastTile()))
         {
             return true;
         }
 
-    }
+    }*/
     public void cardinal_move_bot(int turn)
     {
 

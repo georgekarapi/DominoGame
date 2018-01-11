@@ -50,6 +50,7 @@ public class TableGUI{
             first.setBounds(300,0,50,50);
             x1=300;y1=0; x2=300 ;y2=0;
             p.add(first);
+            p.repaint();
         }
         else {
             if (lr) {
@@ -143,6 +144,7 @@ return false; }
                 deck.removeTile(t);
                 table.addTile(tile, true);
                     add_TableGUI(true);
+                deck.removeTile(t);
                     return true;
                 }
                 int difference1, difference2;
