@@ -102,9 +102,11 @@ public class Player {
     public void show()
     {
         System.out.println("My name is "+name);
-        for(Tile t:tiles)
+        if(!tiles.isEmpty())
+        { for(Tile t:tiles)
         {
             System.out.print(tiles.indexOf(t) + ".[" + t.getLeft() + "|" + t.getRight() + "]");
+        }
         }
     }
 }

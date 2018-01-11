@@ -130,6 +130,7 @@ public class HungarianGUI extends JPanel implements ActionListener {
                     //paei sto kanonik;o gamesleep();
                     Thread t=new Thread(new Interrupt1());
                     t.start();
+
                 }
             }
         }
@@ -178,10 +179,8 @@ public class HungarianGUI extends JPanel implements ActionListener {
             }
         }
     }
-
     public void Hands_Tiles() {
         game.Start();
-
         int x = 0, y = 0;
         if (players == 2) {
             x = y = 0;
@@ -252,10 +251,18 @@ setVisible(true);
         add_button(panels.get(2),x);
         add(panels.get(2));
         add(la4);
-        panels.add(panels.get(2));
+       // panels.add(panels.get(2));
         //panels.get(2).repaint();panels.get(2).setVisible(true);
 
     }
+   /* public class Interrupt9 implements Runnable
+    {
+        public void run() {
+            for(JPanel jp:panels)
+            {add_button(jp,game.get_numberTile());
+            }
+        }
+    }*/
     private void add_button(JPanel pan,int number)
     {
         pan.removeAll();
@@ -324,7 +331,6 @@ setVisible(true);
                             } catch (InterruptedException e) {
                             }
                             k=inter11.get_k();
-                            //k = remove_Hands(i, k);
                             sleep();
                             Thread x=new Thread(new Interrupt3(lr));
                             x.start();
@@ -354,41 +360,22 @@ setVisible(true);
             }
             System.out.println("Finish round " + game.getRound().numRound());
             game.finishRound();
-            box.finish_round();//dinei sto paixtei poy kerdise se ayto to giro toys pontoys
-            //for(Player p:game.getplayers())
-            //  Points(p.get_name(),game.getRound().pointPlayer(p));
+            box.finish_round();
+            game.newRound();
             game.deleteHands();
             remove(table.get_panel());
             table=null;
             my.removes_all_DraggableImage();
-           // panels.removeAll(panels);
-           Thread thread9=new Thread(new Interrupt9());
-            thread9.start();
-            try {
-               thread9.join();
-            } catch (InterruptedException e) {
-            }
-            game.newRound();
-            repaint();
-
         }
         if (game.getRound().pointPlayer(game.my_player()) >= 100)
             System.out.println("You win");
         else
             System.out.println("You lost");
     }
-    public class Interrupt1 implements Runnable {
+    public class Interrupt1 implements Runnable {//anagkasthika gt allios den se paei sto game
         public void run() {
             startGameHungarian();
 
-        }
-    }
-    public class Interrupt9 implements Runnable
-    {
-        public void run() {
-            for(JPanel jp:panels)
-            {add_button(jp,game.get_numberTile());jp.repaint();;
-            }
         }
     }
 public class Interrupt3 implements Runnable
@@ -396,7 +383,6 @@ public class Interrupt3 implements Runnable
     public Interrupt3(boolean lr){this.lr=lr;}
     public void run() {
         table.add_TableGUI(lr);
-
     }
 }
     public int remove_Hands(int i, int k) {
@@ -410,7 +396,7 @@ public class Interrupt3 implements Runnable
         {panels.get(2).remove(0);panels.get(2).repaint();}
         return k;
     }
-
+//threads sto remove hands kai sto panel na krataei ta button kai aplos na ta krybi setvisible(false)!!!!!!!!
     public void sleep() {
         try {
             Thread.sleep(1000);
