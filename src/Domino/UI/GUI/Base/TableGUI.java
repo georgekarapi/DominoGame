@@ -140,7 +140,8 @@ public class TableGUI{
 
 return false; }
 public boolean add_tile(Tile t,int u ,int v)
-{    if(table.isLeft(t)||table.isRight(t))
+{  if(!table.getTable().isEmpty())
+{if(table.isLeft(t)||table.isRight(t) )
      {int difference1,difference2;
 
          if(table.isLeft(t))
@@ -158,6 +159,7 @@ public boolean add_tile(Tile t,int u ,int v)
          {my.removes(t);table.addTile(t,false);add_TableGUI(false);my.show();return true;}
 
      }
+}
     return false;
 }
 public void set_TilesTable(TilesTable mon){this.mon=mon;}

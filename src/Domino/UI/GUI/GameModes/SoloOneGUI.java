@@ -24,7 +24,7 @@ public class SoloOneGUI extends JPanel{
     }
     public static void main(String args[]) {
         JFrame jFrame = new JFrame("Solo");
-        jFrame.setSize(712,712);
+        jFrame.setSize(800,800);
         jFrame.add(new  SoloOneGUI());
         jFrame.pack();
         jFrame.setVisible(true);

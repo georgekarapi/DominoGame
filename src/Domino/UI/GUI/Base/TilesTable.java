@@ -48,7 +48,7 @@ public class TilesTable {
     public void  removes_all_DraggableImage()
     {
         for(DraggableImage d:tiles)
-        {p.remove(d);}
+        {d.setVisible(false);p.remove(d);}
     }
     public void removeMouseListenet()
     {for(DraggableImage d:tiles)
