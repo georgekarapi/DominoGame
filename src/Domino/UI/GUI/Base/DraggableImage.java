@@ -15,7 +15,6 @@ public class DraggableImage extends JLabel {
     private BufferedImage image;
     public int width;
     private CustomMouseAdapter mouseAdapter;
-private TilesTable my;
 
     public DraggableImage(Tile oldTile, int width, boolean rotate) {
         this.width = width;
@@ -26,8 +25,7 @@ private TilesTable my;
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
     }
-public TileGUI get_TileGUI(){return tile;}
-public  void get_My(TilesTable my){this.my=my;}
+
     public void rotate() {
         tile = new TileGUI(tile, width + 1, tile.rotation == "h" ? true : false);
         image = tile.getImage();
