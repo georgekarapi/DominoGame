@@ -19,7 +19,11 @@ public class Deck extends JPanel{
         this.tileList = tileList;
         setBorder(BorderFactory.createTitledBorder("Deck"));
         setPreferredSize(new Dimension(812, 512));
-        setLayout(null);
+        if (tileList.size() == 1) {
+            setLayout(new GridLayout(1, 7, 5, 5));
+        } else {
+            setLayout(null);
+        }
         for (int i = 0; i < tileList.size(); i++) {
             ArrayList<DraggableImage> tilesRow = new ArrayList<>();
             for (int j = 0; j < tileList.get(i).size(); j++) {

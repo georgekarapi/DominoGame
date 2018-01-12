@@ -3,6 +3,7 @@ package Domino.UI.GUI.GameModes;
 import Domino.GameModes.SoloOne.SoloOne;
 import Domino.UI.GUI.Base.Deck;
 import Domino.UI.GUI.Base.TableGUI;
+import Domino.UI.GUI.GUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,14 +29,6 @@ public class SoloOneGUI extends JPanel{
         add(deck);
     }
 
-    public static void main(String args[]) {
-        JFrame jFrame = new JFrame("Solo");
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setSize(812, 812);
-        jFrame.add(new SoloOneGUI());
-        jFrame.setVisible(true);
-    }
-
     public void setGameOver() {
         soloOne.tiles_size--;
         if (soloOne.tiles_size == 0 || !soloOne.anyMoves()) {
@@ -54,6 +47,9 @@ public class SoloOneGUI extends JPanel{
                     JOptionPane.QUESTION_MESSAGE);
             if (newGame == JOptionPane.YES_OPTION) {
                 System.out.println("Starting new game.");
+                GUI.startGame("SoloOne");
+            } else {
+                GUI.showNewDialog();
             }
         }
     }
