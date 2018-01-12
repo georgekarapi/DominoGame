@@ -38,20 +38,6 @@ private JButton draw;
 
     }
 
-    public static void main(String args[]) {
-
-        JFrame fr = new JFrame("windows");
-        fr.setLayout(null);
-        fr.setSize(820, 801);
-        fr.setLocation(50, 50);
-        fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fr.setResizable(false);
-        CardinalGUI gui = new CardinalGUI();
-        fr.add(gui);
-        fr.setVisible(true);
-
-    }
-
     public void constructor()//arxikopoiei gia to paixnidi ta antikeimena
     {
         game = new Cardinal(players, name);

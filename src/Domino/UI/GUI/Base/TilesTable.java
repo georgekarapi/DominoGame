@@ -37,9 +37,9 @@ public class TilesTable {
     public void add_draw(Tile t)
     {
 
-        DraggableImage d=new DraggableImage(t, tiles.get(0).getWidth()-5, true);
+        DraggableImage d=new DraggableImage(t, tiles.get(0).getWidth(), true);
         tiles.add(d);
-        d.setBounds(a,b+tiles.get(0).width-20,tiles.get(0).width-15,tiles.get(0).width-15);
+        d.setBounds(a,b+tiles.get(0).width-20,tiles.get(0).width,tiles.get(0).width-15);
         a=a+d.getWidth()/2+15;
         p.add(d);
         d.table=classic;
