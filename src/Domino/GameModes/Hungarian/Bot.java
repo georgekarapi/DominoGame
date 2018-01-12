@@ -50,4 +50,36 @@ public class Bot extends Player {
         return move.get(x);
     }
 
+
+//Cardinal
+    public boolean Cardinal_byTile(int l)//elenxei an exei kinisi
+    {
+        for(Tile t:Tiles())
+        {
+            if(t.getRight()+l==7||t.getLeft()+l==7 ||t.balader())
+                return true;
+        }
+        return false;
+    }
+    public Tile Cardinal_movement_tile(int r)//proipotheti na exei kinisi
+    {
+        ArrayList<Tile> move = new ArrayList<>();
+        Random r1 = new Random();
+        for (Tile t : Tiles()) {
+            if (t.getLeft() + r==7|| t.balader())
+                move.add(t);
+            else if (t.getRight() +r==7)
+                move.add(t);
+        }
+        // for(Tile t: move)
+        //System.out.print("("+t.getLeft()+","+t.getRight()+")-");
+        int x;
+        if (move.size() == 1)
+            x = 0;
+        else
+            x = r1.nextInt(move.size() - 1);
+        Tiles().remove(move.get(x));
+        return move.get(x);
+    }
+
 }

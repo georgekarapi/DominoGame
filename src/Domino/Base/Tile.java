@@ -61,11 +61,6 @@ public class Tile {
         setLeft(right);
         setRight(temp);
     }
-
-
-
-
-
     public boolean balader( )
     {
         if(getTotal()==7 || getTotal()==0)

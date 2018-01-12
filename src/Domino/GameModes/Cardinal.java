@@ -32,17 +32,43 @@ public class Cardinal extends Hungarian{
         }
      return false;
     }
-   /* public boolean cardinal_has_move_bot(int i){
+   public boolean cardinal_has_move_bot(int i){
         if(get_Player(i).Cardinal_haveMove(getClassic().getFirstTile(),getClassic().getLastTile()))
         {
             return true;
         }
-
-    }*/
-    public void cardinal_move_bot(int turn)
-    {
-
+return false;
     }
+    public void cardinal_move_bot(int turn)//turn o sygkekrimeno robot stin kanoniki katataksi
+    {
+        Bot Robot= (Bot) get_Player(turn);
+            while (cardinal_has_move_bot(turn))
+            {
+                if (Robot.Cardinal_byTile(getClassic().getFirstTile().getLeft())) {
+                    Tile t = Robot.Cardinal_movement_tile(getClassic().getFirstTile().getLeft());
+                    getClassic().addTile(t, true);
+                    //return true;
+                } else if (Robot.Cardinal_byTile(getClassic().getLastTile().getRight())) {
+                    Tile t = Robot.Cardinal_movement_tile(getClassic().getLastTile().getRight());
+                    getClassic().addTile(t, false);
+                   // return false;
+                }
+               // return true;
+            }
+            if(draw_Tile(get_Player(turn)))
+                cardinal_move_bot(turn);
+    }
+    public boolean movesPlayers()
+    {
+        for(Player p:getplayers())
+        {
+            if (p.Cardinal_haveMove(getClassic().getFirstTile(), getClassic().getLastTile() ))
+                return true;
+        }
+        return false;
+    }
+
+    //finishGame() einai idia me hungarian
     public static void main(String args[]) {
         Cardinal car=new Cardinal(2,"Christos");
         System.out.println(car.get_Stack().size_Dominoes());
