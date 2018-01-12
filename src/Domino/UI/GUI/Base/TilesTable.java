@@ -10,8 +10,11 @@ public class TilesTable {
     private JPanel p;
     private TableGUI classic;
     public boolean enable;
+    int a,b;
     public TilesTable(int x, int y, int width, int height, ArrayList<Tile> T, int widthTile,JPanel p,TableGUI classic)
     {
+        a=x;
+        b=y;
        this.p=p;
        this.classic=classic;
         tiles=new ArrayList<>();
@@ -31,6 +34,17 @@ public class TilesTable {
 
     }
     public void addTiles(DraggableImage t,int x){tiles.add(x,t);}
+    public void add_draw(Tile t)
+    {
+
+        DraggableImage d=new DraggableImage(t, tiles.get(0).getWidth()-5, true);
+        tiles.add(d);
+        d.setBounds(a,b+tiles.get(0).width-20,tiles.get(0).width-15,tiles.get(0).width-15);
+        a=a+d.getWidth()/2+15;
+        p.add(d);
+        d.table=classic;
+        d.repaint();
+    }
     public void removeTile( Tile t)
     {
         for(DraggableImage d:tiles)

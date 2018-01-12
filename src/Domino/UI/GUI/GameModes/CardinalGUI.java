@@ -18,19 +18,19 @@ public class CardinalGUI extends JPanel implements ActionListener {
     private String name;
     private int players = 2;
     private Cardinal game;
-    private Button turn;
+    private JButton turn;
     private ArrayList<JPanel> panels;
     private boxScore box;
     private TilesTable my;
     private TableGUI table;
-
+private JButton draw;
     public CardinalGUI() {
         super();
         setLayout(null);
         setVisible(true);
         setBounds(0, 0, 800, 800);
         setBackground(Color.orange);
-        turn = new Button();
+        turn = new JButton();
         panels = new ArrayList<>();
 
         GYIname onoma = new GYIname(this);
@@ -66,8 +66,12 @@ public class CardinalGUI extends JPanel implements ActionListener {
         for (int i = 0; i < game.get_numberTile(); i++) {
             panels.add(new JPanel());
         }
-        // Hands_Tiles();
 
+draw=new JButton();
+        draw.setBounds(0,0,175,75);
+        draw.setText("Draw");
+        add(draw);
+        draw.addActionListener(this);
     }
 
     public void Hands_Tiles() {
@@ -184,14 +188,15 @@ public class CardinalGUI extends JPanel implements ActionListener {
             sleep();
             while (game.cardinal_movesPlayers()&&! game.cardinal_not_tile()) {
                 for (int i = 0; i < players; i++) {
+                    draw.setText("It has"+game.get_Stack().size_Dominoes()+" tiles");
                     if (game.turn_Bot(i)) {
-                        while (game.Cardinal_has_move_bot_andStack(i)&&!game.is_empty_tiles(game.get_Player(i))) {
+                        while (game.Cardinal_has_move_bot_andStack(i)) {//&&!game.is_empty_tiles(game.get_Player(i))
                             boolean lr;
                             if (my.enable)
                                 my.removeMouseListenet();
                             turn.setLabel(game.get_Player(i).get_name() + " turn");
-                              if(game.is_empty_tiles(game.get_Player(i))){}
-                              else if(game.Cardinal_has_move_bot(i)){
+                            //  if(game.is_empty_tiles(game.get_Player(i))){}
+                               if(game.Cardinal_has_move_bot(i)){
                                   lr=game.Cardinal_move_bot(i);
                                   Thread x = new Thread(new Interrupt3(lr));
                                   x.start();
@@ -199,29 +204,31 @@ public class CardinalGUI extends JPanel implements ActionListener {
                                       x.join();
                                   } catch (InterruptedException e) {
                                   }
-                              }
+
+
+                                   JPanel len=null;
+                                   if(game.get_Player(i).get_name().equals("bot1"))
+                                       len=panels.get(0);
+                                   else if(game.get_Player(i).get_name().equals("bot2"))
+                                       len=panels.get(1);
+                                   else if(game.get_Player(i).get_name().equals("bot3"))
+                                       len=panels.get(2);
+                                   sleep();
+                                   Interrupt10 inter11 = new Interrupt10(len,game.get_Player(i).Tiles().size());
+                                   Thread p11 = new Thread(inter11);
+                                   p11.start();
+                                   try {
+                                       p11.join();
+                                   } catch (InterruptedException e) {
+                                   }
+                            draw.setText("It has"+game.get_Stack().size_Dominoes()+" tiles");}
                             else
                             {
-                                while(!game.Cardinal_has_move_bot(i))
+                                while(!game.Cardinal_has_move_bot(i)&&game.get_Stack().size_Dominoes()>2)
                                     game.draw_Tile(game.get_Player(i));
                             }
                         }
-                        JPanel len=null;
-                        if(game.get_Player(i).get_name().equals("bot1"))
-                            len=panels.get(0);
-                        else if(game.get_Player(i).get_name().equals("bot2"))
-                            len=panels.get(1);
-                        else if(game.get_Player(i).get_name().equals("bot3"))
-                            len=panels.get(2);
-                        sleep();
-                        Interrupt10 inter11 = new Interrupt10(len,game.get_Player(i).Tiles().size());
-                        Thread p11 = new Thread(inter11);
-                        p11.start();
-                        try {
-                            p11.join();
-                        } catch (InterruptedException e) {
-                        }
-                        sleep();
+
                     } else {
                         if (!my.enable)
                             my.addMouseListener();
@@ -236,7 +243,20 @@ public class CardinalGUI extends JPanel implements ActionListener {
                             } catch (InterruptedException e) {
                             }
                             bool = inter.get_bool();
+                            if(!bool)
+                            {
+                                while(!game.Cardinal_playerTurn() && game.get_Stack().size_Dominoes()>2)
+                                {game.draw_Tile(game.my_player());
+                                    my.add_draw(game.my_player().Tiles().get(game.my_player().Tiles().size()-1));
+                                    draw.setText("It has"+game.get_Stack().size_Dominoes()+" tiles");
+                                }
+                                if(game.Cardinal_playerTurn())
+                                    bool=true;
+                                else
+                                    bool=false;
+                            }
                         }
+
                     }
                 }
             }
@@ -291,6 +311,14 @@ public class CardinalGUI extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getActionCommand().equals(draw.getActionCommand())&& my.enable )
+        {System.out.println(1111);
+           if(game.draw_Tile(game.my_player()))
+           {
+               my.add_draw(game.my_player().Tiles().get(game.my_player().Tiles().size()-1));
+               draw.setText("It has"+game.get_Stack().size_Dominoes()+" tiles");
+           }
+        }
     }
 
     public class GYIname implements ActionListener {

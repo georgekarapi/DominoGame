@@ -179,13 +179,5 @@ return false; }
 }
 public void set_TilesTable(TilesTable mon){this.mon=mon;}
 public void set_Player(Player my){this.my=my;}
-    public static void main(String args[]) {
-       JFrame fr=new JFrame("windows");
-       fr.setLocation(100,100);
-       fr.setLayout(null);
-        fr.setSize(800,800);
-        fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fr.setVisible(true);
-     ///   TableGUI tg= new TableGUI(fr);
-    }
+
 }

@@ -125,9 +125,5 @@ return false;
     public Cardinal_Table get_Table_Cardinal(){return table;}
     public void newRound(){super.newRound();table.deleteTiles();}
     //finishGame() einai idia me hungarian opos kai to deletehands()
-    public static void main(String args[]) {
-        Cardinal car=new Cardinal(2,"Christos");
-        System.out.println(car.get_Stack().size_Dominoes());
-    }
 }
 
