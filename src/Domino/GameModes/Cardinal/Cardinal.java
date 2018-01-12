@@ -1,12 +1,10 @@
-package Domino.GameModes;
+package Domino.GameModes.Cardinal;
 
 import Domino.Base.Dominoes;
 import Domino.Base.Tile;
 import Domino.GameModes.Hungarian.Bot;
 import Domino.GameModes.Hungarian.Hungarian;
 import Domino.GameModes.Hungarian.Player;
-
-import java.util.ArrayList;
 
 public class Cardinal extends Hungarian{
     private Dominoes dominoes;

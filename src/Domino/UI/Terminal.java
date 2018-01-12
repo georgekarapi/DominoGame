@@ -1,12 +1,10 @@
 package Domino.UI;
 
 import Domino.Base.Tile;
-import Domino.GameModes.Cardinal;
-import Domino.GameModes.Hungarian.Bot;
+import Domino.GameModes.Cardinal.Cardinal;
 import Domino.GameModes.Hungarian.Hungarian;
 import Domino.GameModes.Hungarian.Player;
 import Domino.GameModes.SoloOne.SoloOne;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.util.ArrayList;
 import java.util.Scanner;

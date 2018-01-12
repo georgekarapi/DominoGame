@@ -6,7 +6,6 @@
 package Domino.GameModes.Hungarian;
 
 import Domino.Base.Tile;
-import Domino.GameModes.Cardinal;
 
 import java.util.ArrayList;
 
