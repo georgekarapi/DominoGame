@@ -6,6 +6,7 @@ import Domino.GameModes.Hungarian.Player;
 import Domino.GameModes.Hungarian.Round;
 import Domino.UI.GUI.Base.TableGUI;
 import Domino.UI.GUI.Base.TilesTable;
+import Domino.UI.GUI.GUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -377,6 +378,17 @@ setVisible(true);
             JOptionPane.showMessageDialog(null,
                 "You Lost");
          }
+        int newGame = JOptionPane.showConfirmDialog(null,
+                "Would you like to start a New Game?",
+                "GameOver!",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+        if (newGame == JOptionPane.YES_OPTION) {
+            System.out.println("Starting new game.");
+            GUI.startGame("Hungarian");
+        } else {
+            GUI.showNewDialog();
+        }
 }
     public class Interrupt1 implements Runnable {//anagkasthika gt allios den se paei sto game
         public void run() {
