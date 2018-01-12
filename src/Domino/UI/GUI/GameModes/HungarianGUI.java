@@ -1,15 +1,12 @@
 package Domino.UI.GUI.GameModes;
 
-import Domino.Base.Tile;
 import Domino.GameModes.Hungarian.Bot;
 import Domino.GameModes.Hungarian.Hungarian;
 import Domino.GameModes.Hungarian.Player;
 import Domino.GameModes.Hungarian.Round;
-import Domino.UI.GUI.Base.DraggableImage;
 import Domino.UI.GUI.Base.TableGUI;
 import Domino.UI.GUI.Base.TilesTable;
 
-import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,7 +17,6 @@ import java.util.HashMap;
 public class HungarianGUI extends JPanel implements ActionListener {
     private String name;
     private int players = 2;
-    private JFrame windows;
     private Hungarian game;
     private Button turn;
     private ArrayList<JPanel> panels;
@@ -28,9 +24,8 @@ public class HungarianGUI extends JPanel implements ActionListener {
     private TilesTable my;
     private TableGUI table;
 
-    public HungarianGUI(JFrame windows) {
+    public HungarianGUI() {
         super();
-        this.windows = windows;
         setLayout(null);
         setVisible(true);
         setBounds(0, 0, 800, 800);
@@ -370,10 +365,16 @@ setVisible(true);
         }
         if (game.getRound().pointPlayer(game.my_player()) >= 100)
         {
-            System.out.println("You win");removeAll();repaint(); JOptionPane.showMessageDialog(windows,
+            System.out.println("You win");
+            removeAll();
+            repaint();
+            JOptionPane.showMessageDialog(null,
                 "You Win");}
-        else
-        { System.out.println("You lost");removeAll();repaint(); JOptionPane.showMessageDialog(windows,
+        else {
+            System.out.println("You lost");
+            removeAll();
+            repaint();
+            JOptionPane.showMessageDialog(null,
                 "You Lost");
          }
 }
@@ -418,19 +419,19 @@ public class Interrupt3 implements Runnable {
     public void actionPerformed(ActionEvent e) {
     }
 
-
-
-
-    public static void main(String args[]) {
-
-        JFrame fr=new JFrame("windows");
-        fr.setLayout(null);
-        fr.setSize(820,801);
-        fr.setLocation(50,50);
-        fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fr.setResizable(false);
-       HungarianGUI gui=new HungarianGUI(fr);fr.add(gui);
-        fr.setVisible(true);
-
-    }
+//
+//
+//
+//    public static void main(String args[]) {
+//
+//        JFrame fr=new JFrame("windows");
+//        fr.setLayout(null);
+//        fr.setSize(820,801);
+//        fr.setLocation(50,50);
+//        fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        fr.setResizable(false);
+//       HungarianGUI gui=new HungarianGUI(fr);fr.add(gui);
+//        fr.setVisible(true);
+//
+//    }
 }
