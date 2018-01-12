@@ -73,7 +73,7 @@ public class CardinalGUI extends JPanel implements ActionListener {
     }
 
     public void Hands_Tiles() {
-        game.Start();
+        game.Cardinal_start_game();
         int x = 0, y = 0;
         if (players == 2) {
             x = y = 0;
@@ -183,40 +183,47 @@ public class CardinalGUI extends JPanel implements ActionListener {
             } catch (InterruptedException e) {
             }
             System.out.println("Round " + game.getRound().numRound() + "os");
-            Interrupt10 inter10 = new Interrupt10(0, k);
-            Thread pl = new Thread(inter10);
-            pl.start();
-            try {
-                pl.join();
-            } catch (InterruptedException e) {
-            }
-            k = inter10.get_k();
             sleep();
-            while (game.cardinal_movesPlayers()) {
+            while (game.cardinal_movesPlayers()&&! game.cardinal_not_tile()) {
                 for (int i = 0; i < players; i++) {
                     if (game.turn_Bot(i)) {
-                        while (game.Cardinal_has_move_bot(i)) {
+                        while (game.Cardinal_has_move_bot_andStack(i)&&!game.is_empty_tiles(game.get_Player(i))) {
+                            boolean lr;
                             if (my.enable)
                                 my.removeMouseListenet();
                             turn.setLabel(game.get_Player(i).get_name() + " turn");
-                            boolean lr = game.Cardinal_move_bot(i);
-                            Interrupt10 inter11 = new Interrupt10(i, k);
-                            Thread p11 = new Thread(inter11);
-                            p11.start();
-                            try {
-                                p11.join();
-                            } catch (InterruptedException e) {
+                              if(game.is_empty_tiles(game.get_Player(i))){}
+                              else if(game.Cardinal_has_move_bot(i)){
+                                  lr=game.Cardinal_move_bot(i);
+                                  Thread x = new Thread(new Interrupt3(lr));
+                                  x.start();
+                                  try {
+                                      x.join();
+                                  } catch (InterruptedException e) {
+                                  }
+                              }
+                            else
+                            {
+                                while(!game.Cardinal_has_move_bot(i))
+                                    game.draw_Tile(game.get_Player(i));
                             }
-                            k = inter11.get_k();
-                            sleep();
-                            Thread x = new Thread(new Interrupt3(lr));
-                            x.start();
-                            try {
-                                x.join();
-                            } catch (InterruptedException e) {
-                            }
-                            sleep();
                         }
+                        JPanel len=null;
+                        if(game.get_Player(i).get_name().equals("bot1"))
+                            len=panels.get(0);
+                        else if(game.get_Player(i).get_name().equals("bot2"))
+                            len=panels.get(1);
+                        else if(game.get_Player(i).get_name().equals("bot3"))
+                            len=panels.get(2);
+                        sleep();
+                        Interrupt10 inter11 = new Interrupt10(len,game.get_Player(i).Tiles().size());
+                        Thread p11 = new Thread(inter11);
+                        p11.start();
+                        try {
+                            p11.join();
+                        } catch (InterruptedException e) {
+                        }
+                        sleep();
                     } else {
                         if (!my.enable)
                             my.addMouseListener();
@@ -424,20 +431,18 @@ public class CardinalGUI extends JPanel implements ActionListener {
     }
 
     public class Interrupt10 implements Runnable {
-        private int k;
+        private JPanel pann;
         private int i;
 
-        public Interrupt10(int i, int k) {
-            this.k = k;
+        public Interrupt10(JPanel pann,int i) {
+            this.pann = pann;
             this.i = i;
         }
 
-        public int get_k() {
-            return k;
-        }
 
-        public void run() {
-            k = remove_Hands(i, k);
+
+        public void run() {add_button(pann,i);
+
         }
     }
 

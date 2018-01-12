@@ -32,38 +32,42 @@ public class Cardinal extends Hungarian{
         }
      return false;
     }
-   public boolean Cardinal_has_move_bot(int i){
-        if(get_Player(i).Cardinal_haveMove(table.getFirstTile(),table.getLastTile()))
+    public boolean is_empty_tiles(Player p)
+    {
+        if(p.Tiles().isEmpty())
+            return true;
+        return false;
+    }
+    public boolean Cardinal_has_move_bot(int i){if(get_Player(i).Cardinal_haveMove(table.getFirstTile(),table.getLastTile()))
+    {
+        return true;
+    }
+        return false;}
+   public boolean Cardinal_has_move_bot_andStack(int i){
+        if(get_Player(i).Cardinal_haveMove(table.getFirstTile(),table.getLastTile())||get_Stack().size_Dominoes() > 2)
         {
             return true;
         }
 return false;
     }
-    public void Cardinal_move_bot(int turn)//turn o sygkekrimeno robot stin kanoniki katataksi
+    public boolean Cardinal_move_bot(int turn)//turn o sygkekrimeno robot stin kanoniki katataksiwhile (Cardinal_has_move_bot(turn))&& isempty
     {
         Bot Robot= (Bot) get_Player(turn);
-        System.out.println("My name is "+Robot.get_name());
-        Robot.show();
-            while (Cardinal_has_move_bot(turn))
-            { Robot.show();
-                if (Robot.Cardinal_byTile(table.getFirstTile().getLeft())) {
-                    Tile t = Robot.Cardinal_movement_tile(table.getFirstTile().getLeft());
-                    table.addTile(t, true);
-                    Robot.show();
-                    //return true;
-                } else if (Robot.Cardinal_byTile(table.getLastTile().getRight())) {
-                    Tile t = Robot.Cardinal_movement_tile(table.getLastTile().getRight());
-                    table.addTile(t, false);
-                    Robot.show();
-                   // return false;
-                }
-
-               // return true;
-            }
-            if(draw_Tile(get_Player(turn)))
-            {System.out.println("draw "+Robot.get_name());
-                Cardinal_move_bot(turn);
-                Robot.show();}
+             Robot.show();
+             if(get_Player(turn).Cardinal_haveMove(table.getFirstTile(),table.getLastTile())) {
+                 if (Robot.Cardinal_byTile(table.getFirstTile().getLeft())) {
+                     Tile t = Robot.Cardinal_movement_tile(table.getFirstTile().getLeft());
+                     table.addTile(t, true);
+                     Robot.show();
+                     return true;
+                 } else if (Robot.Cardinal_byTile(table.getLastTile().getRight())) {
+                     Tile t = Robot.Cardinal_movement_tile(table.getLastTile().getRight());
+                     table.addTile(t, false);
+                     Robot.show();
+                      return false;
+                 }
+             }
+            return true;
     }
     public boolean cardinal_movesPlayers()//an kapoios exei kinisi
     {
