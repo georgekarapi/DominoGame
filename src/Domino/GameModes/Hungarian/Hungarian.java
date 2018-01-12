@@ -8,6 +8,7 @@ package Domino.GameModes.Hungarian;
 import Domino.Base.Dominoes;
 import Domino.Base.Table;
 import Domino.Base.Tile;
+import Domino.GameModes.Cardinal.Cardinal_Table;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -133,7 +134,7 @@ return true;
      public boolean playerTurn()
      {
          if (my_player().haveMove(classic.getFirstTile(), classic.getLastTile()))
-             return true;
+         return true;
          return false;
      }
 
@@ -155,6 +156,7 @@ return true;
      }
     public int  get_numberTile(){return numberTile;}
     public void  set_get_numberTile(int num){numberTile=num;}
+    public void setClassic(Cardinal_Table ct){classic=ct;}
     public Dominoes get_Stack(){return  stack;}
      public void deleteHands()
      {

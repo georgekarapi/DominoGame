@@ -19,7 +19,6 @@ public class Player {
         tiles = new ArrayList<>();
         this.name=name;
     }
-
     public void add(Tile t) {
         tiles.add(t);
     }

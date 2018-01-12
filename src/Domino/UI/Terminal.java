@@ -89,8 +89,42 @@ public class Terminal {
         return input;
     }
     public static void startCardinal(){
-        Cardinal cardinal = new Cardinal(inputTile(2,4), "giorgos");
-    }
+
+            System.out.println("Welcome to the Cardinal Domino ");
+            System.out.println("give  number players");
+            Scanner sc = new Scanner(System.in);
+            int pl = sc.nextInt();
+            Cardinal game = new Cardinal(pl, "christos");/////edo!!!
+            while (!game.finishGame()) {
+                game.Cardinal_start_game();
+                System.out.println("Round " + game.getRound().numRound() + "os");
+                while (game.cardinal_movesPlayers()&&! game.cardinal_not_tile()) {
+                    for (int i = 0; i < pl; i++) {
+                        if (game.turn_Bot(i)) {
+                               game.Cardinal_move_bot(i);
+                            showTabloDomino(game.get_Table_Cardinal().returnTable(), "Dominoes are: ");
+
+                        } else {
+                            while (game.Cardinal_playerTurn()) {
+                                inputPlayer(game);
+                            }
+                        }
+                    }
+                }
+                System.out.println("Finish round " + game.getRound().numRound());
+                game.cardinal_finishRound();//dinei sto paixtei poy kerdise se ayto to giro toys pontoys
+                for (Player p : game.getplayers())
+                    Points(p.get_name(), game.getRound().pointPlayer(p));
+                game.deleteHands();
+                game.newRound();
+
+            }
+            if (game.getRound().pointPlayer(game.my_player()) >= 100)
+                System.out.println("You win");
+            else
+                System.out.println("You lost");
+        }
+
 
     public static void startSolo() {
         SoloOne solo = new SoloOne();
@@ -130,25 +164,25 @@ public class Terminal {
         System.out.println(p + " have " + point + " points");
     }
 
-    public static void inputPlayer(Hungarian game) {
+    public static void inputPlayer(Cardinal game) {
         Scanner input = new Scanner(System.in);
         int number;
         String s;
         do {
             ShowHands(game.my_player().Tiles(), "Your turn,your tiles are: ");
-            showTabloDomino(game.getClassic().getTable(), "Dominoes are: ");
+            showTabloDomino(game.get_Table_Cardinal().returnTable(), "Dominoes are: ");
             System.out.println("Choose one of your tiles (number)");
             number = input.nextInt();
             System.out.println("Choose l(eft) or r(ight)");
             s = input.next();
-      } while (!game.movePlayerTurn(number, s));
+      } while (!game.Cardinal_movePlayerTurn(number,s));
 
     }
 
     public static void startGameHungarian(Hungarian game,String name,int pl) {
         System.out.println("Welcome to the Hungarian Domino ");
         while (!game.finishGame()) {
-          //  game.Start(); sto telos sta grafika
+            game.Start();
             System.out.println("Round " + game.getRound().numRound() + "os");
             while (game.movesPlayers()) {
                 for (int i = 0; i < pl; i++) {
@@ -159,7 +193,7 @@ public class Terminal {
                         }
                     } else {
                         while (game.playerTurn()) {
-                            inputPlayer(game);
+                         //   inputPlayer(game);
                         }
                     }
                 }
