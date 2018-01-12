@@ -17,7 +17,6 @@ import java.util.HashMap;
 public class CardinalGUI extends JPanel implements ActionListener {
     private String name;
     private int players = 2;
-    private JFrame windows;
     private Cardinal game;
     private Button turn;
     private ArrayList<JPanel> panels;
@@ -25,9 +24,8 @@ public class CardinalGUI extends JPanel implements ActionListener {
     private TilesTable my;
     private TableGUI table;
 
-    public CardinalGUI(JFrame windows) {
+    public CardinalGUI() {
         super();
-        this.windows = windows;
         setLayout(null);
         setVisible(true);
         setBounds(0, 0, 800, 800);
@@ -48,7 +46,7 @@ public class CardinalGUI extends JPanel implements ActionListener {
         fr.setLocation(50, 50);
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fr.setResizable(false);
-        CardinalGUI gui = new CardinalGUI(fr);
+        CardinalGUI gui = new CardinalGUI();
         fr.add(gui);
         fr.setVisible(true);
 
@@ -255,13 +253,13 @@ public class CardinalGUI extends JPanel implements ActionListener {
             System.out.println("You win");
             removeAll();
             repaint();
-            JOptionPane.showMessageDialog(windows,
+            JOptionPane.showMessageDialog(null,
                     "You Win");
         } else {
             System.out.println("You lost");
             removeAll();
             repaint();
-            JOptionPane.showMessageDialog(windows,
+            JOptionPane.showMessageDialog(null,
                     "You Lost");
         }
     }
