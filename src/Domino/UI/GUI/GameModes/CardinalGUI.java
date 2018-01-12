@@ -199,23 +199,23 @@ public class CardinalGUI extends JPanel implements ActionListener {
                             if (my.enable)
                                 my.removeMouseListenet();
                             turn.setLabel(game.get_Player(i).get_name() + " turn");
-                            boolean lr = game.Cardinal_move_bot(i);
-                            Interrupt10 inter11 = new Interrupt10(i, k);
-                            Thread p11 = new Thread(inter11);
-                            p11.start();
-                            try {
-                                p11.join();
-                            } catch (InterruptedException e) {
-                            }
-                            k = inter11.get_k();
-                            sleep();
-                            Thread x = new Thread(new Interrupt3(lr));
-                            x.start();
-                            try {
-                                x.join();
-                            } catch (InterruptedException e) {
-                            }
-                            sleep();
+//                            boolean lr = game.Cardinal_move_bot(i);
+//                            Interrupt10 inter11 = new Interrupt10(i, k);
+//                            Thread p11 = new Thread(inter11);
+//                            p11.start();
+//                            try {
+//                                p11.join();
+//                            } catch (InterruptedException e) {
+//                            }
+//                            k = inter11.get_k();
+//                            sleep();
+//                            Thread x = new Thread(new Interrupt3(lr));
+//                            x.start();
+//                            try {
+//                                x.join();
+//                            } catch (InterruptedException e) {
+//                            }
+//                            sleep();
                         }
                     } else {
                         if (!my.enable)
