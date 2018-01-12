@@ -154,7 +154,7 @@ public class CardinalGUI extends JPanel implements ActionListener {
      {
          public void run() {
              for(JPanel jp:panels)
-             {add_button(jp,game.get_numberTile());
+             {add_button(jp,game.Cardinal_get_numberTile());
              }
          }
      }*/
@@ -192,14 +192,14 @@ public class CardinalGUI extends JPanel implements ActionListener {
             }
             k = inter10.get_k();
             sleep();
-            while (game.movesPlayers()) {
+            while (game.cardinal_movesPlayers()) {
                 for (int i = 0; i < players; i++) {
                     if (game.turn_Bot(i)) {
-                        while (game.bot_have_move(i)) {
+                        while (game.Cardinal_has_move_bot(i)) {
                             if (my.enable)
                                 my.removeMouseListenet();
                             turn.setLabel(game.get_Player(i).get_name() + " turn");
-                            boolean lr = game.moveBotTurn(i);
+                            boolean lr = game.Cardinal_move_bot(i);
                             Interrupt10 inter11 = new Interrupt10(i, k);
                             Thread p11 = new Thread(inter11);
                             p11.start();
@@ -236,7 +236,7 @@ public class CardinalGUI extends JPanel implements ActionListener {
                 }
             }
             System.out.println("Finish round " + game.getRound().numRound());
-            game.finishRound();
+            game.cardinal_finishRound();
             box.finish_round();
             game.newRound();
             game.deleteHands();
@@ -419,7 +419,7 @@ public class CardinalGUI extends JPanel implements ActionListener {
         }
 
         public void run() {
-            bool = game.playerTurn();//game.my_player().show();
+            bool = game.Cardinal_playerTurn();//game.Cardinal_my_player().show();
         }
     }
 
